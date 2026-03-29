@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caldwell Private Health - Fort Lauderdale, FL</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Brand exact colours from brief */
+  --navy:        #07101e;   /* authoritative deep navy */
+  --navy-deep:   #07101e;   /* same - single source of truth */
+  --navy-mid:    #0d1a2e;   /* slightly lighter for cards */
+  --parchment:   #F0EBE0;   /* section breaks - 30% */
+  --parchment-d: #E6DFCF;   /* slightly darker parchment */
+  --gold:        #C9A84C;   /* primary gold — authoritative */
+  --gold-lt:     #D6BC5E;   /* lighter variant */
+  --gold-deep:   #8B6A35;   /* dark anchor for gradients */
+  --gold-mid:    #A8894A;   /* mid-tone for gradient body */
+  /* Dark-bg text */
+  --on-dark:       #EDE8DE;
+  --on-dark-dim:   rgba(237,232,222,0.52);
+  --on-dark-faint: rgba(237,232,222,0.2);
+  --border-dark:   rgba(237,232,222,0.07);
+  --border-dark-md:rgba(237,232,222,0.13);
+  /* Light-bg text */
+  --on-light:      #07101e;
+  --on-light-dim:  rgba(12,21,39,0.62);
+  --on-light-faint:rgba(12,21,39,0.28);
+  --border-light:  rgba(12,21,39,0.08);
+  --border-light-md:rgba(12,21,39,0.16);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--navy);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--on-dark);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 28px 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.5s, padding 0.4s, border-color 0.5s;
+  border-bottom: 1px solid transparent;
+}
+
+nav.scrolled {
+  background: rgba(7,14,24,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 18px 64px;
+  border-bottom-color: var(--border-dark);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 28px; height: 28px; flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(201,168,76,0.45)) drop-shadow(0 0 16px rgba(201,168,76,0.18));
+}
+
+.nav-wordmark { display: flex; flex-direction: column; gap: 3px; }
+
+.nav-name {
+  font-family: 'Cormorant', serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  line-height: 1;
+  background: linear-gradient(105deg, #B8922A 0%, #D2AC47 30%, #E8C96A 50%, #D2AC47 70%, #B8922A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-sub {
+  font-size: 7.5px;
+  font-weight: 500;
+  letter-spacing: 4.5px;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--on-dark-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--on-dark); }
+
+.nav-cta {
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  color: #1a2d45 !important;
+  background: linear-gradient(105deg, #8B6914 0%, #C9A84C 35%, #F0D483 50%, #C9A84C 65%, #8B6914 100%) !important;
+  background-size: 200% 100% !important;
+  background-position: 100% 0 !important;
+  box-shadow: 0 0 14px rgba(201,168,76,0.4), 0 2px 6px rgba(0,0,0,0.25) !important;
+  background-size: 200% 100% !important;
+  background-position: 100% 0 !important;
+  padding: 11px 26px;
+  transition: background-position 0.5s ease !important;
+}
+
+.nav-cta:hover { background-position: 0% 0 !important; color: var(--navy) !important; }
+
+/* ── SHARED BUTTONS ──────────────────────────────────────────── */
+.btn-gold {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #1a2d45;
+  background: linear-gradient(105deg, #8B6914 0%, #C9A84C 35%, #F0D483 50%, #C9A84C 65%, #8B6914 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  box-shadow: 0 0 18px rgba(201,168,76,0.45), 0 0 40px rgba(201,168,76,0.18), 0 2px 8px rgba(0,0,0,0.3);
+  padding: 20px 58px;
+  border-radius: 2px;
+  box-shadow: 0 2px 16px rgba(180,150,70,0.18), 0 1px 4px rgba(0,0,0,0.25);
+  text-decoration: none;
+  transition: background-position 0.5s ease, background 0.3s;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  min-width: 220px;
+}
+
+.btn-gold:hover {
+  background-position: 0% 0;
+}
+
+.btn-ghost {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--on-dark-dim);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(237,232,222,0.2);
+  padding-bottom: 3px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-ghost:hover { color: var(--on-dark); border-color: rgba(237,232,222,0.5); }
+
+/* ── HERO (DARK) ─────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--navy-deep);
+}
+
+/* Subtle gold glow */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.025) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* Fine grid texture */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border-dark) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-dark) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Corner brackets — removed */
+.bracket { display: none; }
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 64px 80px;
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.hero-ey-line { width: 32px; height: 1px; background: var(--gold); opacity: 0.65; }
+
+.hero-ey-text {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero-headline {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(48px, 5.5vw, 82px);
+  font-weight: 300;
+  color: var(--on-dark);
+  line-height: 1.04;
+  margin-bottom: 38px;
+  letter-spacing: -0.5px;
+}
+
+.hero-headline em { font-style: italic; color: var(--gold-lt); }
+
+.hero-body {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-dark-dim);
+  line-height: 1.85;
+  max-width: 440px;
+  margin-bottom: 56px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 64px;
+}
+
+.hero-meta {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+}
+
+/* Right: logo lockup */
+.hero-lockup {
+  position: relative;
+  border: 1px solid var(--border-dark-md);
+  overflow: hidden;
+  align-self: center;
+  margin-top: 48px;
+}
+
+.hero-lockup::before,
+.hero-lockup::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-lockup::before { top: -1px; left: -1px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+.hero-lockup::after  { bottom: -1px; right: -1px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+
+.lockup-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ── TESTIMONIAL CAROUSEL ────────────────────────────────────── */
+.testimonial-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.t-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  pointer-events: none;
+}
+
+.t-slide.active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.t-quote {
+  font-family: 'Cormorant', serif;
+  font-style: italic;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--on-dark);
+  text-align: center;
+  margin: 0 0 24px;
+}
+
+.t-rule {
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+  margin: 0 auto 20px;
+}
+
+.t-attr {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-mid);
+  text-align: center;
+  margin: 0;
+}
+
+.t-title {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--on-dark-faint);
+  margin-top: 4px;
+}
+
+/* ── STATS BAR (DARK) ────────────────────────────────────────── */
+.stats {
+  background: var(--navy-deep);
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+  display: flex;
+}
+
+.stat {
+  flex: 1;
+  padding: 40px 28px;
+  text-align: center;
+  border-right: 1px solid var(--border-dark);
+  transition: background 0.3s;
+  position: relative;
+}
+
+.stat:last-child { border-right: none; }
+.stat:hover { background: rgba(201,168,76,0.03); }
+
+.stat::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 50%;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.45;
+  transition: transform 0.4s ease;
+}
+
+.stat:hover::after { transform: translateX(-50%) scaleX(1); }
+
+.stat-num {
+  font-family: 'Cormorant', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--gold);
+  display: block;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+}
+
+/* ── SECTION SHARED ──────────────────────────────────────────── */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.ey-line { width: 26px; height: 1px; background: var(--gold); opacity: 0.6; }
+
+.ey-text {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+/* on dark sections */
+.ey-text { color: var(--on-dark-faint); }
+/* override on light */
+.light .ey-text { color: var(--on-light-faint); }
+
+/* ── WHAT IT IS (PARCHMENT) ──────────────────────────────────── */
+.what {
+  background: var(--parchment);
+  padding: 140px 64px;
+}
+
+.what-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: start;
+}
+
+/* Light-mode section heading */
+.light h2.section-heading {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 300;
+  color: var(--on-light);
+  line-height: 1.08;
+  margin-bottom: 20px;
+}
+
+.light h2.section-heading em { font-style: italic; color: var(--gold); }
+
+.light .section-body {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-light-dim);
+  line-height: 1.85;
+  max-width: 540px;
+}
+
+.light .ey-line { background: var(--gold); opacity: 0.55; }
+
+.what-points { display: flex; flex-direction: column; }
+
+.what-point {
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+}
+
+.what-point:first-child { border-top: 1px solid var(--border-light); }
+
+.point-diamond {
+  width: 7px; height: 7px;
+  background: var(--navy);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  margin-top: 5px;
+  opacity: 0.4;
+}
+
+.point-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-light);
+  margin-bottom: 5px;
+}
+
+.point-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-light-dim);
+  line-height: 1.75;
+}
+
+/* ── INCLUDED (DARK) ─────────────────────────────────────────── */
+.included { background: var(--navy); padding: 140px 64px; }
+.included-inner { max-width: 1160px; margin: 0 auto; }
+
+.included-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 60px;
+}
+
+/* Dark section headings */
+.dark h2.section-heading {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 300;
+  color: var(--on-dark);
+  line-height: 1.08;
+  margin-bottom: 20px;
+}
+
+.dark h2.section-heading em { font-style: italic; color: var(--gold-lt); }
+
+.dark .section-body {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-dark-dim);
+  line-height: 1.85;
+  max-width: 540px;
+}
+
+.included-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-dark);
+}
+
+.inc-card {
+  background: var(--navy-mid);
+  padding: 52px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.inc-card:hover { background: #0f2040; }
+
+.inc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.inc-card:hover::before { opacity: 0.55; }
+
+.inc-num {
+  font-family: 'Cormorant', serif;
+  font-size: 54px;
+  font-weight: 300;
+  color: rgba(201,168,76,0.09);
+  line-height: 1;
+  margin-bottom: 22px;
+  display: block;
+  transition: color 0.3s;
+}
+
+.inc-card:hover .inc-num { color: rgba(201,168,76,0.15); }
+
+.inc-title {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.inc-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+
+.inc-list li {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-dark-dim);
+  line-height: 1.55;
+  padding-left: 16px;
+  position: relative;
+}
+
+.inc-list li::before {
+  content: '-';
+  position: absolute;
+  left: 0;
+  color: rgba(201,168,76,0.3);
+  font-size: 9px;
+  top: 2px;
+}
+
+/* ── HOW IT WORKS (PARCHMENT) ────────────────────────────────── */
+.how { background: var(--parchment); padding: 140px 64px; }
+
+.how-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: start;
+}
+
+.steps { display: flex; flex-direction: column; position: relative; }
+
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 52px;
+  bottom: 52px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(12,21,39,0.2), transparent);
+}
+
+.step {
+  display: flex;
+  gap: 24px;
+  padding: 14px 0;
+  align-items: flex-start;
+}
+
+.step-n {
+  width: 40px; height: 40px;
+  border: 1px solid var(--border-light-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  background: var(--parchment);
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.step:hover .step-n { background: var(--navy); border-color: var(--navy); }
+
+.step-n span {
+  font-family: 'Cormorant', serif;
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--on-light-dim);
+  transition: color 0.25s;
+}
+
+.step:hover .step-n span { color: var(--parchment); }
+
+.step-body { padding-top: 6px; }
+
+.step-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-light);
+  margin-bottom: 5px;
+}
+
+.step-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-light-dim);
+  line-height: 1.75;
+}
+
+/* ── MEMBERSHIP (DARK) ───────────────────────────────────────── */
+.membership {
+  background: var(--navy-deep);
+  padding: 140px 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.membership::before {
+  content: '';
+  position: absolute;
+  bottom: -200px; right: -150px;
+  width: 550px; height: 550px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.membership-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+.price-heading {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(30px, 3.5vw, 50px);
+  font-weight: 300;
+  color: var(--on-dark);
+  line-height: 1.08;
+  margin-bottom: 44px;
+}
+
+.price-heading em { font-style: italic; color: var(--gold-lt); }
+
+
+
+.price-block {
+  border: 1px solid var(--border-dark-md);
+  padding: 48px;
+  position: relative;
+  background: rgba(255,255,255,0.022);
+}
+
+.price-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.price-tag {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.4);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.price-amount {
+  font-family: 'Cormorant', serif;
+  font-size: 64px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.price-amount sup { font-size: 22px; margin-top: 10px; }
+
+.price-period {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--on-dark-faint);
+  margin-bottom: 36px;
+}
+
+.price-rule { height: 1px; background: var(--border-dark); margin-bottom: 30px; }
+
+.price-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.price-list li {
+  display: flex;
+  gap: 13px;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-dark-dim);
+  line-height: 1.5;
+  align-items: flex-start;
+}
+
+.price-list li svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 3px; }
+
+.price-note {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--on-dark-faint);
+  line-height: 1.7;
+  border-top: 1px solid var(--border-dark);
+  padding-top: 22px;
+  margin-top: 10px;
+}
+
+.mem-body {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-dark-dim);
+  line-height: 1.85;
+  margin-bottom: 44px;
+}
+
+.reasons { display: flex; flex-direction: column; }
+
+.reason {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border-dark);
+  transition: padding-left 0.25s;
+  cursor: default;
+}
+
+.reason:first-child { border-top: 1px solid var(--border-dark); }
+.reason:last-child { border-bottom: none; }
+.reason:hover { padding-left: 8px; }
+
+.reason-diamond {
+  width: 7px; height: 7px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  margin-top: 6px;
+  opacity: 0.55;
+}
+
+.reason-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-dark);
+  margin-bottom: 4px;
+}
+
+.reason-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--on-dark-dim);
+  line-height: 1.65;
+}
+
+/* ── APPLY (PARCHMENT) ───────────────────────────────────────── */
+.apply { background: var(--parchment); padding: 140px 64px; }
+
+.apply-inner { max-width: 680px; margin: 0 auto; }
+
+.apply-top { margin-bottom: 52px; }
+
+.apply-form { display: flex; flex-direction: column; gap: 20px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.form-field { display: flex; flex-direction: column; gap: 9px; }
+
+.form-field label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--on-light-faint);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: white;
+  border: 1px solid var(--border-light-md);
+  border-bottom: 1px solid rgba(12,21,39,0.25);
+  color: var(--on-light);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  padding: 15px 18px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: var(--on-light-faint); }
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { border-color: var(--navy); }
+
+.form-field select { appearance: none; cursor: pointer; color: var(--on-light-faint); }
+.form-field select option { background: white; color: var(--on-light); }
+.form-field textarea { resize: none; height: 100px; }
+
+.btn-navy {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--parchment);
+  background: var(--navy);
+  padding: 16px 36px;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s;
+}
+
+.btn-navy:hover { background: var(--navy-mid); }
+
+.form-submit { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 4px; }
+
+.form-disclaimer {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--on-light-faint);
+}
+
+/* ── FOOTER (DARK) ───────────────────────────────────────────── */
+footer {
+  background: var(--navy-deep);
+  padding: 40px 64px;
+  border-top: 1px solid var(--border-dark);
+}
+
+.footer-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.footer-logo { display: flex; align-items: center; gap: 12px; }
+.footer-mark { width: 22px; height: 22px; }
+
+.footer-name {
+  font-family: 'Cormorant', serif;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: 2.5px;
+  color: var(--on-dark-faint);
+}
+
+.footer-sep { width: 1px; height: 16px; background: var(--border-dark-md); }
+
+.footer-loc {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(237,232,222,0.14);
+}
+
+.footer-tagline {
+  font-family: 'Cormorant', serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(201,168,76,0.38);
+}
+
+.footer-copy {
+  font-size: 8.5px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(237,232,222,0.1);
+}
+
+/* ── GOLD WARMTH - ultra-subtle, luxury warmth not a glow ─────── */
+/* Single wide, very low-opacity layer - felt, not seen            */
+.hero-headline em,
+.light h2.section-heading em,
+.dark h2.section-heading em,
+.price-heading em,
+.stat-num,
+.price-amount {
+  text-shadow: 0 0 40px rgba(201,168,76,0.18);
+}
+
+.lockup-tagline,
+.footer-tagline {
+  text-shadow: 0 0 24px rgba(201,168,76,0.12);
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────────── */
+.fade {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade.on { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.1s; }
+.d2 { transition-delay: 0.2s; }
+.d3 { transition-delay: 0.3s; }
+.d4 { transition-delay: 0.4s; }
+.d5 { transition-delay: 0.5s; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  nav { padding: 22px 32px; }
+  nav.scrolled { padding: 16px 32px; }
+}
+
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; }
+  nav.scrolled { padding: 14px 24px; }
+  .nav-links { display: none; }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    padding: 100px 24px 64px;
+    gap: 52px;
+  }
+
+  .hero-lockup { max-width: 360px; }
+  .bracket--tl { top: 60px; left: 24px; }
+  .bracket--tr { top: 60px; right: 24px; }
+  .bracket--bl { bottom: 40px; left: 24px; }
+  .bracket--br { bottom: 40px; right: 24px; }
+
+  .stats { flex-wrap: wrap; }
+  .stat { flex: 0 0 50%; border-bottom: 1px solid var(--border-dark); }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
+
+  .what, .included, .how, .membership, .apply { padding: 88px 24px; }
+
+  .what-inner,
+  .how-inner,
+  .membership-inner { grid-template-columns: 1fr; gap: 52px; }
+
+  .included-head { grid-template-columns: 1fr; gap: 24px; }
+  .included-grid { grid-template-columns: 1fr; }
+
+  .form-row { grid-template-columns: 1fr; }
+
+  footer { padding: 32px 24px; }
+  .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+  .footer-logo { justify-content: center; }
+}
+
+@media (max-width: 640px) {
+  .hero-inner { padding: 88px 20px 52px; }
+
+  .hero-body { max-width: 100%; }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .btn-gold, .btn-ghost {
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero-meta {
+    letter-spacing: 1.5px;
+    line-height: 2;
+    word-spacing: 2px;
+  }
+
+  .meta-dot { margin: 0 4px; }
+
+  .stat { flex: 0 0 50%; padding: 28px 16px; }
+  .stat-num { font-size: 32px; }
+
+  .what, .included, .how, .membership, .apply { padding: 72px 20px; }
+
+  .price-block { padding: 32px 24px; }
+
+  footer { padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="navGold" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#AE8625"/>
+          <stop offset="30%" stop-color="#D2AC47"/>
+          <stop offset="50%" stop-color="#F7EF8A"/>
+          <stop offset="70%" stop-color="#D2AC47"/>
+          <stop offset="100%" stop-color="#AE8625"/>
+        </linearGradient>
+      </defs>
+      <polygon points="20,1 39,20 20,39 1,20" fill="none" stroke="url(#navGold)" stroke-width="0.8" opacity="0.8"/>
+      <polygon points="20,7 33,20 20,33 7,20" fill="none" stroke="url(#navGold)" stroke-width="0.5" opacity="0.4"/>
+      <line x1="20" y1="10" x2="20" y2="30" stroke="url(#navGold)" stroke-width="1.8"/>
+      <line x1="10" y1="20" x2="30" y2="20" stroke="url(#navGold)" stroke-width="1.8"/>
+    </svg>
+    <div class="nav-wordmark">
+      <span class="nav-name">Caldwell</span>
+      <span class="nav-sub">Private Health</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what">About</a></li>
+    <li><a href="#included">Services</a></li>
+    <li><a href="#how">Process</a></li>
+    <li><a href="#membership">Membership</a></li>
+    <li><a href="#apply" class="nav-cta">Apply</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="bracket bracket--tl"></div>
+  <div class="bracket bracket--tr"></div>
+  <div class="bracket bracket--bl"></div>
+  <div class="bracket bracket--br"></div>
+
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow fade">
+        <div class="hero-ey-line"></div>
+        <span class="hero-ey-text">Private Practice · Florida</span>
+      </div>
+      <h1 class="hero-headline fade d1">
+        Medicine built<br>for men who<br><em>perform.</em>
+      </h1>
+      <p class="hero-body fade d2">
+        One flat fee. One dedicated clinician. You've optimized your business, your portfolio, your team. Your body is next.
+      </p>
+      <div class="hero-actions fade d3">
+        <a href="#apply" class="btn-gold">Request Access</a>
+        <a href="#what" class="btn-ghost">How It Works</a>
+      </div>
+      <div class="hero-meta fade d4">$899 / month <span class="meta-dot">·</span> Labs &amp; meds at cost</div>
+    </div>
+
+    <div class="hero-lockup fade d2">
+      <div class="testimonial-carousel">
+        <div class="t-slide active">
+          <p class="t-quote">"My testosterone was at 412. Three months in, I'm at 718 and I haven't felt this sharp since my 30s."</p>
+          <div class="t-rule"></div>
+          <p class="t-attr">Marcus T. <span class="t-title">Founder &amp; CEO</span></p>
+        </div>
+        <div class="t-slide">
+          <p class="t-quote">"I've had a primary care doctor for 20 years. He never once looked at my bloodwork the way Caldwell does in the first appointment."</p>
+          <div class="t-rule"></div>
+          <p class="t-attr">James R. <span class="t-title">Managing Partner</span></p>
+        </div>
+        <div class="t-slide">
+          <p class="t-quote">"I was skeptical. I'm not anymore. The energy difference alone is worth ten times the membership fee."</p>
+          <div class="t-rule"></div>
+          <p class="t-attr">Daniel W. <span class="t-title">Private Equity</span></p>
+        </div>
+        <div class="t-slide">
+          <p class="t-quote">"No waiting rooms, no insurance, no runaround. My protocol was set within a week. That's the only way medicine should work."</p>
+          <div class="t-rule"></div>
+          <p class="t-attr">Christopher A. <span class="t-title">Real Estate Developer</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats">
+  <div class="stat fade"><span class="stat-num">24/7</span><span class="stat-label">Clinician Access</span></div>
+  <div class="stat fade d1"><span class="stat-num">1</span><span class="stat-label">Dedicated Clinician</span></div>
+  <div class="stat fade d2"><span class="stat-num">30+</span><span class="stat-label">Marker Blood Panel</span></div>
+  <div class="stat fade d3"><span class="stat-num">48HR</span><span class="stat-label">Protocol Delivered</span></div>
+</div>
+
+<!-- WHAT IT IS - PARCHMENT -->
+<section class="what light" id="what">
+  <div class="what-inner">
+    <div>
+      <div class="eyebrow fade">
+        <div class="ey-line"></div>
+        <span class="ey-text">What It Is</span>
+      </div>
+      <h2 class="section-heading fade d1">Not a clinic.<br><em>A membership.</em></h2>
+      <p class="section-body fade d2" style="margin-bottom:20px;">
+        Caldwell is physician-supervised concierge health - built for high-performing men who won't tolerate a 3-week wait and a 12-minute appointment.
+      </p>
+      <p class="section-body fade d2">
+        One clinician manages everything: your hormones, your labs, your training load, and your nutrition. Nothing is siloed. Nothing is outsourced.
+      </p>
+    </div>
+
+    <div class="what-points">
+      <div class="what-point fade">
+        <div class="point-diamond"></div>
+        <div>
+          <div class="point-title">Everything managed. One membership.</div>
+          <div class="point-desc">Clinical, performance, and metabolic — managed as one. One package, one team, one relationship.</div>
+        </div>
+      </div>
+      <div class="what-point fade d1">
+        <div class="point-diamond"></div>
+        <div>
+          <div class="point-title">Same-day access. Same clinician. Always.</div>
+          <div class="point-desc">Direct messaging with guaranteed same-day reply. Weekly 15–20 minute clinical check-in included.</div>
+        </div>
+      </div>
+      <div class="what-point fade d2">
+        <div class="point-diamond"></div>
+        <div>
+          <div class="point-title">Protocols that evolve. Not set-and-forgotten.</div>
+          <div class="point-desc">Quarterly physician reviews. Your protocol adjusts to your labs, symptoms, and performance.</div>
+        </div>
+      </div>
+      <div class="what-point fade d3">
+        <div class="point-diamond"></div>
+        <div>
+          <div class="point-title">Fully private. No digital trail.</div>
+          <div class="point-desc">No insurance billing. No claim submissions. Complete confidentiality. Medication delivered to your door.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INCLUDED - DARK -->
+<section class="included dark" id="included">
+  <div class="included-inner">
+    <div class="included-head">
+      <div>
+        <div class="eyebrow fade">
+          <div class="ey-line"></div>
+          <span class="ey-text">Membership Includes</span>
+        </div>
+        <h2 class="section-heading fade d1">Three disciplines.<br><em>One protocol.</em></h2>
+      </div>
+      <p class="section-body fade d2" style="max-width:340px;">
+        Every aspect of your performance is managed in one place. No referrals. No hand-offs. No gaps between your clinical care and your physical output.
+      </p>
+    </div>
+
+    <div class="included-grid">
+      <div class="inc-card fade">
+        <span class="inc-num">01</span>
+        <div class="inc-title">Clinical</div>
+        <ul class="inc-list">
+          <li>MD-supervised hormone optimization</li>
+          <li>30+ marker baseline bloodwork panel</li>
+          <li>Quarterly physician review</li>
+          <li>Medication coordinated & delivered</li>
+          <li>Symptom tracking & protocol refinement</li>
+        </ul>
+      </div>
+      <div class="inc-card fade d1">
+        <span class="inc-num">02</span>
+        <div class="inc-title">Performance</div>
+        <ul class="inc-list">
+          <li>Programming built around your physiology</li>
+          <li>Adjusted to your schedule & targets</li>
+          <li>Coordinated with your clinical protocol</li>
+          <li>Ongoing output tracking & refinement</li>
+          <li>Direct access to your trainer</li>
+        </ul>
+      </div>
+      <div class="inc-card fade d2">
+        <span class="inc-num">03</span>
+        <div class="inc-title">Metabolic</div>
+        <ul class="inc-list">
+          <li>Dialed to your labs & goals</li>
+          <li>Integrated with your training load</li>
+          <li>Macro & micronutrient optimization</li>
+          <li>Adjusted quarterly with your bloodwork</li>
+          <li>Direct access to your nutritionist</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS - PARCHMENT -->
+<section class="how light" id="how">
+  <div class="how-inner">
+    <div>
+      <div class="eyebrow fade">
+        <div class="ey-line"></div>
+        <span class="ey-text">The Process</span>
+      </div>
+      <h2 class="section-heading fade d1">From application<br>to <em>protocol</em> in days.</h2>
+      <p class="section-body fade d2">
+        No lengthy onboarding. No forms designed for insurance. A streamlined intake built for executives - reviewed personally within 24 hours.
+      </p>
+    </div>
+
+    <div class="steps">
+      <div class="step fade">
+        <div class="step-n"><span>1</span></div>
+        <div class="step-body">
+          <div class="step-title">Submit your application</div>
+          <div class="step-desc">Name, contact, and your primary goals. Reviewed personally within 24 hours.</div>
+        </div>
+      </div>
+      <div class="step fade d1">
+        <div class="step-n"><span>2</span></div>
+        <div class="step-body">
+          <div class="step-title">60-minute onboarding call</div>
+          <div class="step-desc">Direct with your clinician. Full history, current symptoms, goals, and priorities.</div>
+        </div>
+      </div>
+      <div class="step fade d2">
+        <div class="step-n"><span>3</span></div>
+        <div class="step-body">
+          <div class="step-title">Baseline bloodwork ordered</div>
+          <div class="step-desc">30+ marker panel. Results reviewed by your physician within 48 hours.</div>
+        </div>
+      </div>
+      <div class="step fade d3">
+        <div class="step-n"><span>4</span></div>
+        <div class="step-body">
+          <div class="step-title">Your protocol is set</div>
+          <div class="step-desc">Hormone protocol, training program, and nutrition framework delivered. Medication ships to your door.</div>
+        </div>
+      </div>
+      <div class="step fade d4">
+        <div class="step-n"><span>5</span></div>
+        <div class="step-body">
+          <div class="step-title">Weekly check-ins & quarterly reviews</div>
+          <div class="step-desc">15–20 min calls weekly. Direct messaging with same-day reply. Protocol evolves as you do.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP - DARK -->
+<section class="membership dark" id="membership">
+  <div class="membership-inner">
+    <div>
+      <div class="eyebrow fade">
+        <div class="ey-line"></div>
+        <span class="ey-text">Membership</span>
+      </div>
+      <h2 class="price-heading fade d1">One price.<br><em>Everything included.</em></h2>
+
+      <div class="price-block fade d2">
+        <span class="price-tag">Monthly Membership</span>
+        <div class="price-amount"><sup>$</sup>899</div>
+        <div class="price-period">per month &nbsp;·&nbsp; flat rate &nbsp;·&nbsp; labs at cost</div>
+        <div class="price-rule"></div>
+        <ul class="price-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>MD-supervised hormone optimization</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>30+ marker bloodwork (baseline + quarterly)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Licensed personal trainer</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Licensed nutritionist</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Weekly 15–20 min clinical check-in call</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Direct messaging · same-day reply guaranteed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Medication coordinated & delivered</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Quarterly physician review & protocol adjustment</li>
+        </ul>
+        <a href="#apply" class="btn-gold" style="display:block;text-align:center;width:100%;">Begin Application</a>
+        <div class="price-note">Labs and medications billed at cost, no markup — ever. No contracts. Cancel anytime.</div>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="price-heading fade">Built for men who can't afford<br>average <em>results.</em></h2>
+      <p class="mem-body fade d1">
+        If you're billing $500 an hour and your energy, recovery, and focus aren't operating at the same level - that's a problem with a solution. Caldwell is that solution.
+      </p>
+
+      <div class="reasons">
+        <div class="reason fade d2">
+          <div class="reason-diamond"></div>
+          <div>
+            <div class="reason-title">No rotating staff</div>
+            <div class="reason-desc">One clinician. Your entire history known from day one. No repeating yourself.</div>
+          </div>
+        </div>
+        <div class="reason fade d2">
+          <div class="reason-diamond"></div>
+          <div>
+            <div class="reason-title">No insurance. Full discretion.</div>
+            <div class="reason-desc">No claims. No billing. Complete privacy as standard. HIPAA-compliant throughout.</div>
+          </div>
+        </div>
+        <div class="reason fade d3">
+          <div class="reason-diamond"></div>
+          <div>
+            <div class="reason-title">No contracts. Cancel anytime.</div>
+            <div class="reason-desc">We retain members because the results speak. Not because you're locked in.</div>
+          </div>
+        </div>
+        <div class="reason fade d3">
+          <div class="reason-diamond"></div>
+          <div>
+            <div class="reason-title">Membership is limited.</div>
+            <div class="reason-desc">We keep the roster intentionally small. When you're in, you have our full attention.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY - PARCHMENT -->
+<section class="apply light" id="apply">
+  <div class="apply-inner">
+    <div class="apply-top">
+      <div class="eyebrow fade">
+        <div class="ey-line"></div>
+        <span class="ey-text">Apply</span>
+      </div>
+      <h2 class="section-heading fade d1">Begin your<br><em>application.</em></h2>
+      <p class="section-body fade d2">Reviewed personally within 24 hours. Membership spots are limited.</p>
+    </div>
+
+    <form class="apply-form fade d2" onsubmit="handleSubmit(event)" action="https://formspree.io/f/maqlezbp" method="POST">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="James" required>
+        </div>
+        <div class="form-field">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Anderson" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="james@company.com" required>
+      </div>
+      <div class="form-field">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="+1 (954) 000-0000" required>
+      </div>
+      <div class="form-field">
+        <label for="goal">Primary Reason for Applying</label>
+        <select id="goal">
+          <option value="" disabled selected>What's driving this decision?</option>
+          <option>Energy & Focus</option>
+          <option>Hormone Optimization</option>
+          <option>Body Composition</option>
+          <option>Performance & Recovery</option>
+          <option>Longevity & Prevention</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="msg">Anything else? <span style="opacity:.38;font-weight:300;">(optional)</span></label>
+        <textarea id="msg" placeholder="Current health concerns, goals, or questions..."></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-navy">Submit Application</button>
+        <div class="form-disclaimer">Reviewed personally within 24 hours. Complete confidentiality guaranteed.</div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg class="footer-mark" viewBox="0 0 40 40" fill="none">
+        <defs>
+          <linearGradient id="footerGold" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#926F34"/>
+            <stop offset="35%" stop-color="#C9A84C"/>
+            <stop offset="55%" stop-color="#EDC967"/>
+            <stop offset="75%" stop-color="#C9A84C"/>
+            <stop offset="100%" stop-color="#926F34"/>
+          </linearGradient>
+        </defs>
+        <polygon points="20,1 39,20 20,39 1,20" fill="none" stroke="url(#footerGold)" stroke-width="0.8" opacity="0.5"/>
+        <polygon points="20,7 33,20 20,33 7,20" fill="none" stroke="url(#footerGold)" stroke-width="0.5" opacity="0.25"/>
+        <line x1="20" y1="10" x2="20" y2="30" stroke="url(#footerGold)" stroke-width="1.8" opacity="0.45"/>
+        <line x1="10" y1="20" x2="30" y2="20" stroke="url(#footerGold)" stroke-width="1.8" opacity="0.45"/>
+      </svg>
+      <span class="footer-name">Caldwell</span>
+      <div class="footer-sep"></div>
+      <span class="footer-loc">Fort Lauderdale, FL</span>
+    </div>
+    <div class="footer-tagline">Performance. Precision. Discretion.</div>
+    <div class="footer-copy">© 2026 Caldwell Private Health</div>
+  </div>
+</footer>
+
+<script>
+  // Screenshot mode - show everything immediately (used by headless Chrome)
+  if (new URLSearchParams(location.search).has('screenshot')) {
+    document.querySelectorAll('.fade').forEach(el => el.classList.add('on'));
+  }
+
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Scroll fade-in
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+  // Testimonial carousel
+  (function() {
+    const slides = document.querySelectorAll('.t-slide');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 9000);
+  })();
+
+  // Fire hero immediately
+  document.querySelectorAll('.hero .fade').forEach(el => {
+    setTimeout(() => el.classList.add('on'), 150);
+  });
+
+  // Form
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/maqlezbp', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        btn.textContent = 'Application Submitted';
+        btn.style.background = 'rgba(12,21,39,0.35)';
+        form.querySelector('.form-disclaimer').textContent = "We'll be in touch within 24 hours.";
+      } else {
+        btn.textContent = 'Submit Application';
+        btn.disabled = false;
+        form.querySelector('.form-disclaimer').textContent = "Something went wrong. Please try again.";
+      }
+    } catch {
+      btn.textContent = 'Submit Application';
+      btn.disabled = false;
+      form.querySelector('.form-disclaimer').textContent = "Something went wrong. Please try again.";
+    }
+  }
+</script>
+</body>
+</html>

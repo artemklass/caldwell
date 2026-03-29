@@ -1,0 +1,20 @@
+# Temporary screenshots
+temporary screenshots/
+
+# Claude local config
+.claude/settings.local.json
+
+# macOS
+.DS_Store
+
+# PDFs and source assets (large files)
+*.pdf
+b36c49408524706068ef9565b7b34a6d.jpg
+Screenshot*.png
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local server
+*.log
