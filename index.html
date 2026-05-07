@@ -860,77 +860,6 @@ nav.scrolled {
   line-height: 1.65;
 }
 
-/* ── APPLY (PARCHMENT) ───────────────────────────────────────── */
-.apply { background: var(--parchment); padding: 140px 64px; }
-
-.apply-inner { max-width: 680px; margin: 0 auto; }
-
-.apply-top { margin-bottom: 52px; }
-
-.apply-form { display: flex; flex-direction: column; gap: 20px; }
-
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-.form-field { display: flex; flex-direction: column; gap: 9px; }
-
-.form-field label {
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--on-light-faint);
-}
-
-.form-field input,
-.form-field select,
-.form-field textarea {
-  background: white;
-  border: 1px solid var(--border-light-md);
-  border-bottom: 1px solid rgba(12,21,39,0.25);
-  color: var(--on-light);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 300;
-  padding: 15px 18px;
-  outline: none;
-  transition: border-color 0.2s;
-  width: 100%;
-}
-
-.form-field input::placeholder,
-.form-field textarea::placeholder { color: var(--on-light-faint); }
-
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus { border-color: var(--navy); }
-
-.form-field select { appearance: none; cursor: pointer; color: var(--on-light-faint); }
-.form-field select option { background: white; color: var(--on-light); }
-.form-field textarea { resize: none; height: 100px; }
-
-.btn-navy {
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--parchment);
-  background: var(--navy);
-  padding: 16px 36px;
-  border: none;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: background 0.2s;
-}
-
-.btn-navy:hover { background: var(--navy-mid); }
-
-.form-submit { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 4px; }
-
-.form-disclaimer {
-  font-size: 10px;
-  font-weight: 300;
-  color: var(--on-light-faint);
-}
 
 /* ── FOOTER (DARK) ───────────────────────────────────────────── */
 footer {
@@ -1421,59 +1350,6 @@ footer {
   </div>
 </section>
 
-<!-- APPLY - PARCHMENT -->
-<section class="apply light" id="apply">
-  <div class="apply-inner">
-    <div class="apply-top">
-      <div class="eyebrow fade">
-        <div class="ey-line"></div>
-        <span class="ey-text">Apply</span>
-      </div>
-      <h2 class="section-heading fade d1">Begin your<br><em>application.</em></h2>
-      <p class="section-body fade d2">Reviewed personally within 24 hours. Membership spots are limited.</p>
-    </div>
-
-    <form class="apply-form fade d2" onsubmit="handleSubmit(event)" action="https://formspree.io/f/maqlezbp" method="POST">
-      <div class="form-row">
-        <div class="form-field">
-          <label for="fname">First Name</label>
-          <input type="text" id="fname" placeholder="James" required>
-        </div>
-        <div class="form-field">
-          <label for="lname">Last Name</label>
-          <input type="text" id="lname" placeholder="Anderson" required>
-        </div>
-      </div>
-      <div class="form-field">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="james@company.com" required>
-      </div>
-      <div class="form-field">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" placeholder="+1 (954) 000-0000" required>
-      </div>
-      <div class="form-field">
-        <label for="goal">Primary Reason for Applying</label>
-        <select id="goal">
-          <option value="" disabled selected>What's driving this decision?</option>
-          <option>Energy & Focus</option>
-          <option>Hormone Optimization</option>
-          <option>Body Composition</option>
-          <option>Performance & Recovery</option>
-          <option>Longevity & Prevention</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label for="msg">Anything else? <span style="opacity:.38;font-weight:300;">(optional)</span></label>
-        <textarea id="msg" placeholder="Current health concerns, goals, or questions..."></textarea>
-      </div>
-      <div class="form-submit">
-        <button type="submit" class="btn-navy">Submit Application</button>
-        <div class="form-disclaimer">Reviewed personally within 24 hours. Complete confidentiality guaranteed.</div>
-      </div>
-    </form>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer>
@@ -1540,34 +1416,7 @@ footer {
     setTimeout(() => el.classList.add('on'), 150);
   });
 
-  // Form
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const btn = form.querySelector('button');
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-    try {
-      const res = await fetch('https://formspree.io/f/maqlezbp', {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        btn.textContent = 'Application Submitted';
-        btn.style.background = 'rgba(12,21,39,0.35)';
-        form.querySelector('.form-disclaimer').textContent = "We'll be in touch within 24 hours.";
-      } else {
-        btn.textContent = 'Submit Application';
-        btn.disabled = false;
-        form.querySelector('.form-disclaimer').textContent = "Something went wrong. Please try again.";
-      }
-    } catch {
-      btn.textContent = 'Submit Application';
-      btn.disabled = false;
-      form.querySelector('.form-disclaimer').textContent = "Something went wrong. Please try again.";
-    }
-  }
+
 </script>
 </body>
 </html>
