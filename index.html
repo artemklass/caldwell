@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caldwell Private Health - Florida</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -137,6 +139,9 @@ nav.scrolled {
 
 /* ── SHARED BUTTONS ──────────────────────────────────────────── */
 .btn-gold {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 2.5px;
@@ -145,13 +150,11 @@ nav.scrolled {
   background: linear-gradient(105deg, #8B6914 0%, #C9A84C 35%, #F0D483 50%, #C9A84C 65%, #8B6914 100%);
   background-size: 200% 100%;
   background-position: 100% 0;
-  box-shadow: 0 0 18px rgba(201,168,76,0.45), 0 0 40px rgba(201,168,76,0.18), 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 16px rgba(180,150,70,0.18), 0 1px 4px rgba(0,0,0,0.25);
   padding: 20px 58px;
   border-radius: 2px;
-  box-shadow: 0 2px 16px rgba(180,150,70,0.18), 0 1px 4px rgba(0,0,0,0.25);
   text-decoration: none;
-  transition: background-position 0.5s ease, background 0.3s;
-  display: inline-block;
+  transition: background-position 0.5s ease, transform 0.15s;
   cursor: pointer;
   border: none;
   font-family: 'DM Sans', sans-serif;
@@ -160,9 +163,14 @@ nav.scrolled {
 
 .btn-gold:hover {
   background-position: 0% 0;
+  transform: translateY(-1px);
 }
 
+.btn-gold:active { transform: translateY(0px); }
+
 .btn-ghost {
+  position: relative;
+  overflow: hidden;
   font-size: 9.5px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -172,6 +180,20 @@ nav.scrolled {
   border-bottom: 1px solid rgba(237,232,222,0.2);
   padding-bottom: 3px;
   transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-ghost::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(201,168,76,0.35) 50%, transparent 100%);
+  transform: skewX(-20deg);
+}
+
+.btn-ghost.shimmer::after {
+  animation: goldShimmer 0.6s ease forwards;
 }
 
 .btn-ghost:hover { color: var(--on-dark); border-color: rgba(237,232,222,0.5); }
@@ -921,7 +943,7 @@ nav.scrolled {
 .checkbox-item input[type="checkbox"] { display: none; }
 
 .checkbox-box {
-  width: 18px; height: 18px; flex-shrink: 0;
+  width: 24px; height: 24px; flex-shrink: 0;
   border: 1px solid var(--border-dark-md);
   background: rgba(255,255,255,0.03);
   display: flex; align-items: center; justify-content: center;
@@ -935,7 +957,7 @@ nav.scrolled {
 
 .checkbox-item input[type="checkbox"]:checked + .checkbox-box::after {
   content: '';
-  width: 8px; height: 8px;
+  width: 11px; height: 11px;
   background: var(--gold);
 }
 
@@ -958,7 +980,7 @@ nav.scrolled {
 .radio-item input[type="radio"] { display: none; }
 
 .radio-circle {
-  width: 18px; height: 18px; flex-shrink: 0;
+  width: 24px; height: 24px; flex-shrink: 0;
   border: 1px solid var(--border-dark-md);
   border-radius: 50%;
   background: rgba(255,255,255,0.03);
@@ -970,30 +992,51 @@ nav.scrolled {
 
 .radio-item input[type="radio"]:checked + .radio-circle::after {
   content: '';
-  width: 8px; height: 8px;
+  width: 11px; height: 11px;
   border-radius: 50%;
   background: var(--gold);
 }
 
-/* CTA button */
-.btn-gold {
-  display: inline-block;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--navy);
-  background: linear-gradient(105deg, #B8922A 0%, #D2AC47 30%, #E8C96A 50%, #D2AC47 70%, #B8922A 100%);
-  padding: 18px 42px;
-  border: none;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  text-decoration: none;
-  transition: opacity 0.2s;
-  margin-top: 8px;
+/* CTA shimmer sweep */
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%);
+  transform: skewX(-20deg);
+  transition: none;
 }
 
-.btn-gold:hover { opacity: 0.85; }
+.btn-gold.shimmer::after {
+  animation: goldShimmer 0.6s ease forwards;
+}
+
+.btn-gold.shimmer::after {
+  animation: goldShimmer 0.6s ease forwards;
+}
+
+@keyframes goldShimmer {
+  0%   { left: -100%; }
+  100% { left: 160%; }
+}
+
+.field-error {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #C9784C;
+  margin-top: 6px;
+  display: none;
+}
+
+.field-error.visible { display: block; }
+
+.apply-field input.invalid { border-bottom-color: #C9784C; }
+.apply-field.invalid-group .radio-group,
+.apply-field.invalid-group .checkbox-group { outline: none; }
 
 /* ── FOOTER (DARK) ───────────────────────────────────────────── */
 footer {
@@ -1218,7 +1261,6 @@ footer {
         <a href="#apply" class="btn-gold">Request Access</a>
         <a href="#what" class="btn-ghost">How It Works</a>
       </div>
-      <div class="hero-meta fade d4">$899 / month <span class="meta-dot">·</span> Labs &amp; meds at cost</div>
     </div>
 
     <div class="hero-lockup fade d2">
@@ -1422,12 +1464,10 @@ footer {
         <div class="ey-line"></div>
         <span class="ey-text">Membership</span>
       </div>
-      <h2 class="price-heading fade d1">One price.<br><em>Everything included.</em></h2>
+      <h2 class="price-heading fade d1">Everything<br><em>included.</em></h2>
 
       <div class="price-block fade d2">
         <span class="price-tag">Monthly Membership</span>
-        <div class="price-amount"><sup>$</sup>899</div>
-        <div class="price-period">per month &nbsp;·&nbsp; flat rate &nbsp;·&nbsp; labs at cost</div>
         <div class="price-rule"></div>
         <ul class="price-list">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>MD-supervised hormone optimization</li>
@@ -1440,7 +1480,7 @@ footer {
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Quarterly physician review & protocol adjustment</li>
         </ul>
         <a href="#apply" class="btn-gold" style="display:block;text-align:center;width:100%;">Begin Application</a>
-        <div class="price-note">Labs and medications billed at cost, no markup — ever. No contracts. Cancel anytime.</div>
+        <div class="price-note">No contracts. Cancel anytime.</div>
       </div>
     </div>
 
@@ -1497,25 +1537,29 @@ footer {
       <p class="section-body fade d2">Tell us about yourself. We'll schedule a call to see if Caldwell is the right fit.</p>
     </div>
 
-    <form class="apply-form fade d2" id="applyForm">
+    <form class="apply-form fade d2" id="applyForm" novalidate>
       <div class="apply-row">
         <div class="apply-field">
           <label for="fullname">Full Name</label>
           <input type="text" id="fullname" name="fullname" placeholder="James Anderson" required>
+          <span class="field-error" id="err-fullname">Full name is required</span>
         </div>
         <div class="apply-field">
           <label for="age">Age</label>
           <input type="number" id="age" name="age" placeholder="38" min="18" max="99" required>
+          <span class="field-error" id="err-age">Age is required</span>
         </div>
       </div>
       <div class="apply-row">
         <div class="apply-field">
           <label for="phone">Phone</label>
           <input type="tel" id="phone" name="phone" placeholder="+1 (954) 000-0000" required>
+          <span class="field-error" id="err-phone">Phone number is required</span>
         </div>
         <div class="apply-field">
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" placeholder="james@company.com" required>
+          <span class="field-error" id="err-email">A valid email address is required</span>
         </div>
       </div>
 
@@ -1555,7 +1599,7 @@ footer {
         </div>
       </div>
 
-      <div class="apply-field">
+      <div class="apply-field" id="field-labs">
         <label>Have you had hormone labs done before?</label>
         <div class="radio-group">
           <label class="radio-item">
@@ -1569,6 +1613,7 @@ footer {
             No
           </label>
         </div>
+        <span class="field-error" id="err-labs">Please select an option</span>
       </div>
 
       <div>
@@ -1643,6 +1688,101 @@ footer {
     setTimeout(() => el.classList.add('on'), 150);
   });
 
+  // Gold shimmer on CTA clicks
+  document.querySelectorAll('.btn-gold, .btn-ghost').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.classList.remove('shimmer');
+      void this.offsetWidth;
+      this.classList.add('shimmer');
+      this.addEventListener('animationend', () => this.classList.remove('shimmer'), { once: true });
+    });
+  });
+
+  // Form validation
+  (function() {
+    const form = document.getElementById('applyForm');
+    if (!form) return;
+
+    function showError(inputId, errId) {
+      const input = document.getElementById(inputId);
+      const err = document.getElementById(errId);
+      if (input) input.classList.add('invalid');
+      if (err) err.classList.add('visible');
+    }
+
+    function clearError(inputId, errId) {
+      const input = document.getElementById(inputId);
+      const err = document.getElementById(errId);
+      if (input) input.classList.remove('invalid');
+      if (err) err.classList.remove('visible');
+    }
+
+    ['fullname', 'age', 'phone', 'email'].forEach(id => {
+      const input = document.getElementById(id);
+      if (input) input.addEventListener('input', () => clearError(id, 'err-' + id));
+    });
+
+    form.querySelectorAll('input[name="labs"]').forEach(r => {
+      r.addEventListener('change', () => {
+        document.getElementById('err-labs').classList.remove('visible');
+      });
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+
+      const fields = [
+        { id: 'fullname', check: v => v.trim().length > 0 },
+        { id: 'age',      check: v => v.trim().length > 0 && +v >= 18 && +v <= 99 },
+        { id: 'phone',    check: v => v.trim().length > 0 },
+        { id: 'email',    check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+      ];
+
+      fields.forEach(({ id, check }) => {
+        const input = document.getElementById(id);
+        if (input && !check(input.value)) {
+          showError(id, 'err-' + id);
+          valid = false;
+        } else {
+          clearError(id, 'err-' + id);
+        }
+      });
+
+      const labsPicked = form.querySelector('input[name="labs"]:checked');
+      if (!labsPicked) {
+        document.getElementById('err-labs').classList.add('visible');
+        valid = false;
+      }
+
+      if (valid) {
+        const btn = form.querySelector('button[type="submit"]');
+        btn.textContent = 'Submitting...';
+        btn.disabled = true;
+
+        const data = new FormData(form);
+
+        fetch('https://formspree.io/f/xbdwagjd', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(res => {
+          if (res.ok) {
+            Calendly.initPopupWidget({ url: 'https://calendly.com/artem-caldwellreserve/30min' });
+            form.reset();
+          } else {
+            btn.textContent = 'Schedule Your Call';
+            btn.disabled = false;
+          }
+        })
+        .catch(() => {
+          btn.textContent = 'Schedule Your Call';
+          btn.disabled = false;
+        });
+      }
+    });
+  })();
 
 </script>
 </body>
