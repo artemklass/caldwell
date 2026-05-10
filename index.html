@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caldwell Private Health - Florida</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -304,7 +305,7 @@ nav.scrolled {
 .hero-lockup {
   position: relative;
   border: 1px solid var(--border-dark-md);
-  overflow: visible;
+  overflow: hidden;
   align-self: center;
 }
 
@@ -335,13 +336,14 @@ nav.scrolled {
 }
 
 .vsl-hint {
-  margin-top: 14px;
+  margin-top: 12px;
   text-align: center;
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 300;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--on-dark-faint);
+  color: rgba(237,232,222,0.18);
+  grid-column: 2;
 }
 
 .vsl-wrap iframe {
@@ -1315,7 +1317,7 @@ footer {
     </div>
 
     <div class="hero-lockup fade d2">
-      <div class="vsl-wrap" style="overflow:hidden;">
+      <div class="vsl-wrap">
         <iframe id="vsl-iframe"
           src="https://player.vimeo.com/video/1190840317?autoplay=1&muted=1&loop=1&background=0&controls=0&autopause=0"
           allow="autoplay; fullscreen"
@@ -1326,8 +1328,8 @@ footer {
           Unmute
         </button>
       </div>
-      <p class="vsl-hint">Scroll to learn more</p>
     </div>
+    <p class="vsl-hint fade d3">Scroll to learn more</p>
   </div>
 </section>
 
@@ -1729,18 +1731,25 @@ footer {
     setTimeout(() => el.classList.add('on'), 150);
   });
 
-  // VSL unmute button
+  // VSL unmute button + auto-mute on end
   (function() {
     const btn = document.getElementById('vslUnmute');
     if (!btn) return;
     const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
     let muted = true;
+
     btn.addEventListener('click', function() {
       muted = !muted;
       player.setMuted(muted);
       btn.innerHTML = muted
         ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Unmute'
         : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Mute';
+    });
+
+    player.on('ended', function() {
+      muted = true;
+      player.setMuted(true);
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Unmute';
     });
   })();
 
