@@ -1194,33 +1194,32 @@ footer {
     grid-template-columns: 1fr;
     padding: 110px 24px 60px;
     gap: 36px;
-    text-align: center;
     overflow: hidden;
   }
 
-  .hero-eyebrow { justify-content: center; }
-
-  .hero-body {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  .hero-body { max-width: 100%; }
 
   .hero-actions {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
   }
 
   .hero-lockup {
     max-width: 100%;
     width: 100%;
+  }
+
+  .vsl-wrap {
+    max-width: 100%;
     margin: 0 auto;
   }
 
-  .vsl-wrap { max-width: 100%; }
-
-  .vsl-hint { text-align: center; }
+  .hero-lockup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .apply-row { grid-template-columns: 1fr; }
 
@@ -1247,9 +1246,9 @@ footer {
   .hero-inner { padding: 90px 20px 48px; }
 
   .btn-gold, .btn-ghost {
-    text-align: center;
-    width: 100%;
-    display: block;
+    text-align: left;
+    width: auto;
+    display: inline-block;
     min-width: unset;
     padding-left: 20px;
     padding-right: 20px;
@@ -1340,7 +1339,6 @@ footer {
       </div>
     </div>
   </div>
-  <p class="vsl-hint fade d3">Scroll to learn more</p>
 </section>
 
 <!-- STATS BAR -->
