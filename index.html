@@ -1188,43 +1188,55 @@ footer {
   nav.scrolled { padding: 14px 24px; }
   .nav-links { display: none; }
 
+  .hero { min-height: auto; }
+
   .hero-inner {
     grid-template-columns: 1fr;
-    padding: 100px 24px 64px;
-    gap: 40px;
+    padding: 110px 24px 60px;
+    gap: 36px;
+    text-align: center;
     overflow: hidden;
   }
 
-  .hero-body { max-width: 100%; }
+  .hero-eyebrow { justify-content: center; }
+
+  .hero-body {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
 
   .hero-lockup {
     max-width: 100%;
     width: 100%;
+    margin: 0 auto;
   }
 
   .vsl-wrap { max-width: 100%; }
 
+  .vsl-hint { text-align: center; }
+
   .apply-row { grid-template-columns: 1fr; }
-  .bracket--tl { top: 60px; left: 24px; }
-  .bracket--tr { top: 60px; right: 24px; }
-  .bracket--bl { bottom: 40px; left: 24px; }
-  .bracket--br { bottom: 40px; right: 24px; }
 
   .stats { flex-wrap: wrap; }
   .stat { flex: 0 0 50%; border-bottom: 1px solid var(--border-dark); }
   .stat:nth-child(2) { border-right: none; }
   .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
 
-  .what, .included, .how, .membership, .apply { padding: 88px 24px; }
+  .what, .included, .how, .membership, .apply { padding: 80px 24px; }
 
   .what-inner,
   .how-inner,
-  .membership-inner { grid-template-columns: 1fr; gap: 52px; }
+  .membership-inner { grid-template-columns: 1fr; gap: 48px; }
 
   .included-head { grid-template-columns: 1fr; gap: 24px; }
   .included-grid { grid-template-columns: 1fr; }
-
-  .form-row { grid-template-columns: 1fr; }
 
   footer { padding: 32px 24px; }
   .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
@@ -1232,36 +1244,21 @@ footer {
 }
 
 @media (max-width: 640px) {
-  .hero-inner { padding: 88px 20px 52px; }
-
-  .hero-body { max-width: 100%; }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
-  }
+  .hero-inner { padding: 90px 20px 48px; }
 
   .btn-gold, .btn-ghost {
     text-align: center;
     width: 100%;
     display: block;
+    min-width: unset;
     padding-left: 20px;
     padding-right: 20px;
   }
 
-  .hero-meta {
-    letter-spacing: 1.5px;
-    line-height: 2;
-    word-spacing: 2px;
-  }
-
-  .meta-dot { margin: 0 4px; }
-
   .stat { flex: 0 0 50%; padding: 28px 16px; }
   .stat-num { font-size: 32px; }
 
-  .what, .included, .how, .membership, .apply { padding: 72px 20px; }
+  .what, .included, .how, .membership, .apply { padding: 64px 20px; }
 
   .price-block { padding: 32px 24px; }
 
