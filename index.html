@@ -46,7 +46,10 @@ body {
   font-size: 15px;
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100vw;
 }
+
+html { overflow-x: hidden; }
 
 /* ── NAV ─────────────────────────────────────────────────────── */
 nav {
@@ -331,19 +334,19 @@ nav.scrolled {
 .vsl-wrap {
   position: relative;
   width: 100%;
+  max-width: 100%;
   aspect-ratio: 16/9;
   overflow: hidden;
 }
 
 .vsl-hint {
-  margin-top: 12px;
   text-align: center;
+  padding: 14px 0 0;
   font-size: 8.5px;
   font-weight: 300;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: rgba(237,232,222,0.18);
-  grid-column: 2;
 }
 
 .vsl-wrap iframe {
@@ -1188,10 +1191,20 @@ footer {
   .hero-inner {
     grid-template-columns: 1fr;
     padding: 100px 24px 64px;
-    gap: 52px;
+    gap: 40px;
+    overflow: hidden;
   }
 
-  .hero-lockup { max-width: 360px; }
+  .hero-body { max-width: 100%; }
+
+  .hero-lockup {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .vsl-wrap { max-width: 100%; }
+
+  .apply-row { grid-template-columns: 1fr; }
   .bracket--tl { top: 60px; left: 24px; }
   .bracket--tr { top: 60px; right: 24px; }
   .bracket--bl { bottom: 40px; left: 24px; }
@@ -1329,8 +1342,8 @@ footer {
         </button>
       </div>
     </div>
-    <p class="vsl-hint fade d3">Scroll to learn more</p>
   </div>
+  <p class="vsl-hint fade d3">Scroll to learn more</p>
 </section>
 
 <!-- STATS BAR -->
