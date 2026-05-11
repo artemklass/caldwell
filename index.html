@@ -1197,12 +1197,29 @@ footer {
     overflow: hidden;
   }
 
-  .hero-body { max-width: 100%; }
+  .hero-body { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
 
   .hero-actions {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 16px;
+    width: 100%;
+  }
+
+  .hero-actions .btn-gold {
+    display: block;
+    width: 100%;
+    text-align: center;
+    min-width: unset;
+    padding: 20px;
+  }
+
+  .hero-actions .btn-ghost {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    border-bottom: none;
   }
 
   .hero-lockup {
@@ -1245,14 +1262,6 @@ footer {
 @media (max-width: 640px) {
   .hero-inner { padding: 90px 20px 48px; }
 
-  .btn-gold, .btn-ghost {
-    text-align: left;
-    width: auto;
-    display: inline-block;
-    min-width: unset;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
 
   .stat { flex: 0 0 50%; padding: 28px 16px; }
   .stat-num { font-size: 32px; }
