@@ -1829,38 +1829,20 @@ footer {
       }
 
       if (valid) {
-        const btn = form.querySelector('button[type="submit"]');
-        btn.textContent = 'Submitting...';
-        btn.disabled = true;
-
-        const data = new FormData(form);
-
+        // Submit to Formspree in background
         fetch('https://formspree.io/f/xbdwagjd', {
           method: 'POST',
-          body: data,
+          body: new FormData(form),
           headers: { 'Accept': 'application/json' }
-        })
-        .then(res => {
-          if (res.ok) {
-            form.reset();
-            btn.textContent = 'Schedule Your Call';
-            btn.disabled = false;
-            if (typeof Calendly !== 'undefined') {
-              Calendly.initPopupWidget({ url: 'https://calendly.com/artem-caldwellreserve/30min' });
-            } else {
-              window.open('https://calendly.com/artem-caldwellreserve/30min', '_blank');
-            }
-          } else {
-            btn.textContent = 'Schedule Your Call';
-            btn.disabled = false;
-            alert('Something went wrong. Please try again.');
-          }
-        })
-        .catch(() => {
-          btn.textContent = 'Schedule Your Call';
-          btn.disabled = false;
-          alert('Something went wrong. Please try again.');
         });
+
+        // Open Calendly immediately
+        form.reset();
+        if (typeof Calendly !== 'undefined') {
+          Calendly.initPopupWidget({ url: 'https://calendly.com/artem-caldwellreserve/30min' });
+        } else {
+          window.open('https://calendly.com/artem-caldwellreserve/30min', '_blank');
+        }
       }
     });
   })();
