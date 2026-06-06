@@ -1089,7 +1089,7 @@ nav.scrolled {
     #3B1F07 0%, #7A5020 12%, #C9A84C 26%,
     #F0D483 50%, #C9A84C 74%, #7A5020 88%, #3B1F07 100%);
   padding: 3px;
-  transform: translateZ(2px);
+  transform: translateZ(1px);
 }
 
 .card-front-body {
@@ -1226,7 +1226,7 @@ nav.scrolled {
   background: linear-gradient(135deg,
     #3B1F07 0%, #7A5020 12%, #C9A84C 26%,
     #F0D483 50%, #C9A84C 74%, #7A5020 88%, #3B1F07 100%);
-  transform: rotateY(180deg) translateZ(2px);
+  transform: rotateY(180deg) translateZ(1px);
   padding: 3px;
 }
 
@@ -1279,7 +1279,7 @@ nav.scrolled {
   position: absolute;
   top: 1%;
   height: 98%;
-  width: 4px;
+  width: 2px;
   background: linear-gradient(180deg,
     #4A2E08 0%,
     #8B6914 15%,
@@ -1295,14 +1295,14 @@ nav.scrolled {
 .card-edge-left {
   left: 0;
   transform-origin: 0% 50%;
-  transform: rotateY(-90deg) translateX(-2px);
+  transform: rotateY(-90deg) translateX(-1px);
   border-radius: 3px 0 0 3px;
 }
 
 .card-edge-right {
   right: 0;
   transform-origin: 100% 50%;
-  transform: rotateY(90deg) translateX(2px);
+  transform: rotateY(90deg) translateX(1px);
   border-radius: 0 3px 3px 0;
 }
 
@@ -1628,13 +1628,13 @@ footer {
   .apply-row { grid-template-columns: 1fr; }
   .apply-inner { grid-template-columns: 1fr; gap: 52px; }
   .apply-card-col { position: static; }
-  .apply-card-col .card-3d-scene   { max-width: 155px; }
-  .apply-card-col .card-mark-svg   { width: 17px; height: 17px; }
-  .apply-card-col .card-logo-row   { gap: 6px; }
-  .apply-card-col .card-brand-name { font-size: 12px; }
-  .apply-card-col .card-brand-sub  { font-size: 3.5px; letter-spacing: 2px; }
-  .apply-card-col .card-member-label { font-size: 3.5px; letter-spacing: 1.5px; }
-  .apply-card-col .card-back-name  { font-size: 4px; letter-spacing: 1.5px; }
+  .apply-card-col .card-3d-scene   { max-width: 180px; }
+  .apply-card-col .card-mark-svg   { width: 20px; height: 20px; }
+  .apply-card-col .card-logo-row   { gap: 7px; }
+  .apply-card-col .card-brand-name { font-size: 14px; }
+  .apply-card-col .card-brand-sub  { font-size: 4px; letter-spacing: 2.5px; }
+  .apply-card-col .card-member-label { font-size: 4px; letter-spacing: 2px; }
+  .apply-card-col .card-back-name  { font-size: 5px; letter-spacing: 2px; }
 
   /* Performance: strip expensive drop-shadow on mobile */
   .card-shadow-wrap { filter: drop-shadow(0 20px 50px rgba(0,0,0,0.85)); }
