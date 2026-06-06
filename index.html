@@ -1294,7 +1294,26 @@ nav.scrolled {
 /* ── APPLY (DARK) ────────────────────────────────────────────── */
 .apply { background: var(--navy-mid); padding: 140px 64px; border-top: 1px solid var(--border-dark); }
 
-.apply-inner { max-width: 680px; margin: 0 auto; }
+.apply-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 100px;
+  align-items: start;
+}
+
+.apply-card-col {
+  position: sticky;
+  top: 120px;
+  text-align: center;
+}
+.apply-card-col .card-3d-scene { max-width: 240px; }
+.apply-card-col .card-mark-svg  { width: 28px; height: 28px; }
+.apply-card-col .card-logo-row  { gap: 9px; }
+.apply-card-col .card-brand-name { font-size: 19px; }
+.apply-card-col .card-brand-sub  { font-size: 5.5px; letter-spacing: 3.5px; }
+.apply-card-col .card-member-label { font-size: 5.5px; letter-spacing: 2.5px; }
 
 .apply-top { margin-bottom: 52px; }
 
@@ -1700,6 +1719,7 @@ footer {
       </div>
     </div>
   </div>
+
 </section>
 
 <!-- STATS BAR -->
@@ -1926,57 +1946,54 @@ footer {
     </div>
   </div>
 
-  <div class="mem-card-row fade">
-    <span class="mem-card-label">Reserve Member Card</span>
-    <div class="card-shadow-wrap">
-    <div class="card-3d-scene" id="cardScene">
-      <div class="card-3d" id="reserveCard">
-
-        <div class="card-face card-face-front">
-          <div class="card-front-body">
-            <div class="card-shade"></div>
-            <div class="card-logo-row">
-              <svg class="card-mark-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="cGold" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%"   stop-color="#AE8625"/>
-                    <stop offset="30%"  stop-color="#D2AC47"/>
-                    <stop offset="50%"  stop-color="#F7EF8A"/>
-                    <stop offset="70%"  stop-color="#D2AC47"/>
-                    <stop offset="100%" stop-color="#AE8625"/>
-                  </linearGradient>
-                </defs>
-                <polygon points="20,1 39,20 20,39 1,20" fill="none" stroke="url(#cGold)" stroke-width="1" opacity="0.9"/>
-                <polygon points="20,7 33,20 20,33 7,20" fill="none" stroke="url(#cGold)" stroke-width="0.6" opacity="0.4"/>
-                <line x1="20" y1="10" x2="20" y2="30" stroke="url(#cGold)" stroke-width="2"/>
-                <line x1="10" y1="20" x2="30" y2="20" stroke="url(#cGold)" stroke-width="2"/>
-              </svg>
-              <div class="card-brand">
-                <span class="card-brand-name">Caldwell</span>
-                <span class="card-brand-sub">Private Health</span>
-              </div>
-            </div>
-            <span class="card-member-label">Reserve Member</span>
-          </div>
-        </div>
-
-        <div class="card-face card-face-back">
-          <div class="card-back-body"></div>
-        </div>
-
-        <div class="card-edge-left"></div>
-        <div class="card-edge-right"></div>
-
-      </div>
-    </div>
-    </div>
-  </div>
 </section>
 
 
 <!-- APPLY -->
 <section class="apply dark" id="apply">
   <div class="apply-inner">
+
+    <div class="apply-card-col fade">
+      <span class="mem-card-label">Reserve Member Card</span>
+      <div class="card-shadow-wrap">
+      <div class="card-3d-scene" id="cardScene">
+        <div class="card-3d" id="reserveCard">
+          <div class="card-face card-face-front">
+            <div class="card-front-body">
+              <div class="card-shade"></div>
+              <div class="card-logo-row">
+                <svg class="card-mark-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="cGold" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%"   stop-color="#AE8625"/>
+                      <stop offset="30%"  stop-color="#D2AC47"/>
+                      <stop offset="50%"  stop-color="#F7EF8A"/>
+                      <stop offset="70%"  stop-color="#D2AC47"/>
+                      <stop offset="100%" stop-color="#AE8625"/>
+                    </linearGradient>
+                  </defs>
+                  <polygon points="20,1 39,20 20,39 1,20" fill="none" stroke="url(#cGold)" stroke-width="1" opacity="0.9"/>
+                  <polygon points="20,7 33,20 20,33 7,20" fill="none" stroke="url(#cGold)" stroke-width="0.6" opacity="0.4"/>
+                  <line x1="20" y1="10" x2="20" y2="30" stroke="url(#cGold)" stroke-width="2"/>
+                  <line x1="10" y1="20" x2="30" y2="20" stroke="url(#cGold)" stroke-width="2"/>
+                </svg>
+                <div class="card-brand">
+                  <span class="card-brand-name">Caldwell</span>
+                  <span class="card-brand-sub">Private Health</span>
+                </div>
+              </div>
+              <span class="card-member-label">Reserve Member</span>
+            </div>
+          </div>
+          <div class="card-face card-face-back"><div class="card-back-body"></div></div>
+          <div class="card-edge-left"></div>
+          <div class="card-edge-right"></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div>
     <div class="apply-top">
       <div class="eyebrow fade">
         <div class="ey-line"></div>
@@ -2069,6 +2086,7 @@ footer {
         <button type="submit" class="btn-gold">Schedule Your Call</button>
       </div>
     </form>
+    </div>
   </div>
 </section>
 
@@ -2170,7 +2188,7 @@ footer {
     var scene = document.getElementById('cardScene');
     if (!card || !scene) return;
 
-    var AUTO_SPEED   = 12.0; // deg/second — full rotation ~30 sec
+    var AUTO_SPEED   = 24.0; // deg/second — full rotation ~15 sec
 
     var autoAngle    = 12;  // accumulates continuously
     var scrollOffset = 0;   // extra angle from scroll position
