@@ -793,7 +793,7 @@ nav.scrolled {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 100px;
-  align-items: start;
+  align-items: center;
 }
 
 .steps { display: flex; flex-direction: column; position: relative; }
@@ -1657,6 +1657,10 @@ footer {
   .hero-body { font-size: 13px; line-height: 1.75; margin-bottom: 40px; }
   .section-body { font-size: 13px; line-height: 1.75; }
   .hero-inner { gap: 24px; }
+  /* Hide second paragraph in What It Is on mobile — too text-heavy */
+  .what-inner .section-body + .section-body { display: none; }
+  /* Tighten apply section top padding on mobile */
+  .apply { padding-top: 52px; }
 
   footer { padding: 32px 24px; }
   .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
@@ -1802,7 +1806,7 @@ footer {
           <div class="point-desc">Quarterly physician reviews. Your protocol adjusts to your labs, symptoms, and performance.</div>
         </div>
       </div>
-      <div class="what-point fade d3">
+      <div class="what-point fade d2">
         <div class="point-diamond"></div>
         <div>
           <div class="point-title">Fully private. No digital trail.</div>
