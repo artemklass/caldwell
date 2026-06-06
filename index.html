@@ -1274,7 +1274,7 @@ nav.scrolled {
     #8B6914 85%,
     #4A2E08 100%
   );
-  box-shadow: 0 0 18px rgba(240,212,131,0.35), 0 0 6px rgba(201,168,76,0.5);
+  box-shadow: 0 0 10px rgba(240,212,131,0.18), 0 0 4px rgba(201,168,76,0.28);
 }
 
 .card-edge-left {
@@ -2164,16 +2164,19 @@ footer {
     });
   })();
 
-  // Reserve card — CSS 3D scroll-driven rotation with metallic sheen
+  // Reserve card — scroll-driven rotation + slow auto-spin
   (function() {
     var card  = document.getElementById('reserveCard');
     var scene = document.getElementById('cardScene');
     if (!card || !scene) return;
 
+    var AUTO_SPEED   = 12.0; // deg/second — full rotation ~30 sec
+
+    var autoAngle    = 12;  // accumulates continuously
+    var scrollOffset = 0;   // extra angle from scroll position
     var currentAngle = 12;
-    var targetAngle  = 12;
-    var rafId = null;
-    var scrollStart = null;
+    var lastTime     = null;
+    var scrollStart  = null;
 
     function lerp(a, b, t) { return a + (b - a) * t; }
 
@@ -2185,22 +2188,22 @@ footer {
       scene.style.setProperty('--shade-r', sin > 0 ? ( sin * 0.65).toFixed(3) : '0');
     }
 
-    function tick() {
+    function tick(now) {
+      if (lastTime !== null) {
+        var dt = Math.min((now - lastTime) / 1000, 0.1); // cap to avoid jump on tab return
+        autoAngle += AUTO_SPEED * dt;
+      }
+      lastTime = now;
+
+      var targetAngle = autoAngle + scrollOffset;
       currentAngle = lerp(currentAngle, targetAngle, 0.018);
-      card.style.transform  = 'rotateY(' + currentAngle + 'deg)';
+      card.style.transform = 'rotateY(' + currentAngle + 'deg)';
       updateShine(currentAngle);
 
-      if (Math.abs(targetAngle - currentAngle) > 0.05) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        currentAngle = targetAngle;
-        card.style.transform = 'rotateY(' + currentAngle + 'deg)';
-        updateShine(currentAngle);
-        rafId = null;
-      }
+      requestAnimationFrame(tick);
     }
 
-    tick();
+    requestAnimationFrame(tick);
 
     window.addEventListener('scroll', function() {
       var rect = scene.getBoundingClientRect();
@@ -2211,9 +2214,7 @@ footer {
       }
 
       var progress = (window.scrollY - scrollStart) / 1800;
-      targetAngle  = 12 + Math.max(0, Math.min(1, progress)) * 360;
-
-      if (!rafId) rafId = requestAnimationFrame(tick);
+      scrollOffset = Math.max(0, Math.min(1, progress)) * 360;
     }, { passive: true });
   })();
 
