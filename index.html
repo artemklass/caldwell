@@ -1630,6 +1630,9 @@ footer {
   .apply-card-col { position: static; }
   .apply-card-col .card-3d-scene { max-width: 180px; }
 
+  /* Performance: strip expensive drop-shadow on mobile */
+  .card-shadow-wrap { filter: drop-shadow(0 20px 50px rgba(0,0,0,0.85)); }
+
   .stats { flex-wrap: wrap; }
   .stat { flex: 0 0 50%; border-bottom: 1px solid var(--border-dark); }
   .stat:nth-child(2) { border-right: none; }
@@ -1643,6 +1646,11 @@ footer {
 
   .included-head { grid-template-columns: 1fr; gap: 24px; }
   .included-grid { grid-template-columns: 1fr; }
+
+  /* Tighten body text on mobile */
+  .hero-body { font-size: 13px; line-height: 1.75; margin-bottom: 40px; }
+  .section-body { font-size: 13px; line-height: 1.75; }
+  .hero-inner { gap: 24px; }
 
   footer { padding: 32px 24px; }
   .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
@@ -1934,7 +1942,7 @@ footer {
     </div>
 
     <div>
-      <h2 class="price-heading fade">Built for men who can't afford<br>average <em>results.</em></h2>
+      <h2 class="price-heading fade">Built for men who<br>can't afford average <em>results.</em></h2>
       <p class="mem-body fade d1">
         If you're billing $500 an hour and your energy, recovery, and focus aren't operating at the same level - that's a problem with a solution. Caldwell is that solution.
       </p>
@@ -2217,6 +2225,14 @@ footer {
     var currentAngle = 12;
     var lastTime     = null;
     var scrollStart  = null;
+    var cardVisible  = true;
+
+    // Pause RAF when card is off-screen (saves mobile battery/CPU)
+    var cardIO = new IntersectionObserver(function(entries) {
+      cardVisible = entries[0].isIntersecting;
+      if (cardVisible) lastTime = null; // reset delta to avoid jump on re-entry
+    }, { threshold: 0.1 });
+    cardIO.observe(scene);
 
     function lerp(a, b, t) { return a + (b - a) * t; }
 
@@ -2229,17 +2245,17 @@ footer {
     }
 
     function tick(now) {
-      if (lastTime !== null) {
-        var dt = Math.min((now - lastTime) / 1000, 0.1);
-        autoAngle += AUTO_SPEED * dt;
+      if (cardVisible) {
+        if (lastTime !== null) {
+          var dt = Math.min((now - lastTime) / 1000, 0.1);
+          autoAngle += AUTO_SPEED * dt;
+        }
+        lastTime = now;
+        var targetAngle = autoAngle + scrollOffset;
+        currentAngle = lerp(currentAngle, targetAngle, 0.018);
+        card.style.transform = 'rotateY(' + currentAngle + 'deg)';
+        updateShine(currentAngle);
       }
-      lastTime = now;
-
-      var targetAngle = autoAngle + scrollOffset;
-      currentAngle = lerp(currentAngle, targetAngle, 0.018);
-      card.style.transform = 'rotateY(' + currentAngle + 'deg)';
-      updateShine(currentAngle);
-
       requestAnimationFrame(tick);
     }
 
