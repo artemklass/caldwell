@@ -1482,6 +1482,48 @@ nav.scrolled {
 .apply-field.invalid-group .radio-group,
 .apply-field.invalid-group .checkbox-group { outline: none; }
 
+.apply-secondary-cta { margin-top: 32px; text-align: center; }
+
+.apply-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.apply-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.3;
+}
+
+.apply-divider-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+}
+
+.apply-skip-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.35);
+  padding-bottom: 4px;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.apply-skip-link:hover {
+  color: var(--gold-lt);
+  border-bottom-color: var(--gold-lt);
+}
+
 /* ── FOOTER (DARK) ───────────────────────────────────────────── */
 footer {
   background: var(--navy-deep);
@@ -2127,6 +2169,15 @@ footer {
         <button type="submit" class="btn-gold">Schedule Your Call</button>
       </div>
     </form>
+
+    <div class="apply-secondary-cta">
+      <div class="apply-divider">
+        <span class="apply-divider-line"></span>
+        <span class="apply-divider-text">Or</span>
+        <span class="apply-divider-line"></span>
+      </div>
+      <a href="https://caldwellreserve.com/consult" class="apply-skip-link">Book Your Consult</a>
+    </div>
     </div>
   </div>
 </section>
