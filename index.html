@@ -354,7 +354,7 @@ nav.scrolled {
 
 .hero-headline {
   font-family: 'Cormorant', serif;
-  font-size: clamp(48px, 5.5vw, 82px);
+  font-size: clamp(42px, 4.8vw, 70px);
   font-weight: 300;
   color: var(--on-dark);
   line-height: 1.04;
@@ -363,6 +363,33 @@ nav.scrolled {
 }
 
 .hero-headline em { font-style: italic; color: var(--gold-lt); }
+
+.hero-scroll-hint {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+  text-decoration: none;
+  margin-bottom: 40px;
+  transition: color 0.2s;
+}
+
+.hero-scroll-hint:hover { color: var(--gold); }
+
+.hero-how {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold-lt);
+  line-height: 1.04;
+  letter-spacing: -0.5px;
+  margin-top: 0;
+  margin-bottom: 56px;
+}
 
 .hero-body {
   font-size: 15px;
@@ -1770,13 +1797,13 @@ footer {
     <div>
       <div class="hero-eyebrow fade">
         <div class="hero-ey-line"></div>
-        <span class="hero-ey-text">Private Practice · South Florida</span>
+        <span class="hero-ey-text">Virtual · South Florida</span>
       </div>
       <h1 class="hero-headline fade d1">
-        Medicine built<br>for men who<br><em>perform.</em>
+        Private Men's<br><em>Health</em> Practice.
       </h1>
       <p class="hero-body fade d2">
-        One flat fee. One dedicated care team. You've optimized your business, your portfolio, your team. Your body is next.
+        Full picture of your health with your personal physician.
       </p>
       <div class="hero-actions fade d3">
         <a href="#apply" class="btn-gold">Request Access</a>
