@@ -2327,15 +2327,18 @@ footer {
 
       if (locked) { e.preventDefault(); return; }
 
-      accum += e.deltaY;
-      if (Math.abs(accum) < 60) { e.preventDefault(); return; }
-
-      const dir  = accum > 0 ? 1 : -1;
-      accum = 0;
+      const dir  = e.deltaY > 0 ? 1 : -1;
       const next = Math.min(3, Math.max(1, current + dir));
-      if (next === current) return;
 
+      // At boundary — let the page scroll naturally
+      if (next === current) { accum = 0; return; }
+
+      // Can advance — block scroll and accumulate until threshold
       e.preventDefault();
+      accum += e.deltaY;
+      if (Math.abs(accum) < 60) return;
+
+      accum = 0;
       activateStep(next);
       locked = true;
       setTimeout(() => { locked = false; }, 1000);
