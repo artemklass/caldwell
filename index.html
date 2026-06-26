@@ -2305,43 +2305,90 @@ footer {
     const imgs  = document.querySelectorAll('.how-img');
     let current = 1;
     let locked  = false;
+    let accum   = 0;
 
     function activateStep(n) {
       current = n;
       steps.forEach(s => s.classList.remove('active'));
       imgs.forEach(i => i.classList.remove('active'));
-      const step = document.querySelector(`.how-step[data-step="${n}"]`);
-      const img  = document.querySelector(`.how-img[data-img="${n}"]`);
-      if (step) step.classList.add('active');
-      if (img)  img.classList.add('active');
+      document.querySelector(`.how-step[data-step="${n}"]`)?.classList.add('active');
+      document.querySelector(`.how-img[data-img="${n}"]`)?.classList.add('active');
+    }
+
+    function lock() {
+      locked = true;
+      setTimeout(() => { locked = false; accum = 0; }, 1000);
     }
 
     steps.forEach(s => s.addEventListener('click', () => activateStep(+s.dataset.step)));
 
-    let accum = 0;
+    let lastEntryDir = null;
 
     window.addEventListener('wheel', e => {
-      const rect = how.getBoundingClientRect();
-      const mid  = window.innerHeight / 2;
-      if (rect.top >= mid || rect.bottom <= mid) { accum = 0; return; }
+      const rect      = how.getBoundingClientRect();
+      const vh        = window.innerHeight;
+      const goingDown = e.deltaY > 0;
+      // centerSum = 2× the section's center position in the viewport
+      // equals vh when section center is exactly at viewport center
+      const centerSum = rect.top + rect.bottom;
+
+      // Freeze when section center has reached viewport center
+      // Down: section center at or above viewport center (centerSum <= vh)
+      // Up:   section center at or below viewport center (centerSum >= vh)
+      const inSection = goingDown
+        ? (centerSum <= vh && rect.bottom > 0)
+        : (centerSum >= vh && rect.top < vh);
+
+      if (!inSection) { accum = 0; lastEntryDir = null; return; }
+
+      // Fresh entry — reset to correct starting step and hold briefly
+      const entryDir = goingDown ? 'down' : 'up';
+      if (lastEntryDir !== entryDir && !locked) {
+        lastEntryDir = entryDir;
+        activateStep(goingDown ? 1 : 3);
+        locked = true;
+        setTimeout(() => { locked = false; accum = 0; }, 700);
+        e.preventDefault();
+        return;
+      }
 
       if (locked) { e.preventDefault(); return; }
 
-      const dir  = e.deltaY > 0 ? 1 : -1;
+      const dir  = goingDown ? 1 : -1;
       const next = Math.min(3, Math.max(1, current + dir));
-
-      // At boundary — let the page scroll naturally
       if (next === current) { accum = 0; return; }
 
-      // Can advance — block scroll and accumulate until threshold
       e.preventDefault();
       accum += e.deltaY;
-      if (Math.abs(accum) < 60) return;
+      if (Math.abs(accum) < 30) return;
 
       accum = 0;
       activateStep(next);
-      locked = true;
-      setTimeout(() => { locked = false; }, 1000);
+      lock();
+    }, { passive: false });
+
+    // Touch support
+    let touchY = 0;
+    window.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchmove', e => {
+      const rect      = how.getBoundingClientRect();
+      const vh        = window.innerHeight;
+      const delta     = touchY - e.touches[0].clientY;
+      const goingDown = delta > 0;
+      const centerSum = rect.top + rect.bottom;
+      const inSection = goingDown
+        ? (centerSum <= vh && rect.bottom > 0)
+        : (centerSum >= vh && rect.top < vh);
+      if (!inSection) return;
+      if (locked) { e.preventDefault(); return; }
+      if (Math.abs(delta) < 40) return;
+      const dir  = goingDown ? 1 : -1;
+      const next = Math.min(3, Math.max(1, current + dir));
+      if (next === current) return;
+      e.preventDefault();
+      touchY = e.touches[0].clientY;
+      activateStep(next);
+      lock();
     }, { passive: false });
   })();
 
