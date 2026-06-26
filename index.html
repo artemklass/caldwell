@@ -819,68 +819,113 @@ nav.scrolled {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 100px;
-  align-items: center;
+  gap: 80px;
+  align-items: start;
 }
 
-.steps { display: flex; flex-direction: column; position: relative; }
-
-.steps::before {
-  content: '';
-  position: absolute;
-  left: 19px;
-  top: 52px;
-  bottom: 52px;
-  width: 1px;
-  background: linear-gradient(180deg, rgba(12,21,39,0.2), transparent);
-}
-
-.step {
+.how-steps {
   display: flex;
-  gap: 24px;
-  padding: 14px 0;
-  align-items: flex-start;
+  flex-direction: column;
 }
 
-.step-n {
-  width: 40px; height: 40px;
-  border: 1px solid var(--border-light-md);
+.how-step {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 36px 0;
+  border-top: 1px solid var(--border-light-md);
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity 0.35s ease;
+}
+
+.how-step:last-child { border-bottom: 1px solid var(--border-light-md); }
+.how-step.active { opacity: 1; }
+
+.how-step-text { flex: 1; }
+
+.how-step-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.how-step-title {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 400;
+  color: var(--on-light);
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.how-step-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--on-light-dim);
+  line-height: 1.8;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.35s ease;
+  opacity: 0;
+}
+
+.how-step.active .how-step-desc {
+  max-height: 120px;
+  opacity: 1;
+}
+
+.how-step-num {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(52px, 5.5vw, 80px);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.2;
+  flex-shrink: 0;
+  transition: opacity 0.35s ease;
+}
+
+.how-step.active .how-step-num { opacity: 0.45; }
+
+.how-image-panel {
+  position: sticky;
+  top: 100px;
+  aspect-ratio: 3 / 4;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--navy-mid);
+}
+
+.how-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.how-img.active { opacity: 1; }
+
+.how-img-placeholder {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
-  background: var(--parchment);
-  transition: background 0.25s, border-color 0.25s;
 }
 
-.step:hover .step-n { background: var(--navy); border-color: var(--navy); }
-
-.step-n span {
-  font-family: 'Cormorant', serif;
-  font-size: 17px;
-  font-weight: 400;
-  color: var(--on-light-dim);
-  transition: color 0.25s;
-}
-
-.step:hover .step-n span { color: var(--parchment); }
-
-.step-body { padding-top: 6px; }
-
-.step-title {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--on-light);
-  margin-bottom: 5px;
-}
-
-.step-desc {
-  font-size: 15px;
-  font-weight: 300;
-  color: var(--on-light-dim);
-  line-height: 1.75;
+.how-img-placeholder svg {
+  width: 56px;
+  height: 56px;
+  opacity: 0.18;
 }
 
 /* ── MEMBERSHIP (DARK) ───────────────────────────────────────── */
@@ -1836,56 +1881,51 @@ footer {
   <div class="stat fade d3"><span class="stat-num">At-Home</span><span class="stat-label">Lab Draw</span></div>
 </div>
 
-<!-- WHAT IT IS - PARCHMENT -->
-<section class="what light" id="what">
-  <div class="what-inner">
-    <div>
-      <div class="eyebrow fade">
-        <div class="ey-line"></div>
-        <span class="ey-text">What It Is</span>
+<!-- HOW IT WORKS - PARCHMENT -->
+<section class="how light" id="how">
+  <div class="how-inner">
+
+    <div class="how-steps fade">
+      <h2 class="section-heading fade d1" style="margin-bottom:40px;">How It Works</h2>
+
+      <div class="how-step active" data-step="1">
+        <div class="how-step-text">
+          <div class="how-step-label">Step 01</div>
+          <div class="how-step-title">Book your consult</div>
+          <div class="how-step-desc">Fill out a short intake form, pick a time, and we'll schedule your blood draw.</div>
+        </div>
+        <div class="how-step-num">1</div>
       </div>
-      <h2 class="section-heading fade d1">Not a clinic.<br><em>A membership.</em></h2>
-      <p class="section-body fade d2" style="margin-bottom:20px;">
-        Caldwell is physician-supervised concierge health for South Florida's high-performing men - built for those who won't tolerate a 3-week wait and a 12-minute appointment.
-      </p>
-      <p class="section-body fade d2">
-        Your care team manages everything: your hormone optimization, your labs, your training, and your nutrition. Testosterone, metabolic health, body composition - one protocol, one relationship, nothing outsourced.
-      </p>
+
+      <div class="how-step" data-step="2">
+        <div class="how-step-text">
+          <div class="how-step-label">Step 02</div>
+          <div class="how-step-title">We come to you</div>
+          <div class="how-step-desc">A licensed professional draws your blood wherever works for you. Home, office, anywhere.</div>
+        </div>
+        <div class="how-step-num">2</div>
+      </div>
+
+      <div class="how-step" data-step="3">
+        <div class="how-step-text">
+          <div class="how-step-label">Step 03</div>
+          <div class="how-step-title">Meet with your physician</div>
+          <div class="how-step-desc">90 minutes with your doctor. He walks you through your results. You leave knowing exactly what's going on with your health.</div>
+        </div>
+        <div class="how-step-num">3</div>
+      </div>
     </div>
 
-    <div class="what-points">
-      <div class="what-point fade">
-        <div class="point-diamond"></div>
-        <div>
-          <div class="point-title">Everything managed. One membership.</div>
-          <div class="point-desc">Clinical, performance, and metabolic - managed as one. One package, one team, one relationship.</div>
-        </div>
-      </div>
-      <div class="what-point fade d1">
-        <div class="point-diamond"></div>
-        <div>
-          <div class="point-title">Same-day access. Your care team, always.</div>
-          <div class="point-desc">Direct messaging with your physician, trainer, and nutrition coach. 24-hour response window across the board.</div>
-        </div>
-      </div>
-      <div class="what-point fade d2">
-        <div class="point-diamond"></div>
-        <div>
-          <div class="point-title">Protocols that evolve. Not set-and-forgotten.</div>
-          <div class="point-desc">Quarterly physician reviews. Your protocol adjusts to your labs, symptoms, and performance.</div>
-        </div>
-      </div>
-      <div class="what-point fade d2">
-        <div class="point-diamond"></div>
-        <div>
-          <div class="point-title">Fully private. No digital trail.</div>
-          <div class="point-desc">No insurance billing. No claim submissions. Complete confidentiality. Medication delivered to your door.</div>
-        </div>
-      </div>
+    <div class="how-image-panel fade d1">
+      <img src="assets/step-1.jpg" alt="Step 1" class="how-img active" data-img="1">
+      <img src="assets/step-2.jpg" alt="Step 2" class="how-img" data-img="2">
+      <img src="assets/step-3.jpg" alt="Step 3" class="how-img" data-img="3">
     </div>
+
   </div>
 </section>
 
+<!-- WHAT IT IS - PARCHMENT -->
 <!-- INCLUDED - DARK -->
 <section class="included dark" id="included">
   <div class="included-inner">
@@ -1940,54 +1980,49 @@ footer {
   </div>
 </section>
 
-<!-- HOW IT WORKS - PARCHMENT -->
-<section class="how light" id="how">
-  <div class="how-inner">
+<section class="what light" id="what">
+  <div class="what-inner">
     <div>
       <div class="eyebrow fade">
         <div class="ey-line"></div>
-        <span class="ey-text">The Process</span>
+        <span class="ey-text">What It Is</span>
       </div>
-      <h2 class="section-heading fade d1">From application<br>to <em>protocol</em> in days.</h2>
+      <h2 class="section-heading fade d1">Not a clinic.<br><em>A membership.</em></h2>
+      <p class="section-body fade d2" style="margin-bottom:20px;">
+        Caldwell is physician-supervised concierge health for South Florida's high-performing men - built for those who won't tolerate a 3-week wait and a 12-minute appointment.
+      </p>
       <p class="section-body fade d2">
-        No lengthy onboarding. No forms designed for insurance. A streamlined intake built for South Florida executives - reviewed personally within 24 hours.
+        Your care team manages everything: your hormone optimization, your labs, your training, and your nutrition. Testosterone, metabolic health, body composition - one protocol, one relationship, nothing outsourced.
       </p>
     </div>
 
-    <div class="steps">
-      <div class="step fade">
-        <div class="step-n"><span>1</span></div>
-        <div class="step-body">
-          <div class="step-title">Submit your application</div>
-          <div class="step-desc">Tell us about your goals and health history. Reviewed personally within 24 hours.</div>
+    <div class="what-points">
+      <div class="what-point fade">
+        <div class="point-diamond"></div>
+        <div>
+          <div class="point-title">Everything managed. One membership.</div>
+          <div class="point-desc">Clinical, performance, and metabolic - managed as one. One package, one team, one relationship.</div>
         </div>
       </div>
-      <div class="step fade d1">
-        <div class="step-n"><span>2</span></div>
-        <div class="step-body">
-          <div class="step-title">Discovery call</div>
-          <div class="step-desc">A brief call to review your background, answer your questions, and confirm Caldwell is the right fit.</div>
+      <div class="what-point fade d1">
+        <div class="point-diamond"></div>
+        <div>
+          <div class="point-title">Same-day access. Your care team, always.</div>
+          <div class="point-desc">Direct messaging with your physician, trainer, and nutrition coach. 24-hour response window across the board.</div>
         </div>
       </div>
-      <div class="step fade d2">
-        <div class="step-n"><span>3</span></div>
-        <div class="step-body">
-          <div class="step-title">Invest $599 - labs + physician consult</div>
-          <div class="step-desc">A GetLabs phlebotomist comes to your door within 24–48 hours. 30+ biomarker panel drawn at home - no clinic required.</div>
+      <div class="what-point fade d2">
+        <div class="point-diamond"></div>
+        <div>
+          <div class="point-title">Protocols that evolve. Not set-and-forgotten.</div>
+          <div class="point-desc">Quarterly physician reviews. Your protocol adjusts to your labs, symptoms, and performance.</div>
         </div>
       </div>
-      <div class="step fade d3">
-        <div class="step-n"><span>4</span></div>
-        <div class="step-body">
-          <div class="step-title">90-minute consult with Dr. Jamison</div>
-          <div class="step-desc">Your labs reviewed in full. Your hormone protocol, training plan, and nutrition framework presented. Your $599 credited toward your first month.</div>
-        </div>
-      </div>
-      <div class="step fade d4">
-        <div class="step-n"><span>5</span></div>
-        <div class="step-body">
-          <div class="step-title">Membership begins</div>
-          <div class="step-desc">Pay the balance. Medication ships to your door. Your care team is active and proactively checking in from day one.</div>
+      <div class="what-point fade d2">
+        <div class="point-diamond"></div>
+        <div>
+          <div class="point-title">Fully private. No digital trail.</div>
+          <div class="point-desc">No insurance billing. No claim submissions. Complete confidentiality. Medication delivered to your door.</div>
         </div>
       </div>
     </div>
@@ -2262,6 +2297,44 @@ footer {
   }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
 
   document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+  // How It Works — stubborn scroll effect
+  (function() {
+    const how   = document.getElementById('how');
+    const steps = document.querySelectorAll('.how-step');
+    const imgs  = document.querySelectorAll('.how-img');
+    let current = 1;
+    let locked  = false;
+
+    function activateStep(n) {
+      current = n;
+      steps.forEach(s => s.classList.remove('active'));
+      imgs.forEach(i => i.classList.remove('active'));
+      const step = document.querySelector(`.how-step[data-step="${n}"]`);
+      const img  = document.querySelector(`.how-img[data-img="${n}"]`);
+      if (step) step.classList.add('active');
+      if (img)  img.classList.add('active');
+    }
+
+    steps.forEach(s => s.addEventListener('click', () => activateStep(+s.dataset.step)));
+
+    window.addEventListener('wheel', e => {
+      const rect      = how.getBoundingClientRect();
+      const inSection = rect.top <= 0 && rect.bottom >= window.innerHeight;
+      if (!inSection) return;
+
+      if (locked) { e.preventDefault(); return; }
+
+      const dir  = e.deltaY > 0 ? 1 : -1;
+      const next = Math.min(3, Math.max(1, current + dir));
+      if (next === current) return;
+
+      e.preventDefault();
+      activateStep(next);
+      locked = true;
+      setTimeout(() => { locked = false; }, 1000);
+    }, { passive: false });
+  })();
 
   // Testimonial carousel
   (function() {
