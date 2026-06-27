@@ -1111,6 +1111,14 @@ nav.scrolled {
   color: rgba(237,232,222,0.16);
   margin-bottom: 36px;
   display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.5s ease;
+}
+
+.mem-card-label.personalized {
+  color: rgba(214,188,94,0.95);
 }
 
 /* ── 3D card scene ── */
@@ -2103,7 +2111,7 @@ footer {
   <div class="apply-inner">
 
     <div class="apply-card-col fade">
-      <span class="mem-card-label">Reserve Member Card</span>
+      <span class="mem-card-label" id="memCardLabel">Reserve Member Card</span>
       <div class="card-shadow-wrap">
       <div class="card-3d-scene" id="cardScene">
         <div class="card-3d" id="reserveCard">
@@ -2496,13 +2504,19 @@ footer {
     }, { passive: true });
   })();
 
-  // Live name on card back
+  // Live name on card back, and on the "Reserve Member Card" label above it
   (function() {
-    var nameInput = document.getElementById('fullname');
-    var cardName  = document.getElementById('cardBackName');
-    if (!nameInput || !cardName) return;
+    var nameInput  = document.getElementById('fullname');
+    var cardName   = document.getElementById('cardBackName');
+    var cardLabel  = document.getElementById('memCardLabel');
+    if (!nameInput) return;
     nameInput.addEventListener('input', function() {
-      cardName.textContent = this.value.trim();
+      var name = this.value.trim();
+      if (cardName) cardName.textContent = name;
+      if (cardLabel) {
+        cardLabel.textContent = name || 'Reserve Member Card';
+        cardLabel.classList.toggle('personalized', !!name);
+      }
     });
   })();
 
