@@ -876,7 +876,7 @@ nav.scrolled {
 }
 
 .how-step.active .how-step-desc {
-  max-height: 120px;
+  max-height: 200px;
   opacity: 1;
 }
 
@@ -917,19 +917,6 @@ nav.scrolled {
 /* Per-step image — mobile only */
 .how-step-img { display: none; }
 
-.how-img-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.how-img-placeholder svg {
-  width: 56px;
-  height: 56px;
-  opacity: 0.18;
-}
 
 /* ── MEMBERSHIP (DARK) ───────────────────────────────────────── */
 .membership {
@@ -2388,10 +2375,11 @@ footer {
       lock();
     }, { passive: false });
 
-    // Touch support
+    // Touch support — desktop/tablet only, not mobile (mobile uses static layout)
     let touchY = 0;
     window.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
     window.addEventListener('touchmove', e => {
+      if (window.innerWidth <= 768) return;
       const rect      = how.getBoundingClientRect();
       const vh        = window.innerHeight;
       const delta     = touchY - e.touches[0].clientY;
