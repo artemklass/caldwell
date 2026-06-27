@@ -914,6 +914,9 @@ nav.scrolled {
 
 .how-img.active { opacity: 1; }
 
+/* Per-step image — mobile only */
+.how-step-img { display: none; }
+
 .how-img-placeholder {
   position: absolute;
   inset: 0;
@@ -1764,6 +1767,21 @@ footer {
   .how-inner,
   .membership-inner { grid-template-columns: 1fr; gap: 48px; }
 
+  /* How It Works — mobile: Rythm-style, photo after each step */
+  .how-image-panel { display: none; }
+  .how-step { opacity: 1 !important; flex-wrap: wrap; padding: 28px 0; }
+  .how-step-desc { max-height: none !important; opacity: 1 !important; }
+  .how-step-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-top: 20px;
+    order: 3;
+    flex-basis: 100%;
+  }
+
   .included-head { grid-template-columns: 1fr; gap: 24px; }
   .included-grid { grid-template-columns: 1fr; }
 
@@ -1895,6 +1913,7 @@ footer {
           <div class="how-step-desc">Fill out a short intake form, pick a time, and we'll schedule your blood draw.</div>
         </div>
         <div class="how-step-num">1</div>
+        <img src="assets/step-1.jpg" alt="Step 1" class="how-step-img">
       </div>
 
       <div class="how-step" data-step="2">
@@ -1904,6 +1923,7 @@ footer {
           <div class="how-step-desc">A licensed professional draws your blood wherever works for you. Home, office, anywhere.</div>
         </div>
         <div class="how-step-num">2</div>
+        <img src="assets/step-2.jpg" alt="Step 2" class="how-step-img">
       </div>
 
       <div class="how-step" data-step="3">
@@ -1913,6 +1933,7 @@ footer {
           <div class="how-step-desc">90 minutes with your doctor. He walks you through your results. You leave knowing exactly what's going on with your health.</div>
         </div>
         <div class="how-step-num">3</div>
+        <img src="assets/step-3.jpg" alt="Step 3" class="how-step-img">
       </div>
     </div>
 
