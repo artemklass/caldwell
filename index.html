@@ -2340,12 +2340,10 @@ footer {
       // equals vh when section center is exactly at viewport center
       const centerSum = rect.top + rect.bottom;
 
-      // Freeze when section center has reached viewport center
-      // Down: section center at or above viewport center (centerSum <= vh)
-      // Up:   section center at or below viewport center (centerSum >= vh)
-      const inSection = goingDown
-        ? (centerSum <= vh && rect.bottom > 0)
-        : (centerSum >= vh && rect.top < vh);
+      // Freeze only in a tight band around dead-center — not from the
+      // moment it crosses center all the way to full exit. Same band
+      // both scrolling down and scrolling up.
+      const inSection = Math.abs(centerSum - vh) < vh * 0.15;
 
       if (!inSection) { accum = 0; lastEntryDir = null; return; }
 
@@ -2385,9 +2383,7 @@ footer {
       const delta     = touchY - e.touches[0].clientY;
       const goingDown = delta > 0;
       const centerSum = rect.top + rect.bottom;
-      const inSection = goingDown
-        ? (centerSum <= vh && rect.bottom > 0)
-        : (centerSum >= vh && rect.top < vh);
+      const inSection = Math.abs(centerSum - vh) < vh * 0.15;
       if (!inSection) return;
       if (locked) { e.preventDefault(); return; }
       if (Math.abs(delta) < 40) return;
