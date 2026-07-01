@@ -2380,6 +2380,14 @@ footer {
 
       prevCenterSum = centerSum;
 
+      // Safety exit: if the section has drifted far from center while engaged
+      // (shouldn't happen during normal use since scroll is prevented, but
+      // releases any stuck state if the page position changed externally —
+      // e.g. user clicked a nav anchor mid-effect, or revisiting section).
+      if (Math.abs(centerSum - vh) > vh * 0.75) {
+        engaged = false; prevCenterSum = null; accum = 0; return;
+      }
+
       if (locked) { e.preventDefault(); return; }
 
       const dir  = goingDown ? 1 : -1;
