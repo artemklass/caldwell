@@ -709,17 +709,6 @@ nav.scrolled {
 }
 
 /* ── INCLUDED (DARK) ─────────────────────────────────────────── */
-.included { background: var(--navy); padding: 140px 64px; }
-.included-inner { max-width: 1160px; margin: 0 auto; }
-
-.included-head {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: end;
-  margin-bottom: 60px;
-}
-
 /* Dark section headings */
 .dark h2.section-heading {
   font-family: 'Cormorant', serif;
@@ -740,75 +729,166 @@ nav.scrolled {
   max-width: 540px;
 }
 
-.included-grid {
+/* ── PHYSICIAN SECTION ──────────────────────────────────────────── */
+.physician { background: var(--navy); padding: 140px 64px; }
+
+.physician-header {
+  max-width: 1160px;
+  margin: 0 auto 80px;
+  text-align: left;
+}
+
+.physician-section-heading {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(40px, 4.5vw, 62px);
+  font-weight: 300;
+  color: var(--on-dark);
+  line-height: 1.08;
+  margin-top: 20px;
+}
+
+.physician-section-heading em { font-style: italic; color: var(--gold-lt); }
+
+.physician-inner {
+  max-width: 1160px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border-dark);
+  grid-template-columns: 300px 1fr;
+  gap: 100px;
+  align-items: center;
 }
 
-.inc-card {
-  background: var(--navy-mid);
-  padding: 52px 40px;
+.physician-photo {
   position: relative;
-  overflow: hidden;
-  transition: background 0.3s;
 }
 
-.inc-card:hover { background: #0f2040; }
-
-.inc-card::before {
+.physician-photo::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0;
-  transition: opacity 0.4s;
+  inset: 0;
+  border: 1px solid rgba(201,168,76,0.22);
+  pointer-events: none;
 }
 
-.inc-card:hover::before { opacity: 0.55; }
-
-.inc-num {
-  font-family: 'Cormorant', serif;
-  font-size: 54px;
-  font-weight: 300;
-  color: rgba(201,168,76,0.09);
-  line-height: 1;
-  margin-bottom: 22px;
+.physician-img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
   display: block;
-  transition: color 0.3s;
+  filter: grayscale(12%) contrast(1.04);
 }
 
-.inc-card:hover .inc-num { color: rgba(201,168,76,0.15); }
+.physician-name {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 300;
+  color: var(--on-dark);
+  line-height: 1.05;
+  margin: 18px 0 8px;
+}
 
-.inc-title {
-  font-size: 9px;
+.physician-name em { font-style: italic; color: var(--gold-lt); }
+
+.physician-title-line {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: 3.5px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 20px;
+  opacity: 0.65;
+  margin-bottom: 38px;
+  line-height: 1.7;
 }
 
-.inc-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.physician-divider {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin-bottom: 30px;
+}
 
-.inc-list li {
+.physician-text {
   font-size: 15px;
   font-weight: 300;
   color: var(--on-dark-dim);
-  line-height: 1.55;
-  padding-left: 16px;
-  position: relative;
+  line-height: 1.85;
+  margin-bottom: 22px;
 }
 
-.inc-list li::before {
-  content: '-';
-  position: absolute;
-  left: 0;
-  color: rgba(201,168,76,0.3);
+.bio-more {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+.bio-more.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.bio-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin: 16px 0 0;
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.bio-toggle:hover { opacity: 1; }
+
+.physician-credentials {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+
+.credential {
+  flex: 1;
+  padding-right: 32px;
+  border-right: 1px solid rgba(201,168,76,0.15);
+  margin-right: 32px;
+}
+
+.credential:last-child {
+  border-right: none;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+.cred-label {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
   font-size: 9px;
-  top: 2px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.55;
+  margin-bottom: 7px;
+}
+
+.cred-value {
+  display: block;
+  font-family: 'Cormorant', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--on-dark);
+  line-height: 1.3;
 }
 
 /* ── HOW IT WORKS (PARCHMENT) ────────────────────────────────── */
@@ -1756,11 +1836,17 @@ footer {
   .stat:nth-child(2) { border-right: none; }
   .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
 
-  .what, .included, .how, .membership, .apply { padding: 80px 24px; }
+  .what, .physician, .how, .membership, .apply { padding: 80px 24px; }
 
   .what-inner,
+  .physician-inner,
   .how-inner,
   .membership-inner { grid-template-columns: 1fr; gap: 48px; }
+
+  .physician-img { aspect-ratio: 1 / 1; object-position: top center; }
+  .physician-credentials { flex-direction: column; gap: 20px; }
+  .credential { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid rgba(201,168,76,0.15); padding-bottom: 20px; }
+  .credential:last-child { border-bottom: none; padding-bottom: 0; }
 
   /* How It Works — mobile: Rythm-style, photo after each step */
   .how-image-panel { display: none; }
@@ -1777,8 +1863,6 @@ footer {
     flex-basis: 100%;
   }
 
-  .included-head { grid-template-columns: 1fr; gap: 24px; }
-  .included-grid { grid-template-columns: 1fr; }
 
   /* Tighten body text on mobile */
   .hero-body { font-size: 13px; line-height: 1.75; margin-bottom: 40px; }
@@ -1941,56 +2025,58 @@ footer {
   </div>
 </section>
 
-<!-- WHAT IT IS - PARCHMENT -->
-<!-- INCLUDED - DARK -->
-<section class="included dark" id="included">
-  <div class="included-inner">
-    <div class="included-head">
-      <div>
-        <div class="eyebrow fade">
-          <div class="ey-line"></div>
-          <span class="ey-text">Membership Includes</span>
-        </div>
-        <h2 class="section-heading fade d1">Three disciplines.<br><em>One protocol.</em></h2>
-      </div>
-      <p class="section-body fade d2" style="max-width:340px;">
-        Every aspect of your performance is managed in one place. No referrals. No hand-offs. No gaps between your clinical care and your physical output.
-      </p>
+<!-- PHYSICIAN PROFILE - DARK -->
+<section class="physician dark" id="physician">
+  <div class="physician-header">
+    <div class="eyebrow fade">
+      <div class="ey-line"></div>
+      <span class="ey-text">Your Physician</span>
     </div>
-
-    <div class="included-grid">
-      <div class="inc-card fade">
-        <span class="inc-num">01</span>
-        <div class="inc-title">Clinical</div>
-        <ul class="inc-list">
-          <li>MD-supervised hormone optimization</li>
-          <li>30+ marker baseline bloodwork panel</li>
-          <li>Quarterly physician review</li>
-          <li>Medication coordinated & delivered</li>
-          <li>Symptom tracking & protocol refinement</li>
-        </ul>
+    <h2 class="physician-section-heading fade d1">The doctor behind<br><em>every protocol.</em></h2>
+  </div>
+  <div class="physician-inner">
+    <div class="physician-photo">
+      <img src="assets/dr-jamison.jpg" alt="Dr. Scott Jamison, MD - Caldwell Private Health" class="physician-img">
+    </div>
+    <div class="physician-bio">
+      <h2 class="physician-name fade d1"><em>Dr.</em> Scott Jamison</h2>
+      <div class="physician-title-line fade d2">Board-Certified Internal Medicine &nbsp;&middot;&nbsp; Functional Medicine Certified Practitioner-Master</div>
+      <div class="physician-divider fade d2"></div>
+      <p class="physician-text fade d3">
+        Dr. Scott Jamison is a board-certified physician in Internal Medicine with nearly four decades of clinical experience dedicated to helping patients achieve lasting health through evidence-based, personalized care. After earning his medical degree from the University of Texas Southwestern Medical School, he completed his Internal Medicine residency at Baylor University Medical Center, where he developed a strong foundation in the diagnosis and treatment of complex adult medical conditions.
+      </p>
+      <p class="physician-text fade d3">
+        Throughout his 39-year career, Dr. Jamison has combined the principles of traditional Internal Medicine with the science of Functional Medicine to identify and address the root causes of chronic disease rather than simply treating symptoms. As a Functional Medicine Certified Practitioner-Master (FMCP-M), he integrates advanced diagnostics, lifestyle medicine, nutrition, targeted supplementation, and precision therapeutics to create individualized treatment plans for each patient.
+      </p>
+      <p class="physician-text fade d3">
+        His clinical focus includes preventive medicine, wellness optimization, hormone replacement therapy for men and women, age-management medicine, metabolic health, and longevity. Dr. Jamison is passionate about helping patients maintain vitality, preserve cognitive and physical function, optimize energy and performance, and reduce their long-term risk of chronic disease through proactive, evidence-based care.
+      </p>
+      <div class="bio-more" id="bioMore">
+        <p class="physician-text">
+          His approach emphasizes listening carefully to each patient's story, uncovering the underlying drivers of illness, and developing comprehensive treatment strategies that restore health and improve quality of life.
+        </p>
+        <p class="physician-text">
+          Dr. Jamison believes that the future of medicine lies in preventing disease before it occurs while helping individuals optimize health at every stage of life. His mission is to partner with patients to maximize longevity, enhance performance, and support healthy aging through scientifically grounded, individualized Functional Medicine.
+        </p>
       </div>
-      <div class="inc-card fade d1">
-        <span class="inc-num">02</span>
-        <div class="inc-title">Performance</div>
-        <ul class="inc-list">
-          <li>Programming built around your physiology</li>
-          <li>Adjusted to your schedule & targets</li>
-          <li>Coordinated with your clinical protocol</li>
-          <li>Ongoing output tracking & refinement</li>
-          <li>Direct access to your trainer</li>
-        </ul>
-      </div>
-      <div class="inc-card fade d2">
-        <span class="inc-num">03</span>
-        <div class="inc-title">Metabolic</div>
-        <ul class="inc-list">
-          <li>Dialed to your labs & goals</li>
-          <li>Integrated with your training load</li>
-          <li>Macro & micronutrient optimization</li>
-          <li>Adjusted quarterly with your bloodwork</li>
-          <li>Direct access to your nutrition coach</li>
-        </ul>
+      <button class="bio-toggle fade d3" id="bioToggle" onclick="toggleBio()">Read more &nbsp;+</button>
+      <div class="physician-credentials fade d4">
+        <div class="credential">
+          <span class="cred-label">Medical Degree</span>
+          <span class="cred-value">UT Southwestern Medical School</span>
+        </div>
+        <div class="credential">
+          <span class="cred-label">Medical Residency</span>
+          <span class="cred-value">Baylor University Medical Center</span>
+        </div>
+        <div class="credential">
+          <span class="cred-label">Clinical Experience</span>
+          <span class="cred-value">39 Years</span>
+        </div>
+        <div class="credential">
+          <span class="cred-label">Certification</span>
+          <span class="cred-value">FMCP-Master</span>
+        </div>
       </div>
     </div>
   </div>
@@ -2314,6 +2400,7 @@ footer {
 
   document.querySelectorAll('.fade').forEach(el => io.observe(el));
 
+
   // How It Works — stubborn scroll effect
   (function() {
     const how   = document.getElementById('how');
@@ -2600,6 +2687,13 @@ footer {
       }
     });
   })();
+
+  function toggleBio() {
+    const more = document.getElementById('bioMore');
+    const btn  = document.getElementById('bioToggle');
+    const open = more.classList.toggle('open');
+    btn.textContent = open ? 'Read less  -' : 'Read more  +';
+  }
 
 </script>
 </body>
