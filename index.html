@@ -663,74 +663,76 @@ nav.scrolled {
 
 .what-big-heading em { font-style: italic; }
 
-.what-columns {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  text-align: left;
-}
-
-.what-col-left { margin-bottom: 64px; }
-
-.what-col-right { }
-
-.what-quote {
+.what-intro {
   font-family: 'Cormorant', serif;
-  font-size: clamp(24px, 2.6vw, 38px);
+  font-size: clamp(18px, 1.9vw, 26px);
   font-weight: 300;
   font-style: italic;
   color: var(--on-dark);
+  opacity: 0.72;
+  max-width: 580px;
+  margin: 0 auto 72px;
   line-height: 1.6;
-  opacity: 0.92;
-  max-width: 480px;
 }
 
-.what-deliver-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.7;
-  margin-bottom: 28px;
-}
-
-/* Service cards grid */
-.service-grid {
+.what-feature-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(237,232,222,0.1);
+  border: 1px solid rgba(237,232,222,0.1);
+  text-align: left;
 }
 
-.service-card {
-  background: rgba(255,255,255,0.022);
-  border: 1px solid var(--border-dark-md);
-  padding: 36px 32px;
-  position: relative;
-  cursor: default;
-  transition: background 0.35s ease, border-color 0.35s ease;
+.wf-card {
+  background: rgba(255,255,255,0.028);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  position: relative;
 }
 
-.service-card::before {
+.wf-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 1.5px;
-  background: linear-gradient(90deg, var(--gold), transparent);
-  opacity: 0.28;
-  transition: opacity 0.35s ease;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(201,168,76,0.38), transparent 60%);
+  z-index: 1;
 }
 
-.service-card:hover {
-  background: rgba(201,168,76,0.035);
-  border-color: rgba(201,168,76,0.18);
+.wf-card--wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
 }
 
-.service-card:hover::before { opacity: 1; }
+.wf-card--wide .wf-body {
+  flex: 0 0 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid rgba(237,232,222,0.08);
+}
 
-.service-card-label {
+.wf-illus-side {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 340px;
+}
+
+.wf-illus-side svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wf-body {
+  padding: 40px 40px 28px;
+}
+
+.wf-num {
   font-family: 'DM Sans', sans-serif;
   font-size: 9px;
   font-weight: 500;
@@ -739,38 +741,28 @@ nav.scrolled {
   color: rgba(201,168,76,0.5);
   margin-bottom: 14px;
   display: block;
-  transition: color 0.35s ease;
 }
 
-.service-card:hover .service-card-label { color: var(--gold); }
-
-.service-card-name {
+.wf-title {
   font-family: 'Cormorant', serif;
-  font-size: clamp(18px, 1.6vw, 24px);
+  font-size: clamp(22px, 2vw, 30px);
   font-weight: 300;
   color: var(--on-dark);
-  line-height: 1.15;
-  margin-bottom: 0;
-  transition: color 0.35s ease;
+  line-height: 1.08;
+  margin-bottom: 12px;
 }
 
-.service-card:hover .service-card-name { color: #fff; }
-
-.service-card-desc {
+.wf-desc {
   font-size: 13px;
   font-weight: 300;
   color: var(--on-dark-dim);
-  line-height: 1.7;
-  margin-top: 16px;
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
+  line-height: 1.75;
 }
 
-.service-card:hover .service-card-desc {
-  max-height: 120px;
-  opacity: 1;
+.wf-illus {
+  width: 100%;
+  display: block;
+  margin-top: 32px;
 }
 
 
@@ -1226,7 +1218,7 @@ nav.scrolled {
 
 .how-img.active { opacity: 1; }
 
-/* Per-step image — mobile only */
+/* Per-step image - mobile only */
 .how-step-img { display: none; }
 
 
@@ -1441,7 +1433,7 @@ nav.scrolled {
   perspective: 900px;
 }
 
-/* Shadow lives outside the 3D context — filter breaks backface-visibility */
+/* Shadow lives outside the 3D context - filter breaks backface-visibility */
 .card-shadow-wrap {
   filter:
     drop-shadow(0 50px 100px rgba(0,0,0,0.98))
@@ -1479,7 +1471,7 @@ nav.scrolled {
   height: 100%;
   border-radius: 11px;
   background:
-    /* Strong ambient light from upper-right — matches the photo reference */
+    /* Strong ambient light from upper-right - matches the photo reference */
     radial-gradient(ellipse at 78% 18%, rgba(220,185,100,0.13) 0%, rgba(201,168,76,0.04) 35%, transparent 60%),
     /* Soft cool shadow lower-left */
     radial-gradient(ellipse at 15% 85%, rgba(0,8,25,0.55) 0%, transparent 55%),
@@ -1493,7 +1485,7 @@ nav.scrolled {
   overflow: hidden;
 }
 
-/* Directional shade — darkens the side turning away from the light */
+/* Directional shade - darkens the side turning away from the light */
 .card-shade {
   position: absolute;
   inset: 0;
@@ -1525,7 +1517,7 @@ nav.scrolled {
   pointer-events: none;
 }
 
-/* Dynamic metallic sheen — driven by JS --shine-x */
+/* Dynamic metallic sheen - driven by JS --shine-x */
 .card-front-body::after {
   content: '';
   position: absolute;
@@ -1603,7 +1595,7 @@ nav.scrolled {
   filter: drop-shadow(0 1px 1px rgba(0,0,0,0.9)) drop-shadow(0 -1px 0 rgba(255,245,180,0.15));
 }
 
-/* Back face — plain */
+/* Back face - plain */
 .card-face-back {
   background: linear-gradient(135deg,
     #3B1F07 0%, #7A5020 12%, #C9A84C 26%,
@@ -1655,7 +1647,7 @@ nav.scrolled {
   pointer-events: none;
 }
 
-/* Card edges — visible gold walls when rotating */
+/* Card edges - visible gold walls when rotating */
 .card-edge-left,
 .card-edge-right {
   position: absolute;
@@ -2080,7 +2072,7 @@ footer {
   .credential { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid rgba(201,168,76,0.15); padding-bottom: 20px; }
   .credential:last-child { border-bottom: none; padding-bottom: 0; }
 
-  /* How It Works — mobile: Rythm-style, photo after each step */
+  /* How It Works - mobile: Rythm-style, photo after each step */
   .how-image-panel { display: none; }
   .how-step { opacity: 1 !important; flex-wrap: wrap; padding: 28px 0; }
   .how-step-desc { max-height: none !important; opacity: 1 !important; }
@@ -2100,7 +2092,7 @@ footer {
   .hero-body { font-size: 13px; line-height: 1.75; margin-bottom: 40px; }
   .section-body { font-size: 13px; line-height: 1.75; }
   .hero-inner { gap: 24px; }
-  /* Hide second paragraph in What It Is on mobile — too text-heavy */
+  /* Hide second paragraph in What It Is on mobile - too text-heavy */
   .what-inner .section-body + .section-body { display: none; }
   /* Tighten apply section top padding on mobile */
   .apply { padding-top: 52px; }
@@ -2320,46 +2312,380 @@ footer {
 
     <h2 class="what-big-heading fade">The Caldwell <em>standard</em></h2>
 
-    <div class="what-columns">
+    <p class="what-intro fade d1">More drive, steady energy, sharp thinking, and a body that reflects it. Here's exactly what we build - and how we deliver it.</p>
 
-      <div class="what-col-left">
-        <p class="what-quote">More drive, steady energy, sharp thinking, and a body that reflects it. Your physician builds the protocol. Your coach builds the training and nutrition. All of it based on your bloodwork.</p>
+    <div class="what-feature-grid">
+
+      <!-- 01 - Foundation Lab Panel - WIDE -->
+      <div class="wf-card wf-card--wide">
+        <div class="wf-body">
+          <span class="wf-num">01</span>
+          <div class="wf-title">Foundation<br>Lab Panel</div>
+          <p class="wf-desc">40+ biomarkers. A licensed phlebotomist comes to your home. Results back in under a week. Dr. Jamison reviews everything before your consult - not just testosterone.</p>
+        </div>
+        <div class="wf-illus-side">
+          <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 700 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="700" height="340" fill="rgba(7,16,30,0.6)"/>
+            <text x="28" y="36" fill="rgba(201,168,76,0.45)" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">BIOMARKER RESULTS · INITIAL PANEL · 40+ MARKERS</text>
+            <line x1="28" y1="46" x2="672" y2="46" stroke="rgba(237,232,222,0.07)" stroke-width="1"/>
+            <!-- Column headers -->
+            <text x="260" y="64" fill="rgba(237,232,222,0.2)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">RESULT</text>
+            <text x="430" y="64" fill="rgba(237,232,222,0.2)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">VALUE</text>
+            <text x="560" y="64" fill="rgba(237,232,222,0.2)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">STATUS</text>
+            <!-- Row 1: Total T -->
+            <rect x="0" y="70" width="700" height="32" fill="rgba(237,232,222,0.015)"/>
+            <text x="28" y="90" fill="rgba(237,232,222,0.55)" font-size="11" font-family="DM Sans,sans-serif">Total Testosterone</text>
+            <rect x="258" y="81" width="155" height="5" rx="2.5" fill="rgba(237,232,222,0.05)"/>
+            <rect x="258" y="81" width="48" height="5" rx="2.5" fill="rgba(190,65,65,0.6)"/>
+            <text x="428" y="90" fill="rgba(237,232,222,0.38)" font-size="9.5" font-family="DM Sans,sans-serif">318 ng/dL</text>
+            <rect x="555" y="78" width="36" height="16" rx="2" fill="rgba(190,65,65,0.14)"/>
+            <text x="573" y="89" fill="rgba(220,80,80,0.9)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">LOW</text>
+            <!-- Row 2: DHEA-S -->
+            <text x="28" y="122" fill="rgba(237,232,222,0.55)" font-size="11" font-family="DM Sans,sans-serif">DHEA-S</text>
+            <rect x="258" y="113" width="155" height="5" rx="2.5" fill="rgba(237,232,222,0.05)"/>
+            <rect x="258" y="113" width="35" height="5" rx="2.5" fill="rgba(190,65,65,0.5)"/>
+            <text x="428" y="122" fill="rgba(237,232,222,0.38)" font-size="9.5" font-family="DM Sans,sans-serif">109 μg/dL</text>
+            <rect x="555" y="110" width="36" height="16" rx="2" fill="rgba(190,65,65,0.14)"/>
+            <text x="573" y="121" fill="rgba(220,80,80,0.9)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">LOW</text>
+            <!-- Row 3: IGF-1 -->
+            <rect x="0" y="134" width="700" height="32" fill="rgba(237,232,222,0.015)"/>
+            <text x="28" y="154" fill="rgba(237,232,222,0.55)" font-size="11" font-family="DM Sans,sans-serif">IGF-1</text>
+            <rect x="258" y="145" width="155" height="5" rx="2.5" fill="rgba(237,232,222,0.05)"/>
+            <rect x="258" y="145" width="100" height="5" rx="2.5" fill="rgba(201,168,76,0.5)"/>
+            <text x="428" y="154" fill="rgba(237,232,222,0.38)" font-size="9.5" font-family="DM Sans,sans-serif">204 ng/mL</text>
+            <rect x="551" y="142" width="44" height="16" rx="2" fill="rgba(201,168,76,0.1)"/>
+            <text x="573" y="153" fill="rgba(201,168,76,0.8)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">GOOD</text>
+            <!-- Row 4: Cortisol -->
+            <text x="28" y="186" fill="rgba(237,232,222,0.55)" font-size="11" font-family="DM Sans,sans-serif">Cortisol</text>
+            <rect x="258" y="177" width="155" height="5" rx="2.5" fill="rgba(237,232,222,0.05)"/>
+            <rect x="258" y="177" width="144" height="5" rx="2.5" fill="rgba(210,130,55,0.6)"/>
+            <text x="428" y="186" fill="rgba(237,232,222,0.38)" font-size="9.5" font-family="DM Sans,sans-serif">27.8 μg/dL</text>
+            <rect x="551" y="174" width="44" height="16" rx="2" fill="rgba(210,130,55,0.14)"/>
+            <text x="573" y="185" fill="rgba(220,150,60,0.95)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">HIGH</text>
+            <!-- Row 5: hs-CRP -->
+            <rect x="0" y="198" width="700" height="32" fill="rgba(237,232,222,0.015)"/>
+            <text x="28" y="218" fill="rgba(237,232,222,0.55)" font-size="11" font-family="DM Sans,sans-serif">hs-CRP</text>
+            <rect x="258" y="209" width="155" height="5" rx="2.5" fill="rgba(237,232,222,0.05)"/>
+            <rect x="258" y="209" width="72" height="5" rx="2.5" fill="rgba(201,168,76,0.45)"/>
+            <text x="428" y="218" fill="rgba(237,232,222,0.38)" font-size="9.5" font-family="DM Sans,sans-serif">1.4 mg/L</text>
+            <rect x="551" y="206" width="44" height="16" rx="2" fill="rgba(201,168,76,0.1)"/>
+            <text x="573" y="217" fill="rgba(201,168,76,0.8)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">GOOD</text>
+            <!-- Row 6: Thyroid -->
+            <text x="28" y="250" fill="rgba(237,232,222,0.55)" font-size="11" font-family="DM Sans,sans-serif">Free T3 / T4</text>
+            <rect x="258" y="241" width="155" height="5" rx="2.5" fill="rgba(237,232,222,0.05)"/>
+            <rect x="258" y="241" width="88" height="5" rx="2.5" fill="rgba(201,168,76,0.4)"/>
+            <text x="428" y="250" fill="rgba(237,232,222,0.38)" font-size="9.5" font-family="DM Sans,sans-serif">Within range</text>
+            <rect x="551" y="238" width="44" height="16" rx="2" fill="rgba(201,168,76,0.1)"/>
+            <text x="573" y="249" fill="rgba(201,168,76,0.8)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">GOOD</text>
+            <!-- Row 7: LH/FSH -->
+            <rect x="0" y="262" width="700" height="32" fill="rgba(237,232,222,0.015)"/>
+            <text x="28" y="282" fill="rgba(237,232,222,0.55)" font-size="11" font-family="DM Sans,sans-serif">LH / FSH</text>
+            <rect x="258" y="273" width="155" height="5" rx="2.5" fill="rgba(237,232,222,0.05)"/>
+            <rect x="258" y="273" width="25" height="5" rx="2.5" fill="rgba(190,65,65,0.45)"/>
+            <text x="428" y="282" fill="rgba(237,232,222,0.38)" font-size="9.5" font-family="DM Sans,sans-serif">Suppressed</text>
+            <rect x="555" y="270" width="36" height="16" rx="2" fill="rgba(190,65,65,0.14)"/>
+            <text x="573" y="281" fill="rgba(220,80,80,0.9)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">LOW</text>
+            <!-- Row 8: HbA1c -->
+            <text x="28" y="314" fill="rgba(237,232,222,0.4)" font-size="11" font-family="DM Sans,sans-serif">+ 33 more markers reviewed</text>
+            <defs><linearGradient id="g-wf01" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
+            <rect x="0" y="295" width="700" height="45" fill="url(#g-wf01)"/>
+          </svg>
+        </div>
       </div>
 
-      <div>
-        <div class="what-deliver-label">Everything included in your membership.</div>
-        <div class="service-grid">
-          <div class="service-card">
-            <div class="service-card-label">01</div>
-            <div class="service-card-name">Hormone Optimization</div>
-            <div class="service-card-desc">Physician-supervised protocol built around your labs. TRT, peptides, and ancillaries tailored to your biology.</div>
-          </div>
-          <div class="service-card">
-            <div class="service-card-label">02</div>
-            <div class="service-card-name">Personal Training</div>
-            <div class="service-card-desc">Structured training program built by your coach around your bloodwork, goals, and schedule.</div>
-          </div>
-          <div class="service-card">
-            <div class="service-card-label">03</div>
-            <div class="service-card-name">Nutrition Coaching</div>
-            <div class="service-card-desc">Nutrition plan designed around your labs and lifestyle — not a generic template.</div>
-          </div>
-          <div class="service-card">
-            <div class="service-card-label">04</div>
-            <div class="service-card-name">At-Home Lab Draw</div>
-            <div class="service-card-desc">30+ biomarker panel drawn at your home. No clinic visits, no waiting rooms.</div>
-          </div>
-          <div class="service-card">
-            <div class="service-card-label">05</div>
-            <div class="service-card-name">Physician Access</div>
-            <div class="service-card-desc">Direct 1-on-1 access to your doctor. 90-minute consults, ongoing availability, no middlemen.</div>
-          </div>
-          <div class="service-card">
-            <div class="service-card-label">06</div>
-            <div class="service-card-name">Progress Tracking</div>
-            <div class="service-card-desc">Regular lab retesting and protocol adjustments based on how your body responds over time.</div>
-          </div>
+      <!-- 02 - Physician Consult -->
+      <div class="wf-card">
+        <div class="wf-body">
+          <span class="wf-num">02</span>
+          <div class="wf-title">90-Minute<br>Physician Consult</div>
+          <p class="wf-desc">Dr. Jamison reviews your labs before the call. On the call he walks through every result in plain language - what's off, why it matters, and what he's going to do about it.</p>
         </div>
+        <svg class="wf-illus" viewBox="0 0 560 265" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="265" fill="rgba(7,16,30,0.6)"/>
+          <rect width="560" height="36" fill="rgba(201,168,76,0.05)"/>
+          <text x="18" y="22" fill="rgba(201,168,76,0.45)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2">PROTOCOL DOCUMENT · DR. SCOTT JAMISON</text>
+          <rect x="418" y="10" width="124" height="16" rx="3" fill="rgba(201,168,76,0.1)"/>
+          <text x="480" y="21" fill="rgba(201,168,76,0.65)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle">47:32 remaining</text>
+          <line x1="280" y1="36" x2="280" y2="248" stroke="rgba(237,232,222,0.07)" stroke-width="1"/>
+          <text x="18" y="56" fill="rgba(201,168,76,0.38)" font-size="7.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2">FINDINGS REVIEWED</text>
+          <line x1="18" y1="63" x2="268" y2="63" stroke="rgba(237,232,222,0.06)"/>
+          <circle cx="30" cy="83" r="7" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.35)" stroke-width="1"/>
+          <polyline points="26,83 29,86 35,79" stroke="rgba(201,168,76,0.75)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <text x="44" y="79" fill="rgba(237,232,222,0.65)" font-size="9.5" font-family="DM Sans,sans-serif">Total Testosterone</text>
+          <text x="44" y="91" fill="rgba(237,232,222,0.28)" font-size="8.5" font-family="DM Sans,sans-serif">318 - Target 700-900 ng/dL</text>
+          <circle cx="30" cy="112" r="7" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.35)" stroke-width="1"/>
+          <polyline points="26,112 29,115 35,108" stroke="rgba(201,168,76,0.75)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <text x="44" y="108" fill="rgba(237,232,222,0.65)" font-size="9.5" font-family="DM Sans,sans-serif">DHEA-S deficiency</text>
+          <text x="44" y="120" fill="rgba(237,232,222,0.28)" font-size="8.5" font-family="DM Sans,sans-serif">Supplement bridge ordered</text>
+          <circle cx="30" cy="141" r="7" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.35)" stroke-width="1"/>
+          <polyline points="26,141 29,144 35,137" stroke="rgba(201,168,76,0.75)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <text x="44" y="137" fill="rgba(237,232,222,0.65)" font-size="9.5" font-family="DM Sans,sans-serif">Elevated cortisol</text>
+          <text x="44" y="149" fill="rgba(237,232,222,0.28)" font-size="8.5" font-family="DM Sans,sans-serif">Lifestyle protocol added</text>
+          <circle cx="30" cy="170" r="7" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.12)" stroke-width="1"/>
+          <text x="44" y="166" fill="rgba(237,232,222,0.35)" font-size="9.5" font-family="DM Sans,sans-serif">hs-CRP within range</text>
+          <text x="44" y="178" fill="rgba(237,232,222,0.18)" font-size="8.5" font-family="DM Sans,sans-serif">Monitor quarterly</text>
+          <text x="292" y="56" fill="rgba(201,168,76,0.38)" font-size="7.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2">PRESCRIPTION PLAN</text>
+          <line x1="292" y1="63" x2="542" y2="63" stroke="rgba(237,232,222,0.06)"/>
+          <rect x="292" y="71" width="250" height="52" rx="3" fill="rgba(201,168,76,0.07)" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <rect x="292" y="71" width="2" height="52" rx="1" fill="rgba(201,168,76,0.65)"/>
+          <text x="303" y="89" fill="rgba(237,232,222,0.7)" font-size="10" font-family="DM Sans,sans-serif" font-weight="500">Testosterone Cypionate</text>
+          <text x="303" y="102" fill="rgba(237,232,222,0.38)" font-size="8.5" font-family="DM Sans,sans-serif">200mg/mL · 2x/week · subcutaneous</text>
+          <text x="303" y="116" fill="rgba(201,168,76,0.4)" font-size="8" font-family="DM Sans,sans-serif">503-A compounding pharmacy</text>
+          <rect x="292" y="132" width="250" height="52" rx="3" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.14)" stroke-width="1"/>
+          <rect x="292" y="132" width="2" height="52" rx="1" fill="rgba(201,168,76,0.4)"/>
+          <text x="303" y="150" fill="rgba(237,232,222,0.6)" font-size="10" font-family="DM Sans,sans-serif" font-weight="500">Sermorelin / GHRP-2</text>
+          <text x="303" y="163" fill="rgba(237,232,222,0.32)" font-size="8.5" font-family="DM Sans,sans-serif">5mg blend · daily · pre-sleep</text>
+          <text x="303" y="177" fill="rgba(201,168,76,0.32)" font-size="8" font-family="DM Sans,sans-serif">FDA-approved components</text>
+          <rect x="292" y="193" width="250" height="38" rx="3" fill="rgba(237,232,222,0.02)" stroke="rgba(237,232,222,0.07)" stroke-width="1"/>
+          <rect x="292" y="193" width="2" height="38" rx="1" fill="rgba(237,232,222,0.15)"/>
+          <text x="303" y="209" fill="rgba(237,232,222,0.38)" font-size="10" font-family="DM Sans,sans-serif">Anastrozole 0.25mg</text>
+          <text x="303" y="223" fill="rgba(237,232,222,0.22)" font-size="8.5" font-family="DM Sans,sans-serif">As needed · pending Q1 monitoring</text>
+          <defs><linearGradient id="g-wf02" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
+          <rect x="0" y="235" width="560" height="30" fill="url(#g-wf02)"/>
+        </svg>
+      </div>
+
+      <!-- 03 - Direct Doctor Access -->
+      <div class="wf-card">
+        <div class="wf-body">
+          <span class="wf-num">03</span>
+          <div class="wf-title">Direct Access<br>to Your Doctor</div>
+          <p class="wf-desc">Secure direct messaging with Dr. Jamison. You travel, your protocol changes - reach out and he adjusts. 24-hour response window, seven days a week.</p>
+        </div>
+        <svg class="wf-illus" viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="260" fill="rgba(7,16,30,0.55)"/>
+          <text x="24" y="30" fill="rgba(201,168,76,0.4)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">SECURE MESSAGING</text>
+          <line x1="24" y1="38" x2="536" y2="38" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <!-- Patient message -->
+          <rect x="24" y="52" width="330" height="48" rx="6" fill="rgba(237,232,222,0.05)" stroke="rgba(237,232,222,0.08)" stroke-width="1"/>
+          <text x="38" y="71" fill="rgba(237,232,222,0.55)" font-size="10" font-family="DM Sans,sans-serif">I have a work trip for 10 days.</text>
+          <text x="38" y="87" fill="rgba(237,232,222,0.55)" font-size="10" font-family="DM Sans,sans-serif">Will that affect the protocol?</text>
+          <text x="36" y="113" fill="rgba(237,232,222,0.22)" font-size="8.5" font-family="DM Sans,sans-serif">You · 9:14 AM</text>
+          <!-- Doctor response -->
+          <rect x="160" y="126" width="376" height="56" rx="6" fill="rgba(201,168,76,0.07)" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
+          <text x="174" y="145" fill="rgba(237,232,222,0.7)" font-size="10" font-family="DM Sans,sans-serif">I've adjusted your protocol for travel.</text>
+          <text x="174" y="161" fill="rgba(237,232,222,0.7)" font-size="10" font-family="DM Sans,sans-serif">Two injections this week, resume full on return.</text>
+          <text x="174" y="198" fill="rgba(201,168,76,0.4)" font-size="8.5" font-family="DM Sans,sans-serif">Dr. Jamison · &lt; 4h</text>
+          <!-- Response badge -->
+          <rect x="390" y="188" width="122" height="18" rx="3" fill="rgba(201,168,76,0.1)"/>
+          <text x="451" y="200" fill="rgba(201,168,76,0.6)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600" letter-spacing="1">24H RESPONSE</text>
+          <defs><linearGradient id="g-wf03" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
+          <rect x="0" y="228" width="560" height="32" fill="url(#g-wf03)"/>
+        </svg>
+      </div>
+
+      <!-- 04 - Quarterly Labs & Review -->
+      <div class="wf-card wf-card--wide">
+        <div class="wf-body">
+          <span class="wf-num">04</span>
+          <div class="wf-title">Quarterly Labs<br>&amp; Physician Review</div>
+          <p class="wf-desc">At-home draw every quarter. Full reassessment with Dr. Jamison every three months. Your protocol evolves with your numbers. The biggest changes come at 6 and 12 months.</p>
+        </div>
+        <div class="wf-illus-side">
+        <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 700 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="700" height="340" fill="rgba(7,16,30,0.6)"/>
+          <text x="40" y="46" fill="rgba(201,168,76,0.4)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">TOTAL TESTOSTERONE · ng/dL</text>
+          <line x1="40" y1="56" x2="660" y2="56" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <!-- Optimal range band -->
+          <rect x="80" y="110" width="560" height="60" fill="rgba(201,168,76,0.05)"/>
+          <text x="646" y="120" fill="rgba(201,168,76,0.35)" font-size="7.5" font-family="DM Sans,sans-serif" text-anchor="end">OPTIMAL</text>
+          <text x="646" y="175" fill="rgba(201,168,76,0.35)" font-size="7.5" font-family="DM Sans,sans-serif" text-anchor="end">RANGE</text>
+          <!-- Horizontal guides -->
+          <line x1="80" y1="110" x2="640" y2="110" stroke="rgba(201,168,76,0.12)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="80" y1="170" x2="640" y2="170" stroke="rgba(201,168,76,0.12)" stroke-width="1" stroke-dasharray="3 5"/>
+          <!-- Y axis labels -->
+          <text x="68" y="114" fill="rgba(237,232,222,0.25)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="end">800</text>
+          <text x="68" y="174" fill="rgba(237,232,222,0.25)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="end">400</text>
+          <text x="68" y="228" fill="rgba(237,232,222,0.25)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="end">200</text>
+          <!-- Data line: Intake(160,228), Q1(300,200), Q2(440,142), Q3(580,118) -->
+          <polyline points="160,228 300,200 440,142 580,118" stroke="rgba(201,168,76,0.7)" stroke-width="2" stroke-linejoin="round"/>
+          <polygon points="160,228 300,200 440,142 580,118 580,240 160,240" fill="rgba(201,168,76,0.04)"/>
+          <circle cx="160" cy="228" r="5" fill="#0d1a2e" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+          <circle cx="300" cy="200" r="5" fill="#0d1a2e" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+          <circle cx="440" cy="142" r="5" fill="#0d1a2e" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+          <circle cx="580" cy="118" r="7" fill="rgba(201,168,76,0.9)" stroke="rgba(201,168,76,0.9)" stroke-width="1.5"/>
+          <!-- X labels -->
+          <text x="160" y="264" fill="rgba(237,232,222,0.3)" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle">Intake</text>
+          <text x="300" y="264" fill="rgba(237,232,222,0.3)" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle">Q1</text>
+          <text x="440" y="264" fill="rgba(237,232,222,0.3)" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle">Q2</text>
+          <text x="580" y="264" fill="rgba(237,232,222,0.3)" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle">Q3</text>
+          <!-- Value callout on latest point -->
+          <rect x="524" y="90" width="80" height="22" rx="3" fill="rgba(201,168,76,0.15)"/>
+          <text x="564" y="105" fill="rgba(201,168,76,0.95)" font-size="10" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">710 ng/dL</text>
+          <!-- Intake value callout -->
+          <rect x="104" y="232" width="80" height="22" rx="3" fill="rgba(237,232,222,0.06)"/>
+          <text x="144" y="247" fill="rgba(237,232,222,0.4)" font-size="10" font-family="DM Sans,sans-serif" text-anchor="middle">318 ng/dL</text>
+          <defs><linearGradient id="g-wf04" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
+          <rect x="0" y="290" width="700" height="50" fill="url(#g-wf04)"/>
+        </svg>
+        </div>
+      </div>
+
+      <!-- 05 - Medications Compounded & Shipped -->
+      <div class="wf-card">
+        <div class="wf-body">
+          <span class="wf-num">05</span>
+          <div class="wf-title">Medications Compounded<br>&amp; Shipped</div>
+          <p class="wf-desc">503-A compounding pharmacies only - every prescription is patient-specific. Shipped to your door in 7–14 business days. Video instructions for self-injection included.</p>
+        </div>
+        <svg class="wf-illus" viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="260" fill="rgba(7,16,30,0.55)"/>
+          <text x="24" y="30" fill="rgba(201,168,76,0.4)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">CURRENT PRESCRIPTIONS</text>
+          <line x1="24" y1="38" x2="536" y2="38" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <!-- Rx 1 -->
+          <rect x="24" y="52" width="512" height="34" rx="4" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.07)" stroke-width="1"/>
+          <rect x="24" y="52" width="2" height="34" rx="1" fill="rgba(201,168,76,0.6)"/>
+          <text x="38" y="65" fill="rgba(237,232,222,0.65)" font-size="10.5" font-family="DM Sans,sans-serif" font-weight="500">Testosterone Cypionate</text>
+          <text x="38" y="79" fill="rgba(237,232,222,0.3)" font-size="9" font-family="DM Sans,sans-serif">200mg/mL · Compounded · Patient-specific</text>
+          <rect x="448" y="59" width="72" height="16" rx="3" fill="rgba(201,168,76,0.1)"/>
+          <text x="484" y="70" fill="rgba(201,168,76,0.7)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">ACTIVE</text>
+          <!-- Rx 2 -->
+          <rect x="24" y="96" width="512" height="34" rx="4" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.07)" stroke-width="1"/>
+          <rect x="24" y="96" width="2" height="34" rx="1" fill="rgba(201,168,76,0.6)"/>
+          <text x="38" y="109" fill="rgba(237,232,222,0.65)" font-size="10.5" font-family="DM Sans,sans-serif" font-weight="500">Sermorelin / GHRP-2</text>
+          <text x="38" y="123" fill="rgba(237,232,222,0.3)" font-size="9" font-family="DM Sans,sans-serif">5mg blend · Compounded · FDA-approved components</text>
+          <rect x="448" y="103" width="72" height="16" rx="3" fill="rgba(201,168,76,0.1)"/>
+          <text x="484" y="114" fill="rgba(201,168,76,0.7)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">ACTIVE</text>
+          <!-- Rx 3 -->
+          <rect x="24" y="140" width="512" height="34" rx="4" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.07)" stroke-width="1"/>
+          <rect x="24" y="140" width="2" height="34" rx="1" fill="rgba(237,232,222,0.15)"/>
+          <text x="38" y="153" fill="rgba(237,232,222,0.4)" font-size="10.5" font-family="DM Sans,sans-serif" font-weight="500">Anastrozole</text>
+          <text x="38" y="167" fill="rgba(237,232,222,0.2)" font-size="9" font-family="DM Sans,sans-serif">0.25mg · Ancillary · Prescribed as needed</text>
+          <rect x="448" y="147" width="72" height="16" rx="3" fill="rgba(237,232,222,0.04)"/>
+          <text x="484" y="158" fill="rgba(237,232,222,0.3)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">PENDING</text>
+          <defs><linearGradient id="g-wf05" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
+          <rect x="0" y="228" width="560" height="32" fill="url(#g-wf05)"/>
+        </svg>
+      </div>
+
+      <!-- 06 - Training Protocol -->
+      <div class="wf-card">
+        <div class="wf-body">
+          <span class="wf-num">06</span>
+          <div class="wf-title">Training<br>Protocol</div>
+          <p class="wf-desc">Built around your bloodwork and goals. 2, 3, or 4-day plans. Every exercise has a video walkthrough. Sessions under 30 minutes. Rebuilt every 12 weeks.</p>
+        </div>
+        <svg class="wf-illus" viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="260" fill="rgba(7,16,30,0.55)"/>
+          <text x="24" y="30" fill="rgba(201,168,76,0.4)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">WEEK 3 · TRAINING SCHEDULE</text>
+          <line x1="24" y1="38" x2="536" y2="38" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <!-- Day columns: MON TUE WED THU FRI SAT SUN -->
+          <!-- MON - Upper Body -->
+          <rect x="24" y="52" width="68" height="82" rx="4" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.22)" stroke-width="1"/>
+          <text x="58" y="68" fill="rgba(201,168,76,0.6)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">MON</text>
+          <text x="58" y="84" fill="rgba(237,232,222,0.7)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Upper</text>
+          <text x="58" y="96" fill="rgba(237,232,222,0.5)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Body</text>
+          <text x="58" y="125" fill="rgba(237,232,222,0.28)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle">28 min</text>
+          <!-- TUE - Rest -->
+          <rect x="100" y="52" width="68" height="82" rx="4" fill="rgba(237,232,222,0.02)" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <text x="134" y="68" fill="rgba(237,232,222,0.3)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">TUE</text>
+          <text x="134" y="96" fill="rgba(237,232,222,0.22)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Rest</text>
+          <!-- WED - Lower Body -->
+          <rect x="176" y="52" width="68" height="82" rx="4" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.22)" stroke-width="1"/>
+          <text x="210" y="68" fill="rgba(201,168,76,0.6)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">WED</text>
+          <text x="210" y="84" fill="rgba(237,232,222,0.7)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Lower</text>
+          <text x="210" y="96" fill="rgba(237,232,222,0.5)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Body</text>
+          <text x="210" y="125" fill="rgba(237,232,222,0.28)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle">32 min</text>
+          <!-- THU - Cardio -->
+          <rect x="252" y="52" width="68" height="82" rx="4" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.16)" stroke-width="1"/>
+          <text x="286" y="68" fill="rgba(201,168,76,0.5)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">THU</text>
+          <text x="286" y="89" fill="rgba(237,232,222,0.6)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Cardio</text>
+          <text x="286" y="125" fill="rgba(237,232,222,0.28)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle">35 min</text>
+          <!-- FRI - Upper Body -->
+          <rect x="328" y="52" width="68" height="82" rx="4" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.22)" stroke-width="1"/>
+          <text x="362" y="68" fill="rgba(201,168,76,0.6)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">FRI</text>
+          <text x="362" y="84" fill="rgba(237,232,222,0.7)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Upper</text>
+          <text x="362" y="96" fill="rgba(237,232,222,0.5)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Body</text>
+          <text x="362" y="125" fill="rgba(237,232,222,0.28)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle">28 min</text>
+          <!-- SAT - Active Recovery -->
+          <rect x="404" y="52" width="68" height="82" rx="4" fill="rgba(237,232,222,0.02)" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <text x="438" y="68" fill="rgba(237,232,222,0.3)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">SAT</text>
+          <text x="438" y="84" fill="rgba(237,232,222,0.22)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Active</text>
+          <text x="438" y="96" fill="rgba(237,232,222,0.22)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Recovery</text>
+          <!-- SUN - Rest -->
+          <rect x="480" y="52" width="56" height="82" rx="4" fill="rgba(237,232,222,0.02)" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <text x="508" y="68" fill="rgba(237,232,222,0.3)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">SUN</text>
+          <text x="508" y="96" fill="rgba(237,232,222,0.22)" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Rest</text>
+          <!-- Note -->
+          <text x="24" y="160" fill="rgba(237,232,222,0.22)" font-size="8.5" font-family="DM Sans,sans-serif">Built around your cortisol levels · Walking 35 min daily added to protocol</text>
+          <defs><linearGradient id="g-wf06" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
+          <rect x="0" y="228" width="560" height="32" fill="url(#g-wf06)"/>
+        </svg>
+      </div>
+
+      <!-- 07 - Nutrition Protocol -->
+      <div class="wf-card">
+        <div class="wf-body">
+          <span class="wf-num">07</span>
+          <div class="wf-title">Nutrition<br>Protocol</div>
+          <p class="wf-desc">Strict plan, photo-based coaching, or combined. Built for your schedule - travel, dining out, ordering in. Options built in so you never have to guess. Rebuilt every 12 weeks.</p>
+        </div>
+        <svg class="wf-illus" viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="260" fill="rgba(7,16,30,0.55)"/>
+          <text x="24" y="30" fill="rgba(201,168,76,0.4)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">NUTRITION COACHING MODE</text>
+          <line x1="24" y1="38" x2="536" y2="38" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <!-- Mode selector tabs -->
+          <rect x="24" y="52" width="155" height="28" rx="4" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.35)" stroke-width="1"/>
+          <text x="101" y="70" fill="rgba(201,168,76,0.9)" font-size="10" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="500">Strict Plan</text>
+          <rect x="187" y="52" width="155" height="28" rx="4" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.08)" stroke-width="1"/>
+          <text x="264" y="70" fill="rgba(237,232,222,0.4)" font-size="10" font-family="DM Sans,sans-serif" text-anchor="middle">Photo-Based</text>
+          <rect x="350" y="52" width="155" height="28" rx="4" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.08)" stroke-width="1"/>
+          <text x="427" y="70" fill="rgba(237,232,222,0.4)" font-size="10" font-family="DM Sans,sans-serif" text-anchor="middle">Combined</text>
+          <!-- Macro breakdown -->
+          <text x="24" y="104" fill="rgba(237,232,222,0.3)" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1.5">DAILY TARGETS</text>
+          <!-- Protein bar -->
+          <text x="24" y="124" fill="rgba(237,232,222,0.5)" font-size="9.5" font-family="DM Sans,sans-serif">Protein</text>
+          <rect x="90" y="115" width="380" height="6" rx="3" fill="rgba(237,232,222,0.05)"/>
+          <rect x="90" y="115" width="285" height="6" rx="3" fill="rgba(201,168,76,0.55)"/>
+          <text x="480" y="124" fill="rgba(237,232,222,0.35)" font-size="9" font-family="DM Sans,sans-serif">215g</text>
+          <!-- Carbs bar -->
+          <text x="24" y="144" fill="rgba(237,232,222,0.5)" font-size="9.5" font-family="DM Sans,sans-serif">Carbs</text>
+          <rect x="90" y="135" width="380" height="6" rx="3" fill="rgba(237,232,222,0.05)"/>
+          <rect x="90" y="135" width="190" height="6" rx="3" fill="rgba(201,168,76,0.35)"/>
+          <text x="480" y="144" fill="rgba(237,232,222,0.35)" font-size="9" font-family="DM Sans,sans-serif">140g</text>
+          <!-- Fat bar -->
+          <text x="24" y="164" fill="rgba(237,232,222,0.5)" font-size="9.5" font-family="DM Sans,sans-serif">Fat</text>
+          <rect x="90" y="155" width="380" height="6" rx="3" fill="rgba(237,232,222,0.05)"/>
+          <rect x="90" y="155" width="130" height="6" rx="3" fill="rgba(201,168,76,0.28)"/>
+          <text x="480" y="164" fill="rgba(237,232,222,0.35)" font-size="9" font-family="DM Sans,sans-serif">72g</text>
+          <defs><linearGradient id="g-wf07" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
+          <rect x="0" y="228" width="560" height="32" fill="url(#g-wf07)"/>
+        </svg>
+      </div>
+
+      <!-- 08 - Daily Check-ins -->
+      <div class="wf-card">
+        <div class="wf-body">
+          <span class="wf-num">08</span>
+          <div class="wf-title">Proactive<br>Daily Check-ins</div>
+          <p class="wf-desc">One message from your coaches every morning. Your plan, your workouts, your meals. Weekly feedback. Both coaches are always tracking - you don't have to.</p>
+        </div>
+        <svg class="wf-illus" viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="260" fill="rgba(7,16,30,0.55)"/>
+          <text x="24" y="30" fill="rgba(201,168,76,0.4)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">TODAY · FRI JUL 18</text>
+          <line x1="24" y1="38" x2="536" y2="38" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <!-- Check item 1 -->
+          <rect x="24" y="52" width="512" height="32" rx="4" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <circle cx="44" cy="68" r="8" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+          <polyline points="39,68 43,72 50,63" stroke="rgba(201,168,76,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="62" y="65" fill="rgba(237,232,222,0.65)" font-size="10" font-family="DM Sans,sans-serif">Upper Body - 4 exercises</text>
+          <text x="62" y="79" fill="rgba(237,232,222,0.28)" font-size="8.5" font-family="DM Sans,sans-serif">Completed · 26 min</text>
+          <!-- Check item 2 -->
+          <rect x="24" y="94" width="512" height="32" rx="4" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
+          <circle cx="44" cy="110" r="8" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+          <polyline points="39,110 43,114 50,105" stroke="rgba(201,168,76,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="62" y="107" fill="rgba(237,232,222,0.65)" font-size="10" font-family="DM Sans,sans-serif">Morning check-in photo</text>
+          <text x="62" y="121" fill="rgba(237,232,222,0.28)" font-size="8.5" font-family="DM Sans,sans-serif">Sent · Coach reviewed</text>
+          <!-- Check item 3 - pending -->
+          <rect x="24" y="136" width="512" height="32" rx="4" fill="rgba(237,232,222,0.02)" stroke="rgba(237,232,222,0.05)" stroke-width="1"/>
+          <circle cx="44" cy="152" r="8" fill="rgba(237,232,222,0.03)" stroke="rgba(237,232,222,0.15)" stroke-width="1"/>
+          <text x="62" y="149" fill="rgba(237,232,222,0.4)" font-size="10" font-family="DM Sans,sans-serif">Evening nutrition log</text>
+          <text x="62" y="163" fill="rgba(237,232,222,0.2)" font-size="8.5" font-family="DM Sans,sans-serif">Pending · Target 2,180 kcal</text>
+          <rect x="470" y="142" width="60" height="16" rx="3" fill="rgba(237,232,222,0.04)"/>
+          <text x="500" y="153" fill="rgba(237,232,222,0.3)" font-size="8" font-family="DM Sans,sans-serif" text-anchor="middle">Tonight</text>
+          <defs><linearGradient id="g-wf08" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
+          <rect x="0" y="228" width="560" height="32" fill="url(#g-wf08)"/>
+        </svg>
       </div>
 
     </div>
@@ -2641,7 +2967,7 @@ footer {
 
 
 
-  // How It Works — stubborn scroll effect
+  // How It Works - stubborn scroll effect
   (function() {
     const how   = document.getElementById('how');
     const steps = document.querySelectorAll('.how-step');
@@ -2675,14 +3001,14 @@ footer {
       // equals vh when section center is exactly at viewport center
       const centerSum = rect.top + rect.bottom;
 
-      // Freeze only in a tight band around dead-center — not from the
+      // Freeze only in a tight band around dead-center - not from the
       // moment it crosses center all the way to full exit. Same band
       // both scrolling down and scrolling up.
       const inSection = Math.abs(centerSum - vh) < vh * 0.15;
 
       if (!inSection) { accum = 0; lastEntryDir = null; return; }
 
-      // Fresh entry — reset to correct starting step and hold briefly
+      // Fresh entry - reset to correct starting step and hold briefly
       const entryDir = goingDown ? 'down' : 'up';
       if (lastEntryDir !== entryDir && !locked) {
         lastEntryDir = entryDir;
@@ -2708,7 +3034,7 @@ footer {
       lock();
     }, { passive: false });
 
-    // Touch support — desktop/tablet only, not mobile (mobile uses static layout)
+    // Touch support - desktop/tablet only, not mobile (mobile uses static layout)
     let touchY = 0;
     window.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
     window.addEventListener('touchmove', e => {
@@ -2770,13 +3096,13 @@ footer {
     });
   })();
 
-  // Reserve card — scroll-driven rotation + slow auto-spin
+  // Reserve card - scroll-driven rotation + slow auto-spin
   (function() {
     var card  = document.getElementById('reserveCard');
     var scene = document.getElementById('cardScene');
     if (!card || !scene) return;
 
-    var AUTO_SPEED   = 16.0; // deg/second — full rotation ~22 sec
+    var AUTO_SPEED   = 16.0; // deg/second - full rotation ~22 sec
     var autoAngle    = 12;
     var scrollOffset = 0;
     var currentAngle = 12;
