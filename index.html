@@ -614,6 +614,101 @@ nav.scrolled {
   color: var(--on-dark-faint);
 }
 
+.dock-wrap {
+  background: var(--navy);
+  border-bottom: 1px solid var(--border-dark);
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  height: 116px;
+  position: relative;
+}
+
+.dock-label {
+  flex: 0 0 auto;
+  padding: 0 40px;
+  font-family: 'Cormorant', serif;
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(201,168,76,0.9);
+  border-right: 1px solid rgba(237,232,222,0.1);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
+  background: var(--navy);
+  position: relative;
+  z-index: 2;
+}
+
+.dock-track {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  cursor: default;
+  position: relative;
+}
+
+.dock-track::before,
+.dock-track::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.dock-track::before {
+  left: 0;
+  background: linear-gradient(to right, var(--navy), transparent);
+}
+.dock-track::after {
+  right: 0;
+  background: linear-gradient(to left, var(--navy), transparent);
+}
+
+.dock-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  padding: 0 20px;
+  animation: dock-scroll 70s linear infinite;
+}
+
+.dock-track:hover .dock-inner {
+  animation-play-state: paused;
+}
+
+.dock-pill {
+  flex-shrink: 0;
+  background: rgba(201,168,76,0.05);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 10px;
+  padding: 18px 30px;
+  transform-origin: bottom center;
+  transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+  will-change: transform;
+}
+
+.dock-pill-name {
+  font-family: 'Cormorant', serif;
+  font-size: 19px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--on-dark);
+  white-space: nowrap;
+  display: block;
+  line-height: 1;
+}
+
+@keyframes dock-scroll {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
 /* ── SECTION SHARED ──────────────────────────────────────────── */
 .eyebrow {
   display: flex;
@@ -2208,8 +2303,36 @@ footer {
 <div class="stats">
   <div class="stat fade"><span class="stat-num">1-on-1</span><span class="stat-label">Physician Access</span></div>
   <div class="stat fade d1"><span class="stat-num">90</span><span class="stat-label">Min Physician Consult</span></div>
-  <div class="stat fade d2"><span class="stat-num">30+</span><span class="stat-label">Biomarker Panel</span></div>
+  <div class="stat fade d2"><span class="stat-num">40+</span><span class="stat-label">Biomarker Panel</span></div>
   <div class="stat fade d3"><span class="stat-num">At-Home</span><span class="stat-label">Lab Draw</span></div>
+</div>
+
+<div class="dock-wrap">
+  <span class="dock-label">All in 1<br>Membership</span>
+  <div class="dock-track">
+    <div class="dock-inner">
+      <div class="dock-pill"><span class="dock-pill-name">Hormone Optimization</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Gut Health</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Preventive Health</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Personal Training</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Nutrition Coaching</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Direct Access to Your Doctor</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Quarterly Lab Review</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Foundation Lab Panel</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Daily Check-ins</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Compounded Medications</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Hormone Optimization</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Gut Health</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Preventive Health</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Personal Training</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Nutrition Coaching</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Direct Access to Your Doctor</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Quarterly Lab Review</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Foundation Lab Panel</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Daily Check-ins</span></div>
+      <div class="dock-pill"><span class="dock-pill-name">Compounded Medications</span></div>
+    </div>
+  </div>
 </div>
 
 <!-- HOW IT WORKS - PARCHMENT -->
@@ -2952,6 +3075,38 @@ footer {
   }
 
   function toggleBio() {
+  // Dock magnification
+  (function() {
+    var track = document.querySelector('.dock-track');
+    var pills = document.querySelectorAll('.dock-pill');
+    if (!track) return;
+    track.addEventListener('mousemove', function(e) {
+      pills.forEach(function(pill) {
+        var rect = pill.getBoundingClientRect();
+        var center = rect.left + rect.width / 2;
+        var dist = Math.abs(e.clientX - center);
+        var maxDist = 200;
+        var maxScale = 1.55;
+        var scale = dist < maxDist
+          ? 1 + (maxScale - 1) * Math.pow(Math.max(0, 1 - dist / maxDist), 1.6)
+          : 1;
+        pill.style.transform = 'scale(' + scale.toFixed(3) + ')';
+        var alpha = Math.max(0, (scale - 1) / (maxScale - 1) * 0.18);
+        pill.style.background = 'rgba(201,168,76,' + alpha.toFixed(3) + ')';
+        pill.style.borderColor = scale > 1.05
+          ? 'rgba(201,168,76,' + (0.2 + (scale - 1) * 0.5).toFixed(2) + ')'
+          : '';
+      });
+    });
+    track.addEventListener('mouseleave', function() {
+      pills.forEach(function(pill) {
+        pill.style.transform = '';
+        pill.style.background = '';
+        pill.style.borderColor = '';
+      });
+    });
+  })();
+
     const more = document.getElementById('bioMore');
     const btn  = document.getElementById('bioToggle');
     const open = more.classList.toggle('open');
