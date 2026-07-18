@@ -620,15 +620,15 @@ nav.scrolled {
   display: flex;
   align-items: stretch;
   overflow: hidden;
-  height: 116px;
+  height: 160px;
   position: relative;
 }
 
 .dock-label {
   flex: 0 0 auto;
-  padding: 0 40px;
+  padding: 0 56px;
   font-family: 'Cormorant', serif;
-  font-size: 18px;
+  font-size: 26px;
   font-weight: 300;
   font-style: italic;
   color: rgba(201,168,76,0.9);
@@ -672,9 +672,9 @@ nav.scrolled {
 .dock-inner {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   width: max-content;
-  padding: 0 20px;
+  padding: 0 24px;
   animation: dock-scroll 70s linear infinite;
 }
 
@@ -686,8 +686,8 @@ nav.scrolled {
   flex-shrink: 0;
   background: rgba(201,168,76,0.05);
   border: 1px solid rgba(201,168,76,0.2);
-  border-radius: 10px;
-  padding: 18px 30px;
+  border-radius: 12px;
+  padding: 26px 44px;
   transform-origin: bottom center;
   transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
   will-change: transform;
@@ -695,7 +695,7 @@ nav.scrolled {
 
 .dock-pill-name {
   font-family: 'Cormorant', serif;
-  font-size: 19px;
+  font-size: 26px;
   font-weight: 300;
   font-style: italic;
   color: var(--on-dark);
@@ -2229,26 +2229,14 @@ footer {
     padding: 16px 24px;
     border-right: none;
     border-bottom: 1px solid rgba(237,232,222,0.08);
-    font-size: 16px;
+    font-size: 20px;
     justify-content: center;
     text-align: center;
   }
-  .dock-track {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 20px 0;
-  }
-  .dock-track::-webkit-scrollbar { display: none; }
-  .dock-track::before, .dock-track::after { display: none; }
-  .dock-inner {
-    animation: none;
-    padding: 0 24px;
-    gap: 10px;
-  }
-  .dock-pill { padding: 14px 22px; }
-  .dock-pill-name { font-size: 16px; }
+  .dock-track { overflow: hidden; padding: 20px 0; }
+  .dock-inner { animation: dock-scroll 50s linear infinite; padding: 0 16px; gap: 10px; }
+  .dock-pill { padding: 18px 28px; }
+  .dock-pill-name { font-size: 20px; }
 
   .price-block { padding: 32px 24px; }
   footer { padding: 28px 20px; }
