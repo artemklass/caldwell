@@ -640,15 +640,12 @@ nav.scrolled {
 .what {
   background: var(--navy-mid);
   padding: 100px 64px 140px;
-  position: relative;
 }
 
 .what-inner {
   max-width: 1160px;
   margin: 0 auto;
   text-align: center;
-  position: relative;
-  z-index: 1;
 }
 
 .what-big-heading {
@@ -776,22 +773,6 @@ nav.scrolled {
   opacity: 1;
 }
 
-/* Pen-draw thread SVG */
-.what-thread {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: visible;
-}
-.what-thread-path {
-  fill: none;
-  stroke: rgba(201,168,76,0.44);
-  stroke-width: 1.2px;
-  stroke-linecap: round;
-}
 
 
 /* Light-mode section heading */
@@ -2335,12 +2316,7 @@ footer {
 
 <section class="what dark" id="what">
 
-  <!-- Pen-draw guide thread -->
-  <svg class="what-thread" aria-hidden="true">
-    <path id="whatThreadPath" class="what-thread-path"/>
-  </svg>
-
-  <div class="what-inner">
+<div class="what-inner">
 
     <h2 class="what-big-heading fade">The Caldwell <em>standard</em></h2>
 
@@ -2663,106 +2639,6 @@ footer {
   document.querySelectorAll('.fade').forEach(el => io.observe(el));
 
 
-  // What section — pen-draw thread
-  (function() {
-    const section = document.getElementById('what');
-    const svg     = section ? section.querySelector('.what-thread') : null;
-    const path    = document.getElementById('whatThreadPath');
-    if (!section || !svg || !path) return;
-
-    let len = 0;
-    let phase = 0;
-    let p1Start = null;
-    const PHASE1_END  = 0.52;
-    const PHASE1_SECS = 1.9;
-
-
-    function buildPath() {
-      const sr      = section.getBoundingClientRect();
-      const heading = section.querySelector('.what-big-heading');
-      const quote   = section.querySelector('.what-quote');
-      const deliver = section.querySelector('.what-deliver-label');
-      if (!heading || !quote || !deliver) return false;
-
-      const em = heading.querySelector('em');
-      const er = (em || heading).getBoundingClientRect();
-      const qr = quote.getBoundingClientRect();
-      const dr = deliver.getBoundingClientRect();
-
-      // Start: right edge, vertical center of the letter D in "standard"
-      const hx      = er.right - sr.left;
-      const hy      = er.top + er.height * 0.5 - sr.top;
-      const qxRight = qr.right - sr.left + 28;
-      const qyEnd   = qr.bottom - sr.top;
-      const dx      = dr.left - sr.left + 18;
-      const dy      = dr.top  - sr.top;
-
-      svg.setAttribute('viewBox', `0 0 ${sr.width} ${sr.height}`);
-
-      // Arc 1: out of D, sweeps right, wraps the quote, lands at bottom-right of quote
-      const farR  = Math.max(hx, qxRight) + 220;
-      const cp1x  = farR;
-      const cp1y  = hy    + (qyEnd - hy) * 0.18;
-      const cp2x  = farR;
-      const cp2y  = hy    + (qyEnd - hy) * 0.82;
-      // Arc 2: descends from quote bottom-right, curves left to deliver label
-      const cp3x  = qxRight + 10;
-      const cp3y  = qyEnd   + (dy - qyEnd) * 0.45;
-      const cp4x  = dx + 100;
-      const cp4y  = dy - (dy - qyEnd) * 0.22;
-
-      path.setAttribute('d',
-        `M ${hx} ${hy} ` +
-        `C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${qxRight} ${qyEnd} ` +
-        `C ${cp3x} ${cp3y}, ${cp4x} ${cp4y}, ${dx} ${dy}`
-      );
-
-      len = path.getTotalLength();
-      path.style.strokeDasharray = len;
-      if (phase === 0) path.style.strokeDashoffset = len;
-      return true;
-    }
-
-    function set(p) {
-      if (!len) return;
-      path.style.strokeDashoffset = len * (1 - Math.max(0, Math.min(1, p)));
-    }
-
-    function tickPhase1(ts) {
-      if (!p1Start) p1Start = ts;
-      const t = Math.min(1, (ts - p1Start) / (PHASE1_SECS * 1000));
-      set(PHASE1_END * (1 - Math.pow(1 - t, 3)));
-      if (t < 1) { requestAnimationFrame(tickPhase1); }
-      else        { set(PHASE1_END); phase = 2; }
-    }
-
-    function onScroll() {
-      if (phase !== 2) return;
-      const rect = section.getBoundingClientRect();
-      const vh   = window.innerHeight;
-      const raw  = (vh * 0.55 - rect.top) / (rect.height * 0.55);
-      set(PHASE1_END + Math.max(0, Math.min(1 - PHASE1_END, (1 - PHASE1_END) * raw)));
-    }
-
-    const trigger = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && phase === 0) {
-        phase = 1; p1Start = null;
-        requestAnimationFrame(tickPhase1);
-        trigger.unobserve(section);
-      }
-    }, { threshold: 0.1 });
-
-    function init() {
-      if (buildPath()) {
-        trigger.observe(section);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', () => { buildPath(); }, { passive: true });
-      }
-    }
-
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-    else setTimeout(init, 0);
-  })();
 
 
   // How It Works — stubborn scroll effect
