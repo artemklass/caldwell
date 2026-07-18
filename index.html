@@ -615,8 +615,9 @@ nav.scrolled {
 }
 
 .dock-wrap {
-  background: var(--navy);
-  border-bottom: 1px solid var(--border-dark);
+  background: linear-gradient(180deg, #081324 0%, var(--navy) 100%);
+  border-top: 1px solid rgba(201,168,76,0.18);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
   display: flex;
   align-items: stretch;
   overflow: hidden;
@@ -626,20 +627,21 @@ nav.scrolled {
 
 .dock-label {
   flex: 0 0 auto;
-  padding: 0 56px;
+  padding: 0 60px;
   font-family: 'Cormorant', serif;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 300;
   font-style: italic;
-  color: rgba(201,168,76,0.9);
-  border-right: 1px solid rgba(237,232,222,0.1);
+  color: var(--gold);
+  border-right: 1px solid rgba(201,168,76,0.15);
   white-space: nowrap;
   display: flex;
   align-items: center;
   line-height: 1.3;
-  background: var(--navy);
+  background: transparent;
   position: relative;
   z-index: 2;
+  letter-spacing: 0.3px;
 }
 
 .dock-track {
@@ -656,13 +658,13 @@ nav.scrolled {
   content: '';
   position: absolute;
   top: 0; bottom: 0;
-  width: 80px;
+  width: 120px;
   z-index: 2;
   pointer-events: none;
 }
 .dock-track::before {
   left: 0;
-  background: linear-gradient(to right, var(--navy), transparent);
+  background: linear-gradient(to right, #081324, transparent);
 }
 .dock-track::after {
   right: 0;
@@ -672,19 +674,18 @@ nav.scrolled {
 .dock-inner {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   width: max-content;
-  padding: 0 24px;
+  padding: 0 28px;
   animation: dock-scroll 70s linear infinite;
 }
 
-
 .dock-pill {
   flex-shrink: 0;
-  background: rgba(201,168,76,0.05);
-  border: 1px solid rgba(201,168,76,0.2);
-  border-radius: 12px;
-  padding: 26px 44px;
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: 100px;
+  padding: 20px 48px;
   transform-origin: bottom center;
   transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
   will-change: transform;
@@ -692,13 +693,14 @@ nav.scrolled {
 
 .dock-pill-name {
   font-family: 'Cormorant', serif;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 300;
   font-style: italic;
-  color: var(--on-dark);
+  color: rgba(237,232,222,0.88);
   white-space: nowrap;
   display: block;
   line-height: 1;
+  letter-spacing: 0.2px;
 }
 
 @keyframes dock-scroll {
@@ -2317,38 +2319,13 @@ footer {
 
 </section>
 
+
 <!-- STATS BAR -->
 <div class="stats">
   <div class="stat fade"><span class="stat-num">1-on-1</span><span class="stat-label">Physician Access</span></div>
   <div class="stat fade d1"><span class="stat-num">90</span><span class="stat-label">Min Physician Consult</span></div>
   <div class="stat fade d2"><span class="stat-num">40+</span><span class="stat-label">Biomarker Panel</span></div>
   <div class="stat fade d3"><span class="stat-num">At-Home</span><span class="stat-label">Lab Draw</span></div>
-</div>
-
-<div class="dock-wrap">
-  <span class="dock-label">All in 1<br>Membership</span>
-  <div class="dock-track">
-    <div class="dock-inner">
-      <div class="dock-pill"><span class="dock-pill-name">Hormone Optimization</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Gut Health</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Preventive Health</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Personal Training</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Nutrition Coaching</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Direct Access to Your Doctor</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Quarterly Lab Review</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Foundation Lab Panel</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Daily Check-ins</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Hormone Optimization</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Gut Health</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Preventive Health</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Personal Training</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Nutrition Coaching</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Direct Access to Your Doctor</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Quarterly Lab Review</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Foundation Lab Panel</span></div>
-      <div class="dock-pill"><span class="dock-pill-name">Daily Check-ins</span></div>
-    </div>
-  </div>
 </div>
 
 <!-- HOW IT WORKS - PARCHMENT -->
