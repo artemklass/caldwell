@@ -690,6 +690,15 @@ nav.scrolled {
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.3s ease;
+}
+
+.wf-card.wf-open {
+  background: rgba(255,255,255,0.052);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,168,76,0.2);
+  z-index: 5;
 }
 
 .wf-card::before {
@@ -699,37 +708,45 @@ nav.scrolled {
   height: 1px;
   background: linear-gradient(90deg, rgba(201,168,76,0.38), transparent 60%);
   z-index: 1;
+  transition: background 0.35s ease;
+}
+
+.wf-card.wf-open::before {
+  background: linear-gradient(90deg, rgba(201,168,76,0.72), rgba(201,168,76,0.14) 75%, transparent);
 }
 
 .wf-card--wide {
   grid-column: 1 / -1;
-  flex-direction: row;
 }
 
 .wf-card--wide .wf-body {
-  flex: 0 0 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-right: 1px solid rgba(237,232,222,0.08);
+  max-width: 560px;
 }
 
-.wf-illus-side {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  min-height: 340px;
-}
-
-.wf-illus-side svg {
+.wf-num-bg {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  right: 28px;
+  bottom: 12px;
+  font-family: 'Cormorant', serif;
+  font-size: 100px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(201,168,76,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.35s ease;
+  z-index: 0;
+}
+
+.wf-card.wf-open .wf-num-bg {
+  color: rgba(201,168,76,0.08);
 }
 
 .wf-body {
-  padding: 40px 40px 28px;
+  padding: 40px 40px 36px;
+  position: relative;
+  z-index: 1;
 }
 
 .wf-num {
@@ -762,7 +779,19 @@ nav.scrolled {
 .wf-illus {
   width: 100%;
   display: block;
-  margin-top: 32px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.52s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+}
+
+.wf-card.wf-open .wf-illus {
+  max-height: 320px;
+  opacity: 1;
+}
+
+.wf-card--wide.wf-open .wf-illus {
+  max-height: 440px;
 }
 
 
@@ -2318,13 +2347,13 @@ footer {
 
       <!-- 01 - Foundation Lab Panel - WIDE -->
       <div class="wf-card wf-card--wide">
+        <span class="wf-num-bg">01</span>
         <div class="wf-body">
           <span class="wf-num">01</span>
           <div class="wf-title">Foundation<br>Lab Panel</div>
           <p class="wf-desc">40+ biomarkers. A licensed phlebotomist comes to your home. Results back in under a week. Dr. Jamison reviews everything before your consult - not just testosterone.</p>
         </div>
-        <div class="wf-illus-side">
-          <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 700 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="wf-illus" viewBox="0 0 700 340" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="700" height="340" fill="rgba(7,16,30,0.6)"/>
             <text x="28" y="36" fill="rgba(201,168,76,0.45)" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">BIOMARKER RESULTS · INITIAL PANEL · 40+ MARKERS</text>
             <line x1="28" y1="46" x2="672" y2="46" stroke="rgba(237,232,222,0.07)" stroke-width="1"/>
@@ -2389,12 +2418,12 @@ footer {
             <text x="28" y="314" fill="rgba(237,232,222,0.4)" font-size="11" font-family="DM Sans,sans-serif">+ 33 more markers reviewed</text>
             <defs><linearGradient id="g-wf01" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
             <rect x="0" y="295" width="700" height="45" fill="url(#g-wf01)"/>
-          </svg>
-        </div>
+        </svg>
       </div>
 
       <!-- 02 - Physician Consult -->
       <div class="wf-card">
+        <span class="wf-num-bg">02</span>
         <div class="wf-body">
           <span class="wf-num">02</span>
           <div class="wf-title">90-Minute<br>Physician Consult</div>
@@ -2447,6 +2476,7 @@ footer {
 
       <!-- 03 - Direct Doctor Access -->
       <div class="wf-card">
+        <span class="wf-num-bg">03</span>
         <div class="wf-body">
           <span class="wf-num">03</span>
           <div class="wf-title">Direct Access<br>to Your Doctor</div>
@@ -2476,13 +2506,13 @@ footer {
 
       <!-- 04 - Quarterly Labs & Review -->
       <div class="wf-card wf-card--wide">
+        <span class="wf-num-bg">04</span>
         <div class="wf-body">
           <span class="wf-num">04</span>
           <div class="wf-title">Quarterly Labs<br>&amp; Physician Review</div>
           <p class="wf-desc">At-home draw every quarter. Full reassessment with Dr. Jamison every three months. Your protocol evolves with your numbers. The biggest changes come at 6 and 12 months.</p>
         </div>
-        <div class="wf-illus-side">
-        <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 700 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="wf-illus" viewBox="0 0 700 340" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="700" height="340" fill="rgba(7,16,30,0.6)"/>
           <text x="40" y="46" fill="rgba(201,168,76,0.4)" font-size="8" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="2.5">TOTAL TESTOSTERONE · ng/dL</text>
           <line x1="40" y1="56" x2="660" y2="56" stroke="rgba(237,232,222,0.06)" stroke-width="1"/>
@@ -2518,11 +2548,11 @@ footer {
           <defs><linearGradient id="g-wf04" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1a2e" stop-opacity="0"/><stop offset="100%" stop-color="#0d1a2e" stop-opacity="1"/></linearGradient></defs>
           <rect x="0" y="290" width="700" height="50" fill="url(#g-wf04)"/>
         </svg>
-        </div>
       </div>
 
       <!-- 05 - Medications Compounded & Shipped -->
       <div class="wf-card">
+        <span class="wf-num-bg">05</span>
         <div class="wf-body">
           <span class="wf-num">05</span>
           <div class="wf-title">Medications Compounded<br>&amp; Shipped</div>
@@ -2560,6 +2590,7 @@ footer {
 
       <!-- 06 - Training Protocol -->
       <div class="wf-card">
+        <span class="wf-num-bg">06</span>
         <div class="wf-body">
           <span class="wf-num">06</span>
           <div class="wf-title">Training<br>Protocol</div>
@@ -2615,6 +2646,7 @@ footer {
 
       <!-- 07 - Nutrition Protocol -->
       <div class="wf-card">
+        <span class="wf-num-bg">07</span>
         <div class="wf-body">
           <span class="wf-num">07</span>
           <div class="wf-title">Nutrition<br>Protocol</div>
@@ -2655,6 +2687,7 @@ footer {
 
       <!-- 08 - Daily Check-ins -->
       <div class="wf-card">
+        <span class="wf-num-bg">08</span>
         <div class="wf-body">
           <span class="wf-num">08</span>
           <div class="wf-title">Proactive<br>Daily Check-ins</div>
@@ -3267,6 +3300,26 @@ footer {
     const open = more.classList.toggle('open');
     btn.textContent = open ? 'Read less  -' : 'Read more  +';
   }
+
+  // What section cards: hover to expand, one at a time
+  (function() {
+    const cards = document.querySelectorAll('.wf-card');
+    let current = null;
+
+    cards.forEach(function(card) {
+      card.addEventListener('mouseenter', function() {
+        if (current && current !== card) {
+          current.classList.remove('wf-open');
+        }
+        card.classList.add('wf-open');
+        current = card;
+      });
+      card.addEventListener('mouseleave', function() {
+        card.classList.remove('wf-open');
+        if (current === card) current = null;
+      });
+    });
+  })();
 
 </script>
 </body>
