@@ -2210,14 +2210,47 @@ footer {
 @media (max-width: 640px) {
   .hero-inner { padding: 90px 20px 48px; }
 
-
   .stat { flex: 0 0 50%; padding: 28px 16px; }
   .stat-num { font-size: 32px; }
 
   .what, .included, .how, .membership, .apply { padding: 64px 20px; }
+  .what { padding: 64px 20px 80px; }
+
+  /* Offer grid: 1 column so each card fills screen */
+  .what-grid { grid-template-columns: 1fr; }
+  .wg-cell { padding: 36px 28px 40px; }
+  .wg-title { font-size: 22px; }
+  .wg-desc { font-size: 13.5px; }
+  .what-cta { margin-top: 48px; }
+
+  /* Dock: disable auto-scroll, enable touch scroll */
+  .dock-wrap { flex-direction: column; height: auto; }
+  .dock-label {
+    padding: 16px 24px;
+    border-right: none;
+    border-bottom: 1px solid rgba(237,232,222,0.08);
+    font-size: 16px;
+    justify-content: center;
+    text-align: center;
+  }
+  .dock-track {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 20px 0;
+  }
+  .dock-track::-webkit-scrollbar { display: none; }
+  .dock-track::before, .dock-track::after { display: none; }
+  .dock-inner {
+    animation: none;
+    padding: 0 24px;
+    gap: 10px;
+  }
+  .dock-pill { padding: 14px 22px; }
+  .dock-pill-name { font-size: 16px; }
 
   .price-block { padding: 32px 24px; }
-
   footer { padding: 28px 20px; }
 }
 </style>
@@ -3075,8 +3108,9 @@ footer {
   }
 
   function toggleBio() {
-  // Dock magnification
+  // Dock magnification (desktop only — touch devices use native scroll)
   (function() {
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
     var track = document.querySelector('.dock-track');
     var pills = document.querySelectorAll('.dock-pill');
     if (!track) return;
