@@ -3165,6 +3165,14 @@ footer {
       overlay.addEventListener('touchstart', showControls, { passive: true });
       overlay.addEventListener('mousemove', showControls);
     }
+
+    // Spacebar → show controls (prevent default scroll/Vimeo restart)
+    document.addEventListener('keydown', function(e) {
+      if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        showControls();
+      }
+    });
     controls.addEventListener('click', showControls);
     controls.addEventListener('mousemove', showControls);
 
