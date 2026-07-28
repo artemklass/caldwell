@@ -2307,10 +2307,10 @@ footer {
   .hero { min-height: auto; }
 
   .hero-inner {
-    grid-template-columns: 1fr;
-    padding: 110px 24px 60px;
-    gap: 36px;
+    display: block;
+    padding: 110px 24px 48px;
     overflow: hidden;
+    max-width: 100%;
   }
 
   .hero-body { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
@@ -2337,9 +2337,16 @@ footer {
     padding-bottom: 3px;
   }
 
+  .hero-actions { margin-bottom: 0; }
+
   .hero-lockup {
-    max-width: 100%;
     width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+    margin-top: 24px;
   }
 
   .vsl-wrap {
@@ -2347,11 +2354,21 @@ footer {
     margin: 0 auto;
   }
 
-  .hero-lockup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  /* Force chapters into a true equal-width grid — flex min-content can push the 4th button off screen */
+  .vsl-chapters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
   }
+
+  /* Reset chapter flex that no longer applies in grid context */
+  .vsl-chapter {
+    flex: unset;
+    min-width: 0;
+  }
+  .vsl-chapter + .vsl-chapter { border-left: 1px solid rgba(201,168,76,0.08); }
 
   .apply-row { grid-template-columns: 1fr; }
   .apply-inner { grid-template-columns: 1fr; gap: 52px; }
@@ -2403,7 +2420,6 @@ footer {
   /* Tighten body text on mobile */
   .hero-body { font-size: 13px; line-height: 1.75; margin-bottom: 40px; }
   .section-body { font-size: 13px; line-height: 1.75; }
-  .hero-inner { gap: 24px; }
   /* Hide second paragraph in What It Is on mobile - too text-heavy */
   .what-inner .section-body + .section-body { display: none; }
   /* Tighten apply section top padding on mobile */
@@ -2453,6 +2469,49 @@ footer {
 
   .price-block { padding: 32px 24px; }
   footer { padding: 28px 20px; }
+
+  /* 2×2 chapter layout on small phones — grid tracks can't auto-expand from content */
+  .vsl-chapters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    overflow: hidden;
+  }
+  .vsl-chapter {
+    flex: unset;
+    min-width: 0;
+    font-size: 8px;
+    letter-spacing: 0.6px;
+    padding: 14px 6px;
+    border-left: none;
+  }
+  .vsl-chapter:nth-child(2n) { border-left: 1px solid rgba(201,168,76,0.08); }
+  .vsl-chapter:nth-child(-n+2) { border-bottom: 1px solid rgba(201,168,76,0.08); }
+
+  /* Stats: tighten label so long text fits in 50%-wide cell */
+  .stat-num { font-size: 30px; }
+  .stat-label { font-size: 8px; letter-spacing: 1.5px; }
+
+  /* Founder note: tighter on small phones */
+  .founder-note { padding: 44px 20px; }
+
+  /* How-it-works step number: smaller on narrow screens */
+  .how-step-num { font-size: 44px; }
+
+  /* Membership price block */
+  .price-amount { font-size: 52px; }
+
+  /* Apply section */
+  .apply { padding-top: 44px; }
+
+  /* Apply: full-width submit button */
+  .apply .btn-gold {
+    display: block;
+    width: 100%;
+    text-align: center;
+    min-width: unset;
+    padding: 20px;
+  }
 }
 </style>
 </head>
