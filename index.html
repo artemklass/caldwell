@@ -533,6 +533,33 @@ nav.scrolled {
   background: rgba(7,16,30,0.8);
 }
 
+.vsl-chapters {
+  display: flex;
+  align-items: stretch;
+  margin-top: 2px;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.vsl-chapter {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 15px 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(237,232,222,0.38);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  text-align: center;
+}
+.vsl-chapter + .vsl-chapter { border-left: 1px solid rgba(201,168,76,0.08); }
+.vsl-chapter:hover { color: rgba(201,168,76,0.8); }
+.vsl-chapter.active { color: var(--gold); border-bottom-color: var(--gold); }
+
 .testimonial-carousel {
   position: relative;
   width: 100%;
@@ -2515,6 +2542,13 @@ footer {
           Unmute
         </button>
       </div>
+      <div class="vsl-chapters" id="vslChapters">
+        <button class="vsl-chapter active" data-time="0">What We Do</button>
+        <button class="vsl-chapter" data-time="31">The Consultation</button>
+        <button class="vsl-chapter" data-time="34">The Membership</button>
+        <button class="vsl-chapter" data-time="146">Get Started</button>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -3158,6 +3192,35 @@ footer {
 
     player.on('ended', function() { isPlaying = false; pauseIcon.style.display = 'none'; playIcon.style.display = ''; });
     showControls();
+  })();
+
+  // VSL Chapter buttons
+  (function() {
+    const chapters = document.querySelectorAll('.vsl-chapter');
+    if (!chapters.length) return;
+    const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
+
+    const breakpoints = [0, 31, 34, 146];
+
+    function setActive(t) {
+      let active = 0;
+      for (var i = breakpoints.length - 1; i >= 0; i--) {
+        if (t >= breakpoints[i]) { active = breakpoints[i]; break; }
+      }
+      chapters.forEach(function(btn) {
+        btn.classList.toggle('active', parseFloat(btn.dataset.time) === active);
+      });
+    }
+
+    chapters.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var t = parseFloat(this.dataset.time);
+        player.setCurrentTime(t).then(function() { player.play(); });
+        setActive(t);
+      });
+    });
+
+    player.on('timeupdate', function(data) { setActive(data.seconds); });
   })();
 
   // Reserve card - scroll-driven rotation + slow auto-spin
