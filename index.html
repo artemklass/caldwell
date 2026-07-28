@@ -257,6 +257,9 @@ nav.scrolled {
 
 .btn-gold:active { transform: translateY(0px); }
 
+/* Mobile-only CTA below the VSL — hidden on desktop */
+.hero-cta-mobile { display: none; }
+
 .btn-ghost {
   position: relative;
   overflow: hidden;
@@ -2313,31 +2316,18 @@ footer {
     max-width: 100%;
   }
 
-  .hero-body { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
+  .hero-body { display: none; }
+  .hero-actions { display: none; }
 
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
-    width: 100%;
-  }
-
-  .hero-actions .btn-gold {
+  /* Mobile CTA sits below the VSL + chapter buttons */
+  .hero-cta-mobile {
     display: block;
     width: 100%;
     text-align: center;
     min-width: unset;
     padding: 20px;
+    margin-top: 16px;
   }
-
-  .hero-actions .btn-ghost {
-    display: inline-block;
-    width: auto;
-    align-self: center;
-    padding-bottom: 3px;
-  }
-
-  .hero-actions { margin-bottom: 0; }
 
   .hero-lockup {
     width: 100%;
@@ -2611,6 +2601,7 @@ footer {
       </div>
       <p class="vsl-hint">Tap any section to skip ahead</p>
     </div>
+    <a href="#apply" class="btn-gold hero-cta-mobile">Request Access</a>
     </div>
   </div>
 
