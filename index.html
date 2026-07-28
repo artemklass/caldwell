@@ -2578,12 +2578,13 @@ footer {
     <div class="hero-lockup fade d2">
       <div class="vsl-wrap">
         <iframe id="vsl-iframe"
-          src="https://player.vimeo.com/video/1213424772?h=9eb6355c76&autoplay=1&muted=1&loop=1&background=0&controls=0&autopause=0&texttrack=false"
+          src="https://player.vimeo.com/video/1213424772?h=9eb6355c76&autoplay=1&muted=1&loop=1&background=0&controls=0&autopause=0&texttrack=en"
           allow="autoplay; fullscreen"
           allowfullscreen>
         </iframe>
         <div class="vid-overlay" id="vidOverlay"></div>
         <div class="vid-controls" id="vidControls">
+          <div id="vidBackdrop" style="position:absolute;inset:0;cursor:pointer;"></div>
           <button class="vid-btn" id="vidSkipBack" aria-label="Back 10 seconds">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-3"/></svg>
             <span class="vid-btn-label">10</span>
@@ -3196,44 +3197,68 @@ footer {
     });
   })();
 
-  // Video custom controls (play/pause, ±10s, auto-hide)
+  // Video custom controls (play/pause, ±10s, auto-hide, subtitles)
   (function() {
-    const overlay = document.getElementById('vidOverlay');
-    const controls = document.getElementById('vidControls');
+    const overlay    = document.getElementById('vidOverlay');
+    const controls  = document.getElementById('vidControls');
+    const backdrop  = document.getElementById('vidBackdrop');
     const playPauseBtn = document.getElementById('vidPlayPause');
-    const skipBackBtn = document.getElementById('vidSkipBack');
-    const skipFwdBtn = document.getElementById('vidSkipFwd');
+    const skipBackBtn  = document.getElementById('vidSkipBack');
+    const skipFwdBtn   = document.getElementById('vidSkipFwd');
     const pauseIcon = document.getElementById('vidPauseIcon');
-    const playIcon = document.getElementById('vidPlayIcon');
+    const playIcon  = document.getElementById('vidPlayIcon');
     if (!controls) return;
     const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
     let isPlaying = true;
     let hideTimer;
 
-    function showControls() {
-      controls.classList.add('visible');
-      if (overlay) overlay.style.pointerEvents = 'none';
+    // Enable subtitles as soon as the player is ready
+    player.ready().then(function() {
+      player.getTextTracks().then(function(tracks) {
+        if (tracks.length) player.enableTextTrack(tracks[0].language);
+      }).catch(function(){});
+    });
+
+    function hideControls() {
       clearTimeout(hideTimer);
-      hideTimer = setTimeout(function() {
-        controls.classList.remove('visible');
-        if (overlay) overlay.style.pointerEvents = '';
-      }, 3000);
+      controls.classList.remove('visible');
     }
 
+    function showControls() {
+      controls.classList.add('visible');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hideControls, 3000);
+    }
+
+    function toggleControls() {
+      controls.classList.contains('visible') ? hideControls() : showControls();
+    }
+
+    // Overlay: tap/click when controls are hidden → show
     if (overlay) {
       overlay.addEventListener('click', showControls);
       overlay.addEventListener('touchstart', showControls, { passive: true });
       overlay.addEventListener('mousemove', showControls);
     }
 
-    // Spacebar → show controls (prevent default scroll/Vimeo restart)
+    // Backdrop (inside controls): tap/click when controls are visible → hide
+    if (backdrop) {
+      backdrop.addEventListener('click', hideControls);
+      backdrop.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        hideControls();
+      });
+    }
+
+    // Spacebar → toggle controls
     document.addEventListener('keydown', function(e) {
       if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
         e.preventDefault();
-        showControls();
+        toggleControls();
       }
     });
-    controls.addEventListener('click', showControls);
+
+    // Mouse move anywhere on controls resets the timer
     controls.addEventListener('mousemove', showControls);
 
     playPauseBtn.addEventListener('click', function(e) {
