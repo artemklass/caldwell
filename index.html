@@ -512,35 +512,58 @@ nav.scrolled {
 .vid-speed-wrap { position: relative; }
 .vid-speed-menu {
   position: absolute;
-  bottom: calc(100% + 10px);
+  bottom: calc(100% + 12px);
   left: 50%;
-  transform: translateX(-50%);
-  background: rgba(7,16,30,0.96);
-  border: 1px solid rgba(201,168,76,0.3);
-  backdrop-filter: blur(8px);
-  display: none;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(8,14,26,0.97);
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 6px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.75), 0 2px 8px rgba(0,0,0,0.4);
+  display: flex;
   flex-direction: column;
-  min-width: 72px;
-  z-index: 10;
+  min-width: 130px;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  overflow: hidden;
 }
-.vid-speed-menu.open { display: flex; }
+.vid-speed-menu.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.vid-speed-menu-header {
+  padding: 10px 14px 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.45);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
 .vid-speed-opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: none;
   border: none;
-  border-bottom: 1px solid rgba(201,168,76,0.08);
-  padding: 9px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 10px 14px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(237,232,222,0.65);
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(237,232,222,0.72);
   cursor: pointer;
-  text-align: center;
-  transition: background 0.15s, color 0.15s;
+  text-align: left;
+  width: 100%;
+  transition: background 0.12s, color 0.12s;
   white-space: nowrap;
 }
 .vid-speed-opt:last-child { border-bottom: none; }
-.vid-speed-opt:hover { background: rgba(201,168,76,0.1); color: rgba(201,168,76,0.9); }
-.vid-speed-opt.active { color: #C9A84C; font-weight: 700; }
+.vid-speed-opt:hover { background: rgba(255,255,255,0.06); color: rgba(237,232,222,1); }
+.vid-speed-opt.active { color: #C9A84C; }
+.vid-speed-check { width: 14px; flex-shrink: 0; opacity: 0; color: #C9A84C; display: flex; align-items: center; }
+.vid-speed-opt.active .vid-speed-check { opacity: 1; }
 
 .vsl-unmute {
   position: absolute;
@@ -2623,14 +2646,15 @@ footer {
           </button>
           <div class="vid-speed-wrap">
             <button class="vid-btn" id="vidSpeed" aria-label="Playback speed">
-              <span id="vidSpeedLabel" style="font-size:11px;font-weight:700;letter-spacing:0.5px;">1×</span>
+              <span id="vidSpeedLabel" style="font-size:13px;font-weight:600;letter-spacing:0.3px;line-height:1;">1×</span>
               <span class="vid-btn-label">Speed</span>
             </button>
             <div class="vid-speed-menu" id="vidSpeedMenu">
-              <button class="vid-speed-opt" data-rate="2">2×</button>
-              <button class="vid-speed-opt" data-rate="1.75">1.75×</button>
-              <button class="vid-speed-opt" data-rate="1.5">1.5×</button>
-              <button class="vid-speed-opt active" data-rate="1">1×</button>
+              <div class="vid-speed-menu-header">Playback Speed</div>
+              <button class="vid-speed-opt" data-rate="2"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>2×</button>
+              <button class="vid-speed-opt" data-rate="1.75"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.75×</button>
+              <button class="vid-speed-opt" data-rate="1.5"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.5×</button>
+              <button class="vid-speed-opt active" data-rate="1"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Normal</button>
             </div>
           </div>
         </div>
@@ -3345,7 +3369,11 @@ footer {
           showControls();
         });
       });
-      document.addEventListener('click', function() { speedMenu.classList.remove('open'); });
+      document.addEventListener('click', function(e) {
+        if (!speedMenu.contains(e.target) && e.target !== speedBtn && !speedBtn.contains(e.target)) {
+          speedMenu.classList.remove('open');
+        }
+      });
     }
   })();
 
