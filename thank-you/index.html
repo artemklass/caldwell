@@ -196,10 +196,8 @@ nav.scrolled {
 .vid-btn-label { font-family: 'DM Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 0.5px; color: rgba(201,168,76,0.8); line-height: 1; }
 .vid-speed-wrap { position: relative; }
 .vid-speed-menu {
-  position: absolute;
-  bottom: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
+  position: fixed;
+  transform: translateX(-50%) translateY(calc(-100% + 6px));
   background: rgba(8,14,26,0.97);
   border: 1px solid rgba(201,168,76,0.18);
   border-radius: 6px;
@@ -209,13 +207,13 @@ nav.scrolled {
   display: flex;
   flex-direction: column;
   min-width: 130px;
-  z-index: 20;
+  z-index: 9999;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.18s ease, transform 0.18s ease;
   overflow: hidden;
 }
-.vid-speed-menu.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.vid-speed-menu.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(-100%); }
 .vid-speed-menu-header {
   padding: 10px 14px 8px;
   font-family: 'DM Sans', sans-serif;
@@ -549,7 +547,14 @@ nav.scrolled {
     if (speedBtn && speedMenu) {
       speedBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        speedMenu.classList.toggle('open');
+        if (speedMenu.classList.contains('open')) {
+          speedMenu.classList.remove('open');
+        } else {
+          var rect = speedBtn.getBoundingClientRect();
+          speedMenu.style.left = (rect.left + rect.width / 2) + 'px';
+          speedMenu.style.top = (rect.top - 12) + 'px';
+          speedMenu.classList.add('open');
+        }
         showControls();
       });
       speedOpts.forEach(function(opt) {
