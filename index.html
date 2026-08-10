@@ -514,17 +514,21 @@ nav.scrolled {
   bottom: 14px;
   right: 14px;
   z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
 }
+.vid-speed-wrap.visible { opacity: 1; pointer-events: all; }
 .vid-speed-wrap .vid-btn {
   width: auto;
   height: auto;
   border-radius: 0;
-  padding: 8px 14px;
+  padding: 6px 10px;
   flex-direction: row;
-  gap: 7px;
+  gap: 5px;
 }
 .vid-speed-wrap .vid-btn:hover { transform: none; }
-.vid-speed-wrap .vid-btn-label { font-size: 9px; letter-spacing: 2px; color: rgba(201,168,76,0.9); }
+.vid-speed-wrap .vid-btn-label { font-size: 8px; letter-spacing: 1.5px; color: rgba(201,168,76,0.9); }
 .vid-speed-menu {
   position: fixed;
   transform: translateX(-50%) translateY(calc(-100% + 6px));
@@ -536,7 +540,7 @@ nav.scrolled {
   box-shadow: 0 8px 40px rgba(0,0,0,0.75), 0 2px 8px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
-  min-width: 90px;
+  min-width: 72px;
   z-index: 9999;
   opacity: 0;
   pointer-events: none;
@@ -545,9 +549,9 @@ nav.scrolled {
 }
 .vid-speed-menu.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(-100%); }
 .vid-speed-menu-header {
-  padding: 7px 10px 5px;
+  padding: 5px 9px 4px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -557,13 +561,13 @@ nav.scrolled {
 .vid-speed-opt {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: none;
   border: none;
   border-bottom: 1px solid rgba(255,255,255,0.04);
-  padding: 7px 10px;
+  padding: 6px 9px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 400;
   color: rgba(237,232,222,0.72);
   cursor: pointer;
@@ -3281,6 +3285,7 @@ footer {
     const skipFwdBtn   = document.getElementById('vidSkipFwd');
     const pauseIcon = document.getElementById('vidPauseIcon');
     const playIcon  = document.getElementById('vidPlayIcon');
+    const speedWrap = document.querySelector('.vid-speed-wrap');
     if (!controls) return;
     const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
     let isPlaying = true;
@@ -3296,10 +3301,12 @@ footer {
     function hideControls() {
       clearTimeout(hideTimer);
       controls.classList.remove('visible');
+      if (speedWrap) speedWrap.classList.remove('visible');
     }
 
     function showControls() {
       controls.classList.add('visible');
+      if (speedWrap) speedWrap.classList.add('visible');
       clearTimeout(hideTimer);
       hideTimer = setTimeout(hideControls, 3000);
     }
