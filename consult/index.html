@@ -718,8 +718,8 @@ footer { background: var(--navy); border-top: 1px solid var(--border-dark); padd
 .vid-speed-opt.active .vid-speed-check { opacity: 1; }
 .vsl-unmute {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  bottom: 14px;
+  left: 14px;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -734,9 +734,12 @@ footer { background: var(--navy); border-top: 1px solid var(--border-dark); padd
   text-transform: uppercase;
   padding: 8px 14px;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  opacity: 0;
+  pointer-events: none;
+  transition: border-color 0.2s, background 0.2s, opacity 0.35s ease;
   backdrop-filter: blur(6px);
 }
+.vsl-unmute.visible { opacity: 1; pointer-events: all; }
 .vsl-unmute:hover { border-color: rgba(201,168,76,0.85); background: rgba(7,16,30,0.8); }
 </style>
 </head>
@@ -1141,6 +1144,7 @@ footer { background: var(--navy); border-top: 1px solid var(--border-dark); padd
     const pauseIcon = document.getElementById('vidPauseIcon');
     const playIcon = document.getElementById('vidPlayIcon');
     const speedWrap = document.querySelector('.vid-speed-wrap');
+    const unmuteBtn = document.getElementById('vslUnmute');
     if (!controls) return;
     const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
     let isPlaying = true;
@@ -1149,11 +1153,13 @@ footer { background: var(--navy); border-top: 1px solid var(--border-dark); padd
     function showControls() {
       controls.classList.add('visible');
       if (speedWrap) speedWrap.classList.add('visible');
+      if (unmuteBtn) unmuteBtn.classList.add('visible');
       if (overlay) overlay.style.pointerEvents = 'none';
       clearTimeout(hideTimer);
       hideTimer = setTimeout(function() {
         controls.classList.remove('visible');
         if (speedWrap) speedWrap.classList.remove('visible');
+        if (unmuteBtn) unmuteBtn.classList.remove('visible');
         if (overlay) overlay.style.pointerEvents = '';
       }, 5000);
     }
