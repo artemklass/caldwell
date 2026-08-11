@@ -19,6 +19,10 @@
       --parchment:#EDE8DE;
     }
 
+    html {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
     html, body {
       background: var(--navy);
       color: var(--parchment);
@@ -227,6 +231,8 @@
     .vid-speed-wrap .vid-btn-label { font-size: 11px; letter-spacing: 2px; color: rgba(201,168,76,0.9); }
     .vid-speed-menu {
       position: fixed;
+      left: 50%;
+      top: 0;
       transform: translateX(-50%) translateY(-6px);
       background: rgba(8,14,26,0.97);
       border: 1px solid rgba(201,168,76,0.18);
@@ -304,7 +310,6 @@
       color: var(--parchment);
       text-align: center;
       margin-bottom: 44px;
-      white-space: nowrap;
     }
     .q-block { margin-bottom: 0; }
     .q-sep { height: 1px; background: rgba(201,168,76,0.1); margin: 28px 0; }
@@ -587,14 +592,28 @@
 
     /* ── MOBILE ── */
     @media (max-width: 640px) {
-      .lander-hero { padding: 44px 20px 36px; }
-      .lander-vsl { padding: 0 16px 48px; }
-      .qualifier-inner { padding: 40px 20px 56px; }
-      .vid-controls { gap: 18px; }
-      .vid-btn { width: 42px; height: 42px; }
-      .vid-playpause { width: 52px; height: 52px; }
+      html { overflow-x: clip; }
+      body { overflow-x: hidden; width: 100%; }
+      header, section, footer { max-width: 100%; overflow-x: hidden; }
 
-      /* Smaller unmute on mobile */
+      /* Hero */
+      .lander-hero { padding: 52px 32px 48px; max-width: 100%; }
+      .lander-headline { margin-bottom: 16px; }
+      .lander-subheadline { font-size: 14px; line-height: 1.8; overflow-wrap: break-word; }
+
+      /* VSL */
+      .lander-vsl { padding: 0 16px 56px; }
+
+      /* Controls */
+      .vid-controls { gap: 20px; }
+      .vid-btn { width: 44px; height: 44px; }
+      .vid-playpause { width: 56px; height: 56px; }
+
+      /* Speed button: compact — hide "Speed" label, show just "1×" */
+      .vid-speed-wrap .vid-btn { padding: 7px 11px; gap: 0; }
+      .vid-speed-wrap .vid-btn-label { display: none; }
+
+      /* Unmute */
       .vsl-unmute {
         font-size: 9px;
         letter-spacing: 1.5px;
@@ -611,14 +630,24 @@
       }
       .vsl-chapter {
         font-size: 8px;
-        padding: 13px 6px;
+        letter-spacing: 0.5px;
+        padding: 16px 8px;
         border-left: none;
         border-right: none;
+        line-height: 1.5;
       }
       .vsl-chapter:nth-child(odd) { border-right: 1px solid rgba(201,168,76,0.08); }
       .vsl-chapter:nth-child(1),
       .vsl-chapter:nth-child(2) { border-bottom: 1px solid rgba(201,168,76,0.08); }
       .vsl-chapter + .vsl-chapter { border-left: none; }
+
+      /* Qualifier */
+      .qualifier-inner { padding: 52px 32px 64px; }
+      .qualifier-inner * { overflow-wrap: break-word; word-break: break-word; }
+      .q-heading { font-size: 24px; line-height: 1.3; margin-bottom: 40px; }
+      .q-question { font-size: 14px; margin-bottom: 16px; }
+      .q-radio-item { font-size: 14px; gap: 12px; }
+      .q-sep { margin: 32px 0; }
     }
   </style>
 </head>
