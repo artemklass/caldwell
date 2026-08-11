@@ -282,47 +282,152 @@
     .vsl-unmute.visible { opacity: 1; pointer-events: all; }
     .vsl-unmute:hover { border-color: rgba(201,168,76,0.85); background: rgba(7,16,30,0.8); }
 
-    /* ── APPLICATION SECTION ── */
-    .application {
+    /* ── QUALIFIER FLOW ── */
+    .qualifier-section {
       background: var(--navy-mid);
       border-top: 1px solid rgba(201,168,76,0.08);
       border-bottom: 1px solid rgba(201,168,76,0.08);
     }
-    .application-inner {
-      max-width: 640px;
+    .qualifier-inner {
+      max-width: 520px;
       margin: 0 auto;
-      padding: 80px 24px;
-      text-align: center;
+      padding: 80px 24px 88px;
     }
-    .application-eyebrow {
+    .q-progress {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 52px;
+    }
+    .q-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.15);
+      transition: background 0.35s, transform 0.35s, width 0.35s;
+      flex-shrink: 0;
+    }
+    .q-dot.active { background: var(--gold); transform: scale(1.4); }
+    .q-dot.done   { background: rgba(201,168,76,0.4); }
+    .q-screen { display: none; }
+    .q-screen.active {
+      display: block;
+      animation: qFadeIn 0.38s ease forwards;
+    }
+    @keyframes qFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .q-eyebrow {
       font-family: 'DM Sans', sans-serif;
-      font-size: 10px; font-weight: 600;
+      font-size: 9.5px; font-weight: 600;
       letter-spacing: 3px; text-transform: uppercase;
-      color: rgba(201,168,76,0.6);
-      margin-bottom: 18px;
+      color: rgba(201,168,76,0.55);
+      text-align: center;
+      margin-bottom: 14px;
     }
-    .application-headline {
+    .q-headline {
       font-family: 'Cormorant', serif;
-      font-size: clamp(28px, 3.5vw, 42px);
+      font-size: clamp(22px, 3vw, 30px);
       font-weight: 300;
-      line-height: 1.15;
+      line-height: 1.25;
       color: var(--parchment);
-      margin-bottom: 16px;
+      text-align: center;
+      margin-bottom: 38px;
     }
-    .application-body {
+    .q-options { display: flex; flex-direction: column; gap: 11px; }
+    .q-opt {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.15);
+      color: rgba(237,232,222,0.62);
       font-family: 'DM Sans', sans-serif;
       font-size: 14px; font-weight: 300;
-      line-height: 1.7;
-      color: rgba(237,232,222,0.5);
-      margin-bottom: 48px;
+      line-height: 1.5;
+      padding: 18px 22px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      width: 100%;
     }
-    .application-placeholder {
-      border: 1px dashed rgba(201,168,76,0.2);
-      padding: 48px 32px;
-      color: rgba(201,168,76,0.3);
+    .q-opt:hover { border-color: rgba(201,168,76,0.55); color: var(--parchment); background: rgba(201,168,76,0.04); }
+    .q-opt:active { background: rgba(201,168,76,0.08); }
+
+    /* Screen 4 */
+    .q-cta-headline { margin-bottom: 12px; }
+    .q-subtext {
       font-family: 'DM Sans', sans-serif;
-      font-size: 10px; font-weight: 500;
+      font-size: 14px; font-weight: 300;
+      color: rgba(237,232,222,0.45);
+      text-align: center;
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+    .q-cta-primary {
+      display: block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 19px 36px;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s;
+      width: 100%;
+    }
+    .q-cta-primary:hover { background: #D6BC5E; }
+    .q-divider {
+      display: flex; align-items: center; gap: 14px;
+      padding: 28px 0 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(237,232,222,0.2);
+    }
+    .q-divider::before, .q-divider::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.1); }
+    .q-reach-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9.5px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(201,168,76,0.5);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    #qContactForm { display: flex; flex-direction: column; gap: 10px; }
+    #qContactForm input {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,168,76,0.15);
+      color: var(--parchment);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 300;
+      padding: 14px 18px;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    #qContactForm input::placeholder { color: rgba(237,232,222,0.25); }
+    #qContactForm input:focus { border-color: rgba(201,168,76,0.45); }
+    #qContactForm button[type="submit"] {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.3);
+      color: rgba(201,168,76,0.8);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 600;
       letter-spacing: 2px; text-transform: uppercase;
+      padding: 15px 24px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 4px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    #qContactForm button[type="submit"]:hover { border-color: rgba(201,168,76,0.65); color: var(--gold); background: rgba(201,168,76,0.04); }
+    .q-success {
+      text-align: center;
+      padding: 22px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 300;
+      color: rgba(201,168,76,0.7);
+      border: 1px solid rgba(201,168,76,0.15);
+      line-height: 1.6;
     }
 
     /* ── FOOTER ── */
@@ -344,7 +449,8 @@
     @media (max-width: 640px) {
       .lander-hero { padding: 44px 20px 36px; }
       .lander-vsl { padding: 0 16px 48px; }
-      .application-inner { padding: 56px 20px; }
+      .qualifier-inner { padding: 56px 20px 72px; }
+      .q-headline { font-size: 21px; }
       .vid-controls { gap: 18px; }
       .vid-btn { width: 42px; height: 42px; }
       .vid-playpause { width: 52px; height: 52px; }
@@ -438,15 +544,66 @@
     </div>
   </section>
 
-  <!-- APPLICATION -->
-  <section class="application">
-    <div class="application-inner">
-      <p class="application-eyebrow">Limited Availability</p>
-      <h2 class="application-headline">Apply for Membership</h2>
-      <p class="application-body">We work with a select number of members at a time. Complete a short application below so we can confirm this is the right fit before your consultation.</p>
-      <div class="application-placeholder">
-        Application form coming soon
+  <!-- QUALIFIER FLOW -->
+  <section class="qualifier-section">
+    <div class="qualifier-inner">
+
+      <div class="q-progress">
+        <span class="q-dot" data-step="1"></span>
+        <span class="q-dot" data-step="2"></span>
+        <span class="q-dot" data-step="3"></span>
       </div>
+
+      <!-- Screen 1 -->
+      <div class="q-screen" id="qScreen1">
+        <p class="q-eyebrow">Quick questions</p>
+        <h2 class="q-headline">What brings you to Caldwell?</h2>
+        <div class="q-options">
+          <button class="q-opt" data-next="2">I want to invest in my health long-term</button>
+          <button class="q-opt" data-next="2">I have specific concerns - low energy, low drive, weight</button>
+          <button class="q-opt" data-next="2">Exploring my options</button>
+        </div>
+      </div>
+
+      <!-- Screen 2 -->
+      <div class="q-screen" id="qScreen2">
+        <p class="q-eyebrow">Membership</p>
+        <h2 class="q-headline">Memberships range from $699–$1,199/mo, exclusive of medications and labs.</h2>
+        <div class="q-options">
+          <button class="q-opt" data-next="3">Aligned with my expectations</button>
+          <button class="q-opt" data-next="3">I'd like to learn more</button>
+          <button class="q-opt" data-next="3">Not the right fit</button>
+        </div>
+      </div>
+
+      <!-- Screen 3 -->
+      <div class="q-screen" id="qScreen3">
+        <p class="q-eyebrow">Timeline</p>
+        <h2 class="q-headline">How soon are you looking to begin?</h2>
+        <div class="q-options">
+          <button class="q-opt" data-next="4">Immediately</button>
+          <button class="q-opt" data-next="4">Within 30 days</button>
+          <button class="q-opt" data-next="4">60–90 days</button>
+          <button class="q-opt" data-next="4">Still evaluating</button>
+        </div>
+      </div>
+
+      <!-- Screen 4 — CTA -->
+      <div class="q-screen" id="qScreen4">
+        <p class="q-eyebrow">Next step</p>
+        <h2 class="q-headline q-cta-headline">Start with a comprehensive consultation</h2>
+        <p class="q-subtext">Labs, physician consult, and coaching session - beginning at $599.</p>
+        <a href="https://buy.stripe.com/3cI8wP88c7WVgHG33abEA00" class="q-cta-primary">Begin my consultation</a>
+        <div class="q-divider">or</div>
+        <p class="q-reach-label">Have us reach out</p>
+        <form id="qContactForm" action="https://formspree.io/f/mqpzqknl" method="POST">
+          <input type="hidden" name="_subject" value="Caldwell Start Page Inquiry">
+          <input type="text"  name="name"  placeholder="Your name"    required autocomplete="name">
+          <input type="tel"   name="phone" placeholder="Phone number"  required autocomplete="tel">
+          <button type="submit">We'll be in touch within 1-2 hours</button>
+        </form>
+      </div>
+
     </div>
   </section>
 
@@ -587,6 +744,50 @@
       ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Unmute'
       : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Mute';
   });
+})();
+
+// Qualifier flow
+(function() {
+  var dots    = document.querySelectorAll('.q-dot');
+  var screens = document.querySelectorAll('.q-screen');
+
+  function goTo(n) {
+    screens.forEach(function(s) { s.classList.remove('active'); });
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i + 1 === n);
+      d.classList.toggle('done', i + 1 < n);
+    });
+    var target = document.getElementById('qScreen' + n);
+    if (!target) return;
+    target.classList.add('active');
+    setTimeout(function() {
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 60);
+  }
+
+  document.querySelectorAll('.q-opt').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      goTo(parseInt(this.dataset.next));
+    });
+  });
+
+  var form = document.getElementById('qContactForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(r) {
+        if (r.ok) {
+          form.outerHTML = '<p class="q-success">Thank you - we\'ll be in touch within 1-2 hours.</p>';
+        }
+      }).catch(function() {});
+    });
+  }
+
+  goTo(1);
 })();
 
 // Chapter buttons
