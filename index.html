@@ -3428,15 +3428,24 @@ footer {
       });
     }
 
-    chapters.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var t = parseFloat(this.dataset.time);
-        player.setCurrentTime(t).then(function() { player.play(); });
-        setActive(t);
+    function seekTo(t) {
+      player.play().catch(function(){}).finally(function() {
+        player.setCurrentTime(t).then(function() {
+          player.play().catch(function(){});
+        }).catch(function(){});
       });
-    });
+    }
 
-    player.on('timeupdate', function(data) { setActive(data.seconds); });
+    player.ready().then(function() {
+      chapters.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var t = parseFloat(this.dataset.time);
+          setActive(t);
+          seekTo(t);
+        });
+      });
+      player.on('timeupdate', function(data) { setActive(data.seconds); });
+    });
   })();
 
   // Reserve card - scroll-driven rotation + slow auto-spin
