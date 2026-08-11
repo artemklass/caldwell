@@ -282,20 +282,6 @@
     .vsl-unmute.visible { opacity: 1; pointer-events: all; }
     .vsl-unmute:hover { border-color: rgba(201,168,76,0.85); background: rgba(7,16,30,0.8); }
 
-    /* ── QUALIFIER BRIDGE ── */
-    .q-bridge {
-      text-align: center;
-      padding: 52px 24px 0;
-    }
-    .q-bridge-text {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(26px, 3.5vw, 38px);
-      font-weight: 300;
-      line-height: 1.15;
-      color: var(--parchment);
-      letter-spacing: -0.2px;
-    }
-
     /* ── QUALIFIER FLOW ── */
     .qualifier-section {
       background: var(--navy-mid);
@@ -304,7 +290,17 @@
     .qualifier-inner {
       max-width: 480px;
       margin: 0 auto;
-      padding: 56px 24px 64px;
+      padding: 64px 24px 72px;
+    }
+    .q-heading {
+      font-family: 'Cormorant', serif;
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--parchment);
+      text-align: center;
+      margin-bottom: 44px;
+      white-space: nowrap;
     }
     .q-block { margin-bottom: 0; }
     .q-sep { height: 1px; background: rgba(201,168,76,0.1); margin: 28px 0; }
@@ -320,7 +316,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 13px; font-weight: 500;
       line-height: 1.4;
-      color: rgba(237,232,222,0.85);
+      color: rgba(237,232,222,0.95);
       margin-bottom: 14px;
       letter-spacing: 0.1px;
     }
@@ -332,7 +328,7 @@
       cursor: pointer;
       font-family: 'DM Sans', sans-serif;
       font-size: 13px; font-weight: 300;
-      color: rgba(237,232,222,0.75);
+      color: rgba(237,232,222,0.88);
       transition: color 0.15s;
       user-select: none;
     }
@@ -352,13 +348,19 @@
     }
     .q-radio-item input[type="radio"]:checked ~ span:last-child { color: #EDE8DE; }
 
-    /* CTA block */
+    /* CTA block — collapses fully when hidden, no empty space */
     .q-cta-block {
-      opacity: 0; pointer-events: none;
-      transform: translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height 0.55s ease, opacity 0.4s ease;
     }
-    .q-cta-block.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .q-cta-block.visible {
+      max-height: 900px;
+      opacity: 1;
+      pointer-events: all;
+    }
 
     /* Gold button — exact match to main site btn-gold */
     .q-btn-gold {
@@ -562,14 +564,11 @@
     </div>
   </section>
 
-  <!-- QUALIFIER BRIDGE -->
-  <div class="q-bridge">
-    <p class="q-bridge-text">See if Caldwell is right for you</p>
-  </div>
-
   <!-- QUALIFIER FLOW -->
   <section class="qualifier-section">
     <div class="qualifier-inner">
+
+      <h2 class="q-heading">See if Caldwell is right for you</h2>
 
       <!-- Q1 -->
       <div class="q-block">
