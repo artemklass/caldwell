@@ -198,7 +198,7 @@ nav.scrolled {
 }
 
 .nav-links a {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -348,7 +348,7 @@ nav.scrolled {
 .hero-ey-line { width: 32px; height: 1px; background: var(--gold); opacity: 0.65; }
 
 .hero-ey-text {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -411,7 +411,7 @@ nav.scrolled {
 }
 
 .hero-meta {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -511,7 +511,7 @@ nav.scrolled {
 
 .vid-speed-wrap {
   position: absolute;
-  bottom: 14px;
+  top: 14px;
   right: 14px;
   z-index: 10;
   opacity: 0;
@@ -531,7 +531,7 @@ nav.scrolled {
 .vid-speed-wrap .vid-btn-label { font-size: 8px; letter-spacing: 1.5px; color: rgba(201,168,76,0.9); }
 .vid-speed-menu {
   position: fixed;
-  transform: translateX(-50%) translateY(calc(-100% + 6px));
+  transform: translateX(-50%) translateY(-6px);
   background: rgba(8,14,26,0.97);
   border: 1px solid rgba(201,168,76,0.18);
   border-radius: 6px;
@@ -547,7 +547,7 @@ nav.scrolled {
   transition: opacity 0.18s ease, transform 0.18s ease;
   overflow: hidden;
 }
-.vid-speed-menu.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(-100%); }
+.vid-speed-menu.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
 .vid-speed-menu-header {
   padding: 5px 9px 4px;
   font-family: 'DM Sans', sans-serif;
@@ -584,7 +584,7 @@ nav.scrolled {
 
 .vsl-unmute {
   position: absolute;
-  bottom: 14px;
+  top: 14px;
   left: 14px;
   z-index: 10;
   display: flex;
@@ -594,11 +594,11 @@ nav.scrolled {
   border: 1px solid rgba(201,168,76,0.45);
   color: rgba(201,168,76,0.9);
   font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 8px 14px;
+  padding: 11px 18px;
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
@@ -702,7 +702,7 @@ nav.scrolled {
 
 .t-title {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 2px;
   color: var(--on-dark-faint);
   margin-top: 4px;
@@ -753,7 +753,7 @@ nav.scrolled {
 }
 
 .stat-label {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -865,7 +865,7 @@ nav.scrolled {
 .ey-line { width: 26px; height: 1px; background: var(--gold); opacity: 0.6; }
 
 .ey-text {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -1343,7 +1343,7 @@ nav.scrolled {
 .cred-label {
   display: block;
   font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -1570,7 +1570,7 @@ nav.scrolled {
 }
 
 .price-tag {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 3.5px;
   text-transform: uppercase;
@@ -1795,7 +1795,7 @@ nav.scrolled {
 }
 
 .mem-card-label {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -2101,7 +2101,7 @@ nav.scrolled {
 .apply-field { display: flex; flex-direction: column; gap: 9px; }
 
 .apply-field label {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -3385,7 +3385,7 @@ footer {
         } else {
           var rect = speedBtn.getBoundingClientRect();
           speedMenu.style.left = (rect.left + rect.width / 2) + 'px';
-          speedMenu.style.top = (rect.top - 12) + 'px';
+          speedMenu.style.top = (rect.bottom + 8) + 'px';
           speedMenu.classList.add('open');
         }
         showControls();
