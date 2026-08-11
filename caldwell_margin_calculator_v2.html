@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caldwell Private Health — Margin Calculator v2</title>
+<style>
+  :root {
+    --navy: #07101e;
+    --navy-mid: #0d1a2e;
+    --navy-light: #112238;
+    --gold: #C9A84C;
+    --gold-lt: #D6BC5E;
+    --gold-deep: #8B6A35;
+    --parchment: #F0EBE0;
+    --text: #e8e2d8;
+    --text-muted: #8a9ab5;
+    --green: #4caf78;
+    --red: #e05c5c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+  h1, h2, h3 { font-family: 'Cormorant', Georgia, serif; font-weight: 500; }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .page-header h1 {
+    font-size: 2.2rem;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .page-header p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .card h2 {
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .full-width { grid-column: 1 / -1; }
+
+  /* Slider section */
+  .slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 8px;
+  }
+  .slider-wrapper input[type=range] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--navy-light);
+    outline: none;
+  }
+  .slider-wrapper input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    border: 2px solid var(--navy);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+  }
+  .slider-value {
+    font-family: 'Cormorant', serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    min-width: 56px;
+    text-align: right;
+  }
+  .slider-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  /* Input fields */
+  .input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .input-row:last-child { border-bottom: none; }
+  .input-label {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .input-label small {
+    display: block;
+    font-size: 0.74rem;
+    color: rgba(138,154,181,0.6);
+    margin-top: 2px;
+  }
+  .input-field {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .input-field span { font-size: 0.85rem; color: var(--text-muted); }
+  .input-field input {
+    width: 80px;
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.9rem;
+    padding: 5px 8px;
+    text-align: right;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-field input:focus { border-color: var(--gold); }
+
+  /* KPI cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .kpi {
+    background: var(--navy-light);
+    border-radius: 10px;
+    padding: 20px 16px;
+    border: 1px solid rgba(201,168,76,0.1);
+    text-align: center;
+  }
+  .kpi .label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .kpi .value {
+    font-family: 'Cormorant', serif;
+    font-size: 1.85rem;
+    font-weight: 500;
+    color: var(--gold);
+  }
+  .kpi .value.green { color: var(--green); }
+  .kpi .value.red { color: var(--red); }
+  .kpi .sub {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Projection table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  thead th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    font-weight: 400;
+  }
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(201,168,76,0.04); }
+  tbody tr.current-row { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.2); }
+  tbody tr.current-row td { color: var(--gold-lt); }
+  tbody td {
+    padding: 11px 12px;
+    color: var(--text);
+  }
+  tbody td:first-child { color: var(--text-muted); }
+  .positive { color: var(--green) !important; }
+  .negative { color: var(--red) !important; }
+
+  /* Note */
+  .note {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(201,168,76,0.06);
+    border-left: 3px solid var(--gold-deep);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Breakeven indicator */
+  .breakeven-bar {
+    margin-top: 16px;
+    height: 6px;
+    background: var(--navy-light);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .breakeven-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--red), var(--gold), var(--green));
+    transition: width 0.4s ease;
+  }
+  .breakeven-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .full-width { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Caldwell Private Health</h1>
+  <p>Margin Calculator v2 — Pass-Through Model</p>
+</div>
+
+<div class="grid">
+
+  <!-- Patient Slider -->
+  <div class="card full-width">
+    <h2>Active Patients</h2>
+    <div class="slider-wrapper">
+      <input type="range" id="patientSlider" min="1" max="100" value="10">
+      <div class="slider-value" id="sliderDisplay">10</div>
+    </div>
+    <div class="slider-label">Drag to set patient count</div>
+    <div class="breakeven-bar">
+      <div class="breakeven-fill" id="breakevenFill"></div>
+    </div>
+    <div class="breakeven-labels">
+      <span>0</span>
+      <span id="breakevenLabel">Break-even: calculating...</span>
+      <span>100</span>
+    </div>
+  </div>
+
+  <!-- Revenue Inputs -->
+  <div class="card">
+    <h2>Revenue</h2>
+    <div class="input-row">
+      <div class="input-label">Monthly membership fee<small>Per active patient</small></div>
+      <div class="input-field"><span>$</span><input type="number" id="membershipFee" value="1500"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Onboarding fee<small>One-time, non-refundable</small></div>
+      <div class="input-field"><span>$</span><input type="number" id="onboardingFee" value="1500"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">New patients this month<small>Triggers onboarding fee</small></div>
+      <div class="input-field"><input type="number" id="newPatients" value="0"></div>
+    </div>
+  </div>
+
+  <!-- Cost Inputs -->
+  <div class="card">
+    <h2>Variable COGS (per patient/month)</h2>
+    <div class="input-row">
+      <div class="input-label">Lab panel<small>Core panel, quarterly amortized</small></div>
+      <div class="input-field"><span>$</span><input type="number" id="labCost" value="83"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Getlabs at-home draw<small>$99/visit, quarterly amortized</small></div>
+      <div class="input-field"><span>$</span><input type="number" id="getlabsCost" value="33"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Dr. Jamison per-patient fee</div>
+      <div class="input-field"><span>$</span><input type="number" id="drCost" value="100"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Stripe processing<small>3% of membership revenue</small></div>
+      <div class="input-field"><span>$</span><input type="number" id="stripeCost" value="45"></div>
+    </div>
+  </div>
+
+  <!-- Fixed Costs -->
+  <div class="card">
+    <h2>Fixed Overhead (monthly)</h2>
+    <div class="input-row">
+      <div class="input-label">Dr. Jamison base retainer</div>
+      <div class="input-field"><span>$</span><input type="number" id="drRetainer" value="1000"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Tech stack<small>Charm, Spruce, Google Workspace</small></div>
+      <div class="input-field"><span>$</span><input type="number" id="techCost" value="300"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Getlabs partner portal</div>
+      <div class="input-field"><span>$</span><input type="number" id="getlabsPortal" value="499"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">AI reception</div>
+      <div class="input-field"><span>$</span><input type="number" id="aiCost" value="300"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Admin / VA</div>
+      <div class="input-field"><span>$</span><input type="number" id="adminCost" value="1200"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Marketing</div>
+      <div class="input-field"><span>$</span><input type="number" id="marketingCost" value="4000"></div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">Miscellaneous</div>
+      <div class="input-field"><span>$</span><input type="number" id="miscCost" value="500"></div>
+    </div>
+  </div>
+
+  <!-- KPI Summary -->
+  <div class="card">
+    <h2>This Month's Summary</h2>
+    <div class="kpi-grid" style="grid-template-columns: repeat(2,1fr);">
+      <div class="kpi">
+        <div class="label">Gross Revenue</div>
+        <div class="value" id="kpiRevenue">—</div>
+        <div class="sub">membership + onboarding</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Variable COGS</div>
+        <div class="value red" id="kpiVariableCogs">—</div>
+        <div class="sub" id="kpiCogsPerPt">per patient</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Fixed Overhead</div>
+        <div class="value red" id="kpiFixed">—</div>
+        <div class="sub">monthly base</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Net Profit</div>
+        <div class="value" id="kpiNet">—</div>
+        <div class="sub" id="kpiMargin">margin %</div>
+      </div>
+    </div>
+    <div class="note">
+      Medications and advanced labs are patient pass-through — zero Caldwell margin risk. Revenue is purely the membership fee.
+    </div>
+  </div>
+
+  <!-- Projection Table -->
+  <div class="card full-width">
+    <h2>Scale Projections</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Patients</th>
+          <th>Gross Revenue</th>
+          <th>Variable COGS</th>
+          <th>Fixed Overhead</th>
+          <th>Net Profit / Loss</th>
+          <th>Margin %</th>
+          <th>Annual Run Rate</th>
+        </tr>
+      </thead>
+      <tbody id="projectionTable"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  const fmt = (n) => n < 0
+    ? '-$' + Math.abs(Math.round(n)).toLocaleString()
+    : '$' + Math.round(n).toLocaleString();
+
+  const pct = (n) => n === Infinity || isNaN(n) ? '—' : (n * 100).toFixed(1) + '%';
+
+  function getInputs() {
+    return {
+      patients:       +document.getElementById('patientSlider').value,
+      membership:     +document.getElementById('membershipFee').value,
+      onboarding:     +document.getElementById('onboardingFee').value,
+      newPatients:    +document.getElementById('newPatients').value,
+      labCost:        +document.getElementById('labCost').value,
+      getlabsCost:    +document.getElementById('getlabsCost').value,
+      drCost:         +document.getElementById('drCost').value,
+      stripeCost:     +document.getElementById('stripeCost').value,
+      drRetainer:     +document.getElementById('drRetainer').value,
+      techCost:       +document.getElementById('techCost').value,
+      getlabsPortal:  +document.getElementById('getlabsPortal').value,
+      aiCost:         +document.getElementById('aiCost').value,
+      adminCost:      +document.getElementById('adminCost').value,
+      marketingCost:  +document.getElementById('marketingCost').value,
+      miscCost:       +document.getElementById('miscCost').value,
+    };
+  }
+
+  function calcNet(patients, newPts, inp) {
+    const revenue = (patients * inp.membership) + (newPts * inp.onboarding);
+    const variableCogs = patients * (inp.labCost + inp.getlabsCost + inp.drCost + inp.stripeCost);
+    const fixed = inp.drRetainer + inp.techCost + inp.getlabsPortal + inp.aiCost + inp.adminCost + inp.marketingCost + inp.miscCost;
+    const net = revenue - variableCogs - fixed;
+    return { revenue, variableCogs, fixed, net };
+  }
+
+  function findBreakeven(inp) {
+    for (let p = 1; p <= 200; p++) {
+      const { net } = calcNet(p, 0, inp);
+      if (net >= 0) return p;
+    }
+    return null;
+  }
+
+  function update() {
+    const inp = getInputs();
+    const { patients, newPatients } = inp;
+    const { revenue, variableCogs, fixed, net } = calcNet(patients, newPatients, inp);
+    const margin = revenue > 0 ? net / revenue : 0;
+    const cogsPerPt = patients > 0 ? variableCogs / patients : 0;
+    const be = findBreakeven(inp);
+
+    // KPIs
+    document.getElementById('kpiRevenue').textContent = fmt(revenue);
+    document.getElementById('kpiVariableCogs').textContent = fmt(variableCogs);
+    document.getElementById('kpiCogsPerPt').textContent = fmt(cogsPerPt) + '/patient';
+    document.getElementById('kpiFixed').textContent = fmt(fixed);
+    const netEl = document.getElementById('kpiNet');
+    netEl.textContent = fmt(net);
+    netEl.className = 'value ' + (net >= 0 ? 'green' : 'red');
+    document.getElementById('kpiMargin').textContent = pct(margin) + ' margin';
+
+    // Breakeven bar
+    const beLabel = be ? `Break-even: ${be} patients` : 'Break-even: 200+ patients';
+    document.getElementById('breakevenLabel').textContent = beLabel;
+    const fillPct = be ? Math.min((patients / be) * 80, 100) : Math.min((patients / 100) * 100, 100);
+    document.getElementById('breakevenFill').style.width = fillPct + '%';
+
+    // Projection table
+    const milestones = [1, 5, be, 10, 15, 20, 30, 50, 75, 100]
+      .filter(v => v != null && v > 0)
+      .map(Math.round)
+      .filter((v, i, arr) => arr.indexOf(v) === i)
+      .sort((a, b) => a - b);
+
+    const tbody = document.getElementById('projectionTable');
+    tbody.innerHTML = '';
+
+    milestones.forEach(p => {
+      const r = calcNet(p, 0, inp);
+      const m = r.revenue > 0 ? r.net / r.revenue : 0;
+      const isCurrent = p === patients;
+      const tr = document.createElement('tr');
+      if (isCurrent) tr.className = 'current-row';
+      tr.innerHTML = `
+        <td>${p} patient${p !== 1 ? 's' : ''}${isCurrent ? ' ◀' : ''}</td>
+        <td>${fmt(r.revenue)}</td>
+        <td>${fmt(r.variableCogs)}</td>
+        <td>${fmt(r.fixed)}</td>
+        <td class="${r.net >= 0 ? 'positive' : 'negative'}">${fmt(r.net)}</td>
+        <td class="${r.net >= 0 ? 'positive' : 'negative'}">${pct(m)}</td>
+        <td>${fmt(r.net * 12)}/yr</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Slider
+  document.getElementById('patientSlider').addEventListener('input', function() {
+    document.getElementById('sliderDisplay').textContent = this.value;
+    update();
+  });
+
+  // All inputs
+  document.querySelectorAll('input[type=number]').forEach(el => {
+    el.addEventListener('input', update);
+  });
+
+  update();
+</script>
+</body>
+</html>

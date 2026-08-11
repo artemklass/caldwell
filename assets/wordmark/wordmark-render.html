@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: transparent; display: inline-block; }
+
+  .wordmark {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 60px 80px;
+  }
+
+  /* Exact website ratio: letter-spacing 2px / font-size 20px = 0.1em → at 200px = 20px */
+  .nav-name {
+    font-family: 'Cormorant', serif;
+    font-size: 200px;
+    font-weight: 400;
+    letter-spacing: 20px;
+    line-height: 1;
+    background: linear-gradient(105deg, #B8922A 0%, #D2AC47 30%, #E8C96A 50%, #D2AC47 70%, #B8922A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Exact website ratio: letter-spacing 4.5px / font-size 7.5px = 0.6em → at 26px = 15.6px */
+  .nav-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 16px;
+    text-transform: uppercase;
+    color: #C9A84C;
+    padding-left: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="wordmark">
+    <span class="nav-name">Caldwell</span>
+    <span class="nav-sub">Private Health</span>
+  </div>
+</body>
+</html>
