@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Done-For-You Health Management — Caldwell Private Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #07101e;
+      --navy-mid:   #0d1a2e;
+      --gold:       #C9A84C;
+      --gold-lt:    #D6BC5E;
+      --parchment:  #EDE8DE;
+    }
+
+    html, body {
+      background: var(--navy);
+      color: var(--parchment);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    .lander-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px 20px;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    .lander-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .lander-logo img { height: 36px; width: auto; }
+    .lander-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .lander-logo-name {
+      font-family: 'Cormorant', serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: var(--parchment);
+      line-height: 1;
+    }
+    .lander-logo-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.7);
+      margin-top: 3px;
+    }
+
+    /* ── HEADLINE SECTION ── */
+    .lander-hero {
+      text-align: center;
+      padding: 72px 24px 52px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .lander-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.6);
+      margin-bottom: 22px;
+    }
+    .lander-headline {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.5px;
+      color: var(--parchment);
+      margin-bottom: 28px;
+    }
+    .lander-headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .lander-subheadline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(15px, 2vw, 18px);
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(237,232,222,0.65);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── VSL SECTION ── */
+    .lander-vsl {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+    .lander-vsl-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.12);
+    }
+    .lander-vsl-frame::before,
+    .lander-vsl-frame::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .lander-vsl-frame::before { top: -1px; left: -1px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+    .lander-vsl-frame::after  { bottom: -1px; right: -1px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+    .lander-vsl-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* video overlay + controls — exact from main site */
+    .vid-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      cursor: pointer;
+    }
+    .vid-controls {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      background: rgba(0,0,0,0.1);
+    }
+    .vid-controls.visible { opacity: 1; pointer-events: all; }
+    .vid-btn {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: rgba(7,16,30,0.6);
+      border: 1px solid rgba(201,168,76,0.45);
+      color: rgba(201,168,76,0.9);
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      flex-shrink: 0;
+      gap: 3px;
+    }
+    .vid-btn:hover { background: rgba(7,16,30,0.8); border-color: rgba(201,168,76,0.8); transform: scale(1.07); }
+    .vid-btn:active { transform: scale(0.94); }
+    .vid-playpause { width: 60px; height: 60px; }
+    .vid-btn-label { font-family: 'DM Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 0.5px; color: rgba(201,168,76,0.8); line-height: 1; }
+
+    .vid-speed-wrap {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .vid-speed-wrap.visible { opacity: 1; pointer-events: all; }
+    .vid-speed-wrap .vid-btn {
+      width: auto; height: auto;
+      border-radius: 0;
+      padding: 6px 10px;
+      flex-direction: row;
+      gap: 5px;
+    }
+    .vid-speed-wrap .vid-btn:hover { transform: none; }
+    .vid-speed-wrap .vid-btn-label { font-size: 8px; letter-spacing: 1.5px; color: rgba(201,168,76,0.9); }
+    .vid-speed-menu {
+      position: fixed;
+      transform: translateX(-50%) translateY(calc(-100% + 6px));
+      background: rgba(8,14,26,0.97);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 6px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.75), 0 2px 8px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      min-width: 72px;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      overflow: hidden;
+    }
+    .vid-speed-menu.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(-100%); }
+    .vid-speed-menu-header {
+      padding: 5px 9px 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 7px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(201,168,76,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .vid-speed-opt {
+      display: flex; align-items: center; gap: 5px;
+      background: none; border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 6px 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 400;
+      color: rgba(237,232,222,0.72);
+      cursor: pointer; text-align: left; width: 100%;
+      transition: background 0.12s, color 0.12s;
+      white-space: nowrap;
+    }
+    .vid-speed-opt:last-child { border-bottom: none; }
+    .vid-speed-opt:hover { background: rgba(255,255,255,0.06); color: rgba(237,232,222,1); }
+    .vid-speed-opt.active { color: #C9A84C; }
+    .vid-speed-check { width: 14px; flex-shrink: 0; opacity: 0; color: #C9A84C; display: flex; align-items: center; }
+    .vid-speed-opt.active .vid-speed-check { opacity: 1; }
+
+    .vsl-unmute {
+      position: absolute;
+      bottom: 14px; left: 14px;
+      z-index: 10;
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(7,16,30,0.6);
+      border: 1px solid rgba(201,168,76,0.45);
+      color: rgba(201,168,76,0.9);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      padding: 8px 14px;
+      cursor: pointer;
+      opacity: 0; pointer-events: none;
+      transition: border-color 0.2s, background 0.2s, opacity 0.35s ease;
+      backdrop-filter: blur(6px);
+    }
+    .vsl-unmute.visible { opacity: 1; pointer-events: all; }
+    .vsl-unmute:hover { border-color: rgba(201,168,76,0.85); background: rgba(7,16,30,0.8); }
+
+    /* ── QUALIFIER SECTION ── */
+    .qualifier {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(201,168,76,0.08);
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    .qualifier-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .qualifier-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(201,168,76,0.6);
+      margin-bottom: 18px;
+    }
+    .qualifier-headline {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--parchment);
+      margin-bottom: 20px;
+    }
+    .qualifier-body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 300;
+      line-height: 1.7;
+      color: rgba(237,232,222,0.55);
+      margin-bottom: 48px;
+    }
+    .qualifier-placeholder {
+      border: 1px dashed rgba(201,168,76,0.2);
+      border-radius: 2px;
+      padding: 48px 32px;
+      color: rgba(201,168,76,0.3);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    .lander-footer {
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .lander-footer p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(237,232,222,0.25);
+      letter-spacing: 0.3px;
+      line-height: 1.8;
+    }
+    .lander-footer a {
+      color: rgba(201,168,76,0.45);
+      text-decoration: none;
+    }
+    .lander-footer a:hover { color: rgba(201,168,76,0.75); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .lander-hero { padding: 48px 20px 40px; }
+      .lander-vsl { padding: 0 16px 48px; }
+      .qualifier-inner { padding: 60px 20px; }
+      .vid-controls { gap: 18px; }
+      .vid-btn { width: 42px; height: 42px; }
+      .vid-playpause { width: 52px; height: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="lander-header">
+    <a href="https://caldwellreserve.com" class="lander-logo">
+      <img src="/LOGOCALDWELL.png" alt="Caldwell Private Health">
+      <div class="lander-logo-text">
+        <span class="lander-logo-name">Caldwell</span>
+        <span class="lander-logo-sub">Private Health</span>
+      </div>
+    </a>
+  </header>
+
+  <!-- HEADLINE -->
+  <section class="lander-hero">
+    <p class="lander-eyebrow">Caldwell Private Health</p>
+    <h1 class="lander-headline">Done-For-You<br><em>Health Management</em></h1>
+    <p class="lander-subheadline">One dedicated team takes complete ownership of your health — clinical care, nutrition, and personal coaching, all working together so you never have to manage it alone.</p>
+  </section>
+
+  <!-- VSL -->
+  <section class="lander-vsl">
+    <div class="lander-vsl-frame">
+      <iframe id="vsl-iframe"
+        src="https://player.vimeo.com/video/1213424772?h=9eb6355c76&autoplay=1&muted=1&loop=1&background=0&controls=0&autopause=0&texttrack=en"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+      </iframe>
+      <div class="vid-overlay" id="vidOverlay"></div>
+      <div class="vid-controls" id="vidControls">
+        <div id="vidBackdrop" style="position:absolute;inset:0;cursor:pointer;"></div>
+        <button class="vid-btn" id="vidSkipBack" aria-label="Back 10 seconds">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-3"/></svg>
+          <span class="vid-btn-label">10</span>
+        </button>
+        <button class="vid-btn vid-playpause" id="vidPlayPause" aria-label="Pause">
+          <svg id="vidPauseIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          <svg id="vidPlayIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+        <button class="vid-btn" id="vidSkipFwd" aria-label="Forward 10 seconds">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-.49-3"/></svg>
+          <span class="vid-btn-label">10</span>
+        </button>
+      </div>
+      <div class="vid-speed-wrap">
+        <button class="vid-btn" id="vidSpeed" aria-label="Playback speed">
+          <span id="vidSpeedLabel" style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;line-height:1;text-transform:uppercase;">1×</span>
+          <span class="vid-btn-label">Speed</span>
+        </button>
+        <div class="vid-speed-menu" id="vidSpeedMenu">
+          <div class="vid-speed-menu-header">Playback Speed</div>
+          <button class="vid-speed-opt" data-rate="2"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>2×</button>
+          <button class="vid-speed-opt" data-rate="1.75"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.75×</button>
+          <button class="vid-speed-opt" data-rate="1.5"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.5×</button>
+          <button class="vid-speed-opt active" data-rate="1"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Normal</button>
+        </div>
+      </div>
+      <button class="vsl-unmute" id="vslUnmute" aria-label="Unmute video">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        Unmute
+      </button>
+    </div>
+  </section>
+
+  <!-- QUALIFIER -->
+  <section class="qualifier">
+    <div class="qualifier-inner">
+      <p class="qualifier-eyebrow">Before You Apply</p>
+      <h2 class="qualifier-headline">Is Caldwell<br>Right for You?</h2>
+      <p class="qualifier-body">We work with a limited number of members at a time. Answer a few short questions so we can confirm this is the right fit — and so your physician team can prepare before your consultation.</p>
+      <div class="qualifier-placeholder">
+        Questionnaire coming soon
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="lander-footer">
+    <p>
+      © 2025 Caldwell Private Health. All rights reserved.<br>
+      <a href="https://caldwellreserve.com/privacy">Privacy Policy</a> &nbsp;·&nbsp; <a href="https://caldwellreserve.com">caldwellreserve.com</a>
+    </p>
+  </footer>
+
+<script>
+(function() {
+  const overlay     = document.getElementById('vidOverlay');
+  const controls    = document.getElementById('vidControls');
+  const backdrop    = document.getElementById('vidBackdrop');
+  const playPauseBtn = document.getElementById('vidPlayPause');
+  const skipBackBtn  = document.getElementById('vidSkipBack');
+  const skipFwdBtn   = document.getElementById('vidSkipFwd');
+  const pauseIcon   = document.getElementById('vidPauseIcon');
+  const playIcon    = document.getElementById('vidPlayIcon');
+  const speedWrap   = document.querySelector('.vid-speed-wrap');
+  const unmuteBtn   = document.getElementById('vslUnmute');
+  if (!controls) return;
+  const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
+  let isPlaying = true;
+  let hideTimer;
+
+  player.ready().then(function() {
+    player.getTextTracks().then(function(tracks) {
+      if (tracks.length) player.enableTextTrack(tracks[0].language);
+    }).catch(function(){});
+  });
+
+  function hideControls() {
+    clearTimeout(hideTimer);
+    controls.classList.remove('visible');
+    if (speedWrap) speedWrap.classList.remove('visible');
+    if (unmuteBtn) unmuteBtn.classList.remove('visible');
+  }
+
+  function showControls() {
+    controls.classList.add('visible');
+    if (speedWrap) speedWrap.classList.add('visible');
+    if (unmuteBtn) unmuteBtn.classList.add('visible');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(hideControls, 3000);
+  }
+
+  function toggleControls() {
+    controls.classList.contains('visible') ? hideControls() : showControls();
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', showControls);
+    overlay.addEventListener('touchstart', showControls, { passive: true });
+    overlay.addEventListener('mousemove', showControls);
+  }
+  if (backdrop) {
+    backdrop.addEventListener('click', hideControls);
+    backdrop.addEventListener('touchstart', function(e) { e.preventDefault(); hideControls(); });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      toggleControls();
+    }
+  });
+
+  controls.addEventListener('mousemove', showControls);
+
+  playPauseBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (isPlaying) { player.pause(); isPlaying = false; pauseIcon.style.display = 'none'; playIcon.style.display = ''; }
+    else { player.play(); isPlaying = true; pauseIcon.style.display = ''; playIcon.style.display = 'none'; }
+    showControls();
+  });
+
+  skipBackBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    player.getCurrentTime().then(function(t) { player.setCurrentTime(Math.max(0, t - 10)); });
+    showControls();
+  });
+
+  skipFwdBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    player.getDuration().then(function(d) {
+      player.getCurrentTime().then(function(t) { player.setCurrentTime(Math.min(d, t + 10)); });
+    });
+    showControls();
+  });
+
+  player.on('ended', function() { isPlaying = false; pauseIcon.style.display = 'none'; playIcon.style.display = ''; });
+  showControls();
+
+  // Playback speed
+  var speedBtn   = document.getElementById('vidSpeed');
+  var speedLabel = document.getElementById('vidSpeedLabel');
+  var speedMenu  = document.getElementById('vidSpeedMenu');
+  var speedOpts  = document.querySelectorAll('.vid-speed-opt');
+  if (speedBtn && speedMenu) {
+    speedBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (speedMenu.classList.contains('open')) {
+        speedMenu.classList.remove('open');
+      } else {
+        var rect = speedBtn.getBoundingClientRect();
+        speedMenu.style.left = (rect.left + rect.width / 2) + 'px';
+        speedMenu.style.top = (rect.top - 12) + 'px';
+        speedMenu.classList.add('open');
+      }
+      showControls();
+    });
+    speedOpts.forEach(function(opt) {
+      opt.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var rate = parseFloat(opt.dataset.rate);
+        player.setPlaybackRate(rate);
+        speedLabel.textContent = rate === 1 ? '1×' : rate + '×';
+        speedOpts.forEach(function(o) { o.classList.remove('active'); });
+        opt.classList.add('active');
+        speedMenu.classList.remove('open');
+        showControls();
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (!speedMenu.contains(e.target) && e.target !== speedBtn && !speedBtn.contains(e.target)) {
+        speedMenu.classList.remove('open');
+      }
+    });
+  }
+})();
+
+// Unmute toggle
+(function() {
+  const btn = document.getElementById('vslUnmute');
+  if (!btn) return;
+  const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
+  let muted = true;
+  btn.addEventListener('click', function() {
+    muted = !muted;
+    player.setMuted(muted);
+    btn.innerHTML = muted
+      ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Unmute'
+      : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Mute';
+  });
+})();
+</script>
+</body>
+</html>
