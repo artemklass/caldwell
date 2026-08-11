@@ -454,6 +454,66 @@
       color: rgba(201,168,76,0.8); border: 1px solid rgba(201,168,76,0.2); line-height: 1.7;
     }
 
+    /* ── FAQ ── */
+    .lander-faq {
+      border-top: 1px solid rgba(201,168,76,0.08);
+      padding: 72px 24px 80px;
+    }
+    .lander-faq-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .lander-faq-heading {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(28px, 3.5vw, 38px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--parchment);
+      margin-bottom: 40px;
+    }
+    .lander-faq-heading em { font-style: italic; color: var(--gold); }
+    .lander-faq-list { border-top: 1px solid rgba(201,168,76,0.1); }
+    .lander-faq-item { border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .lander-faq-q {
+      width: 100%;
+      display: flex; justify-content: space-between; align-items: center; gap: 24px;
+      background: none; border: none;
+      padding: 24px 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 400;
+      color: rgba(237,232,222,0.88);
+      text-align: left; cursor: pointer;
+      transition: color 0.2s;
+    }
+    .lander-faq-q:hover { color: var(--gold); }
+    .lander-faq-q[aria-expanded="true"] { color: var(--gold); }
+    .lander-faq-icon {
+      flex-shrink: 0; width: 16px; height: 16px; position: relative;
+    }
+    .lander-faq-icon::before,
+    .lander-faq-icon::after {
+      content: ''; position: absolute;
+      background: var(--gold); border-radius: 1px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .lander-faq-icon::before { width: 16px; height: 1.5px; top: 50%; left: 0; transform: translateY(-50%); }
+    .lander-faq-icon::after  { width: 1.5px; height: 16px; top: 0; left: 50%; transform: translateX(-50%); }
+    .lander-faq-q[aria-expanded="true"] .lander-faq-icon::after { transform: translateX(-50%) rotate(90deg); opacity: 0; }
+    .lander-faq-a {
+      overflow: hidden; max-height: 0;
+      transition: max-height 0.4s ease;
+      display: block;
+    }
+    .lander-faq-a.open { max-height: 600px; }
+    .lander-faq-a p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 300;
+      color: rgba(237,232,222,0.52);
+      line-height: 1.8;
+      padding-bottom: 24px;
+    }
+    .lander-faq-a p + p { padding-top: 2px; }
+
     /* ── FOOTER ── */
     .lander-footer {
       padding: 28px 24px;
@@ -675,6 +735,60 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="lander-faq">
+    <div class="lander-faq-inner">
+      <h2 class="lander-faq-heading">Common <em>questions.</em></h2>
+      <div class="lander-faq-list">
+
+        <div class="lander-faq-item">
+          <button class="lander-faq-q" aria-expanded="false">What is Caldwell?<span class="lander-faq-icon"></span></button>
+          <div class="lander-faq-a">
+            <p>Caldwell is done-for-you health management led by a physician and a dedicated health team. We handle your labs, protocols, training, and nutrition so you perform at your best without managing it yourself.</p>
+          </div>
+        </div>
+
+        <div class="lander-faq-item">
+          <button class="lander-faq-q" aria-expanded="false">Why was Caldwell created?<span class="lander-faq-icon"></span></button>
+          <div class="lander-faq-a">
+            <p>Co-founder Stan was a member of a hormone optimization clinic. He'd get his labs drawn, hop on a 15-minute call, get a prescription, and that was it. No one checked in. No one adjusted anything. No one was actually managing his health - just refilling his script.</p>
+            <p>That's why we created Caldwell. We saw that people wanted to be fully managed without it becoming a full-time commitment. They wanted a direct connection with their doctor and health team. We built this for business owners who don't have time to track their own health and schedule their own appointments - so we do it for them.</p>
+          </div>
+        </div>
+
+        <div class="lander-faq-item">
+          <button class="lander-faq-q" aria-expanded="false">Is this a one-time consultation or ongoing?<span class="lander-faq-icon"></span></button>
+          <div class="lander-faq-a">
+            <p>You start with a consultation with your doctor and your health coach. You get the doctor's protocol and the coach's action plan to optimize your health. Once you see the value and want us to keep managing it, the Caldwell membership is the move.</p>
+          </div>
+        </div>
+
+        <div class="lander-faq-item">
+          <button class="lander-faq-q" aria-expanded="false">Can't I just optimize my health on my own?<span class="lander-faq-icon"></span></button>
+          <div class="lander-faq-a">
+            <p>Sure. You can do your own research, get the tests, figure out what to do, build a plan, and try to follow it. You can - but then we're probably not for you. We serve people who don't have time for that. People who want to make sure their biggest asset - their health - is at the highest level. You don't waste time. You outsource it to professionals. That's why we're not cheap.</p>
+          </div>
+        </div>
+
+        <div class="lander-faq-item">
+          <button class="lander-faq-q" aria-expanded="false">How is this different from my regular doctor?<span class="lander-faq-icon"></span></button>
+          <div class="lander-faq-a">
+            <p>Your doctor does a great job following medical guidelines. But if you get a test and you're at the lowest end of the range, that's still "normal" to them - and they're not always looking at why you're tired, why your mind isn't sharp, or why your drive is off.</p>
+            <p>We do the complete opposite. We test your blood to get the full picture and dig deeper to find the root cause - what's actually behind your fatigue, your brain fog, your low drive. And you have health coaches working alongside your doctor to make sure your training, nutrition, and daily routine are built around your protocol.</p>
+          </div>
+        </div>
+
+        <div class="lander-faq-item">
+          <button class="lander-faq-q" aria-expanded="false">How do I get started?<span class="lander-faq-icon"></span></button>
+          <div class="lander-faq-a">
+            <p>Answer the short questions above and we'll show you the next step. Or book a consultation directly at <a href="https://caldwellreserve.com/consult" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">caldwellreserve.com/consult</a>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="lander-footer">
     <p>
@@ -811,6 +925,25 @@
     btn.innerHTML = muted
       ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Unmute'
       : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Mute';
+  });
+})();
+
+// FAQ accordion
+(function() {
+  document.querySelectorAll('.lander-faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var answer = btn.nextElementSibling;
+      // close all others
+      document.querySelectorAll('.lander-faq-q').forEach(function(b) {
+        b.setAttribute('aria-expanded', 'false');
+        b.nextElementSibling.classList.remove('open');
+      });
+      if (!expanded) {
+        btn.setAttribute('aria-expanded', 'true');
+        answer.classList.add('open');
+      }
+    });
   });
 })();
 
