@@ -282,59 +282,73 @@
     .vsl-unmute.visible { opacity: 1; pointer-events: all; }
     .vsl-unmute:hover { border-color: rgba(201,168,76,0.85); background: rgba(7,16,30,0.8); }
 
+    /* ── QUALIFIER BRIDGE ── */
+    .q-bridge {
+      text-align: center;
+      padding: 52px 24px 0;
+    }
+    .q-bridge-text {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--parchment);
+      letter-spacing: -0.2px;
+    }
+
     /* ── QUALIFIER FLOW ── */
     .qualifier-section {
       background: var(--navy-mid);
       border-top: 1px solid rgba(201,168,76,0.08);
     }
     .qualifier-inner {
-      max-width: 560px;
+      max-width: 480px;
       margin: 0 auto;
-      padding: 80px 24px 88px;
+      padding: 56px 24px 64px;
     }
     .q-block { margin-bottom: 0; }
-    .q-sep { height: 1px; background: rgba(201,168,76,0.1); margin: 44px 0; }
+    .q-sep { height: 1px; background: rgba(201,168,76,0.1); margin: 28px 0; }
 
     .q-num {
       font-family: 'DM Sans', sans-serif;
-      font-size: 9px; font-weight: 600;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: rgba(201,168,76,0.55);
-      margin-bottom: 10px;
+      font-size: 8.5px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: rgba(201,168,76,0.5);
+      margin-bottom: 6px;
     }
     .q-question {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(20px, 2.5vw, 26px);
-      font-weight: 400;
-      line-height: 1.25;
-      color: var(--parchment);
-      margin-bottom: 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      line-height: 1.4;
+      color: rgba(237,232,222,0.85);
+      margin-bottom: 14px;
+      letter-spacing: 0.1px;
     }
 
-    /* Radio — consistent across all 3 questions */
-    .q-radio-group { display: flex; flex-direction: column; gap: 14px; }
+    /* Radio — compact, matches reference */
+    .q-radio-group { display: flex; flex-direction: column; gap: 10px; }
     .q-radio-item {
-      display: flex; align-items: center; gap: 14px;
+      display: flex; align-items: center; gap: 10px;
       cursor: pointer;
       font-family: 'DM Sans', sans-serif;
-      font-size: 15px; font-weight: 300;
-      color: rgba(237,232,222,0.82);
-      transition: color 0.18s;
+      font-size: 13px; font-weight: 300;
+      color: rgba(237,232,222,0.75);
+      transition: color 0.15s;
       user-select: none;
     }
     .q-radio-item:hover { color: #EDE8DE; }
     .q-radio-item input[type="radio"] { display: none; }
     .q-radio-circle {
-      width: 22px; height: 22px; flex-shrink: 0;
-      border: 1px solid rgba(201,168,76,0.4);
+      width: 16px; height: 16px; flex-shrink: 0;
+      border: 1px solid rgba(201,168,76,0.45);
       border-radius: 50%;
       background: rgba(255,255,255,0.03);
       display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.18s;
+      transition: border-color 0.15s;
     }
     .q-radio-item input[type="radio"]:checked + .q-radio-circle { border-color: var(--gold); }
     .q-radio-item input[type="radio"]:checked + .q-radio-circle::after {
-      content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--gold);
+      content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
     }
     .q-radio-item input[type="radio"]:checked ~ span:last-child { color: #EDE8DE; }
 
@@ -390,15 +404,15 @@
     }
 
     /* Form inputs — match main site apply-field inputs */
-    #qContactForm { display: flex; flex-direction: column; gap: 12px; }
+    #qContactForm { display: flex; flex-direction: column; gap: 8px; }
     #qContactForm input {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(201,168,76,0.12);
       border-bottom: 1px solid rgba(201,168,76,0.2);
       color: var(--parchment);
       font-family: 'DM Sans', sans-serif;
-      font-size: 15px; font-weight: 300;
-      padding: 15px 18px; outline: none; width: 100%;
+      font-size: 13px; font-weight: 300;
+      padding: 11px 14px; outline: none; width: 100%;
       transition: border-color 0.2s, background 0.2s;
     }
     #qContactForm input::placeholder { color: rgba(237,232,222,0.2); }
@@ -454,9 +468,7 @@
     @media (max-width: 640px) {
       .lander-hero { padding: 44px 20px 36px; }
       .lander-vsl { padding: 0 16px 48px; }
-      .qualifier-inner { padding: 56px 20px 72px; }
-      .q-question { font-size: 19px; }
-      .q-radio-item { font-size: 14px; }
+      .qualifier-inner { padding: 40px 20px 56px; }
       .vid-controls { gap: 18px; }
       .vid-btn { width: 42px; height: 42px; }
       .vid-playpause { width: 52px; height: 52px; }
@@ -549,6 +561,11 @@
       <p class="vsl-hint">Tap any section to skip ahead</p>
     </div>
   </section>
+
+  <!-- QUALIFIER BRIDGE -->
+  <div class="q-bridge">
+    <p class="q-bridge-text">See if Caldwell is right for you</p>
+  </div>
 
   <!-- QUALIFIER FLOW -->
   <section class="qualifier-section">
