@@ -30,9 +30,12 @@
     .lander-header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 26px 24px 22px;
+      justify-content: flex-start;
+      padding: 28px 64px;
       border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    @media (max-width: 640px) {
+      .lander-header { padding: 22px 24px; }
     }
     .lander-logo {
       display: flex;
