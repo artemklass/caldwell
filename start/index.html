@@ -538,7 +538,35 @@
       .vid-controls { gap: 18px; }
       .vid-btn { width: 42px; height: 42px; }
       .vid-playpause { width: 52px; height: 52px; }
-      .vsl-chapter { font-size: 8px; padding: 13px 4px; }
+
+      /* Hide speed button on mobile — too cramped */
+      .vid-speed-wrap { display: none; }
+
+      /* Smaller unmute on mobile */
+      .vsl-unmute {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+        padding: 8px 12px;
+        gap: 5px;
+        top: 10px; left: 10px;
+      }
+      .vsl-unmute svg { width: 11px; height: 11px; }
+
+      /* 2×2 chapter grid on mobile */
+      .vsl-chapters {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .vsl-chapter {
+        font-size: 8px;
+        padding: 13px 6px;
+        border-left: none;
+        border-right: none;
+      }
+      .vsl-chapter:nth-child(odd) { border-right: 1px solid rgba(201,168,76,0.08); }
+      .vsl-chapter:nth-child(1),
+      .vsl-chapter:nth-child(2) { border-bottom: 1px solid rgba(201,168,76,0.08); }
+      .vsl-chapter + .vsl-chapter { border-left: none; }
     }
   </style>
 </head>
