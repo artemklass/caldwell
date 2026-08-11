@@ -12,11 +12,10 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:       #07101e;
-      --navy-mid:   #0d1a2e;
-      --gold:       #C9A84C;
-      --gold-lt:    #D6BC5E;
-      --parchment:  #EDE8DE;
+      --navy:     #07101e;
+      --navy-mid: #0d1a2e;
+      --gold:     #C9A84C;
+      --parchment:#EDE8DE;
     }
 
     html, body {
@@ -32,62 +31,54 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 28px 24px 20px;
+      padding: 26px 24px 22px;
       border-bottom: 1px solid rgba(201,168,76,0.08);
     }
     .lander-logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       text-decoration: none;
     }
-    .lander-logo img { height: 36px; width: auto; }
-    .lander-logo-text {
-      display: flex;
-      flex-direction: column;
+    .logo-mark {
+      width: 28px; height: 28px; flex-shrink: 0;
+      filter: drop-shadow(0 0 6px rgba(201,168,76,0.45)) drop-shadow(0 0 16px rgba(201,168,76,0.18));
     }
-    .lander-logo-name {
+    .nav-wordmark { display: flex; flex-direction: column; gap: 3px; }
+    .nav-name {
       font-family: 'Cormorant', serif;
       font-size: 20px;
       font-weight: 400;
       letter-spacing: 2px;
-      color: var(--parchment);
       line-height: 1;
+      background: linear-gradient(105deg, #B8922A 0%, #D2AC47 30%, #E8C96A 50%, #D2AC47 70%, #B8922A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .lander-logo-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 8px;
+    .nav-sub {
+      font-size: 7.5px;
       font-weight: 500;
-      letter-spacing: 3px;
+      letter-spacing: 4.5px;
       text-transform: uppercase;
-      color: rgba(201,168,76,0.7);
-      margin-top: 3px;
+      color: rgba(237,232,222,0.28);
     }
 
-    /* ── HEADLINE SECTION ── */
+    /* ── HEADLINE ── */
     .lander-hero {
       text-align: center;
-      padding: 72px 24px 52px;
-      max-width: 780px;
+      padding: 60px 24px 44px;
+      max-width: 680px;
       margin: 0 auto;
-    }
-    .lander-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(201,168,76,0.6);
-      margin-bottom: 22px;
     }
     .lander-headline {
       font-family: 'Cormorant', serif;
-      font-size: clamp(42px, 6vw, 72px);
+      font-size: clamp(36px, 5vw, 60px);
       font-weight: 300;
       line-height: 1.08;
       letter-spacing: -0.5px;
       color: var(--parchment);
-      margin-bottom: 28px;
+      margin-bottom: 22px;
     }
     .lander-headline em {
       font-style: italic;
@@ -95,40 +86,44 @@
     }
     .lander-subheadline {
       font-family: 'DM Sans', sans-serif;
-      font-size: clamp(15px, 2vw, 18px);
+      font-size: clamp(14px, 1.6vw, 16px);
       font-weight: 300;
-      line-height: 1.65;
-      color: rgba(237,232,222,0.65);
-      max-width: 600px;
+      line-height: 1.7;
+      color: rgba(237,232,222,0.58);
+      max-width: 540px;
       margin: 0 auto;
     }
 
-    /* ── VSL SECTION ── */
+    /* ── VSL LOCKUP — matches main site hero-lockup ── */
     .lander-vsl {
       width: 100%;
-      max-width: 900px;
+      max-width: 780px;
       margin: 0 auto;
       padding: 0 24px 64px;
     }
-    .lander-vsl-frame {
+    .vsl-lockup {
+      position: relative;
+      border: 1px solid rgba(201,168,76,0.12);
+      overflow: hidden;
+    }
+    .vsl-lockup::before,
+    .vsl-lockup::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .vsl-lockup::before { top: -1px; left: -1px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+    .vsl-lockup::after  { bottom: -1px; right: -1px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+
+    .vsl-wrap {
       position: relative;
       width: 100%;
       aspect-ratio: 16/9;
       overflow: hidden;
-      border: 1px solid rgba(201,168,76,0.12);
     }
-    .lander-vsl-frame::before,
-    .lander-vsl-frame::after {
-      content: '';
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .lander-vsl-frame::before { top: -1px; left: -1px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
-    .lander-vsl-frame::after  { bottom: -1px; right: -1px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
-    .lander-vsl-frame iframe {
+    .vsl-wrap iframe {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -136,7 +131,47 @@
       border: none;
     }
 
-    /* video overlay + controls — exact from main site */
+    /* chapter buttons */
+    .vsl-chapters {
+      display: flex;
+      align-items: stretch;
+      margin-top: 2px;
+      border-top: 1px solid rgba(201,168,76,0.12);
+    }
+    .vsl-chapter {
+      flex: 1;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 15px 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(237,232,222,0.38);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .vsl-chapter + .vsl-chapter { border-left: 1px solid rgba(201,168,76,0.08); }
+    .vsl-chapter:hover { color: rgba(201,168,76,0.8); }
+    .vsl-chapter.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .vsl-hint {
+      text-align: center;
+      padding: 12px 0 10px;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.45);
+      background: var(--navy);
+    }
+
+    /* video overlay + controls */
     .vid-overlay {
       position: absolute;
       inset: 0;
@@ -177,21 +212,13 @@
 
     .vid-speed-wrap {
       position: absolute;
-      bottom: 14px;
-      right: 14px;
+      bottom: 14px; right: 14px;
       z-index: 10;
-      opacity: 0;
-      pointer-events: none;
+      opacity: 0; pointer-events: none;
       transition: opacity 0.35s ease;
     }
     .vid-speed-wrap.visible { opacity: 1; pointer-events: all; }
-    .vid-speed-wrap .vid-btn {
-      width: auto; height: auto;
-      border-radius: 0;
-      padding: 6px 10px;
-      flex-direction: row;
-      gap: 5px;
-    }
+    .vid-speed-wrap .vid-btn { width: auto; height: auto; border-radius: 0; padding: 6px 10px; flex-direction: row; gap: 5px; }
     .vid-speed-wrap .vid-btn:hover { transform: none; }
     .vid-speed-wrap .vid-btn-label { font-size: 8px; letter-spacing: 1.5px; color: rgba(201,168,76,0.9); }
     .vid-speed-menu {
@@ -203,12 +230,10 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 8px 40px rgba(0,0,0,0.75), 0 2px 8px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
       min-width: 72px;
       z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
+      opacity: 0; pointer-events: none;
       transition: opacity 0.18s ease, transform 0.18s ease;
       overflow: hidden;
     }
@@ -257,77 +282,73 @@
     .vsl-unmute.visible { opacity: 1; pointer-events: all; }
     .vsl-unmute:hover { border-color: rgba(201,168,76,0.85); background: rgba(7,16,30,0.8); }
 
-    /* ── QUALIFIER SECTION ── */
-    .qualifier {
+    /* ── APPLICATION SECTION ── */
+    .application {
       background: var(--navy-mid);
       border-top: 1px solid rgba(201,168,76,0.08);
       border-bottom: 1px solid rgba(201,168,76,0.08);
     }
-    .qualifier-inner {
-      max-width: 680px;
+    .application-inner {
+      max-width: 640px;
       margin: 0 auto;
       padding: 80px 24px;
       text-align: center;
     }
-    .qualifier-eyebrow {
+    .application-eyebrow {
       font-family: 'DM Sans', sans-serif;
       font-size: 10px; font-weight: 600;
       letter-spacing: 3px; text-transform: uppercase;
       color: rgba(201,168,76,0.6);
       margin-bottom: 18px;
     }
-    .qualifier-headline {
+    .application-headline {
       font-family: 'Cormorant', serif;
-      font-size: clamp(30px, 4vw, 46px);
+      font-size: clamp(28px, 3.5vw, 42px);
       font-weight: 300;
       line-height: 1.15;
       color: var(--parchment);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-    .qualifier-body {
+    .application-body {
       font-family: 'DM Sans', sans-serif;
-      font-size: 15px; font-weight: 300;
+      font-size: 14px; font-weight: 300;
       line-height: 1.7;
-      color: rgba(237,232,222,0.55);
+      color: rgba(237,232,222,0.5);
       margin-bottom: 48px;
     }
-    .qualifier-placeholder {
+    .application-placeholder {
       border: 1px dashed rgba(201,168,76,0.2);
-      border-radius: 2px;
       padding: 48px 32px;
       color: rgba(201,168,76,0.3);
       font-family: 'DM Sans', sans-serif;
-      font-size: 11px; font-weight: 500;
+      font-size: 10px; font-weight: 500;
       letter-spacing: 2px; text-transform: uppercase;
     }
 
     /* ── FOOTER ── */
     .lander-footer {
-      padding: 32px 24px;
+      padding: 28px 24px;
       text-align: center;
     }
     .lander-footer p {
       font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      color: rgba(237,232,222,0.25);
+      font-size: 10px; font-weight: 400;
+      color: rgba(237,232,222,0.2);
       letter-spacing: 0.3px;
       line-height: 1.8;
     }
-    .lander-footer a {
-      color: rgba(201,168,76,0.45);
-      text-decoration: none;
-    }
-    .lander-footer a:hover { color: rgba(201,168,76,0.75); }
+    .lander-footer a { color: rgba(201,168,76,0.4); text-decoration: none; }
+    .lander-footer a:hover { color: rgba(201,168,76,0.7); }
 
     /* ── MOBILE ── */
     @media (max-width: 640px) {
-      .lander-hero { padding: 48px 20px 40px; }
+      .lander-hero { padding: 44px 20px 36px; }
       .lander-vsl { padding: 0 16px 48px; }
-      .qualifier-inner { padding: 60px 20px; }
+      .application-inner { padding: 56px 20px; }
       .vid-controls { gap: 18px; }
       .vid-btn { width: 42px; height: 42px; }
       .vid-playpause { width: 52px; height: 52px; }
+      .vsl-chapter { font-size: 8px; padding: 13px 4px; }
     }
   </style>
 </head>
@@ -336,73 +357,95 @@
   <!-- HEADER -->
   <header class="lander-header">
     <a href="https://caldwellreserve.com" class="lander-logo">
-      <img src="/LOGOCALDWELL.png" alt="Caldwell Private Health">
-      <div class="lander-logo-text">
-        <span class="lander-logo-name">Caldwell</span>
-        <span class="lander-logo-sub">Private Health</span>
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="navGold" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#AE8625"/>
+            <stop offset="30%" stop-color="#D2AC47"/>
+            <stop offset="50%" stop-color="#F7EF8A"/>
+            <stop offset="70%" stop-color="#D2AC47"/>
+            <stop offset="100%" stop-color="#AE8625"/>
+          </linearGradient>
+        </defs>
+        <polygon points="20,1 39,20 20,39 1,20" fill="none" stroke="url(#navGold)" stroke-width="0.8" opacity="0.8"/>
+        <polygon points="20,7 33,20 20,33 7,20" fill="none" stroke="url(#navGold)" stroke-width="0.5" opacity="0.4"/>
+        <line x1="20" y1="10" x2="20" y2="30" stroke="url(#navGold)" stroke-width="1.8"/>
+        <line x1="10" y1="20" x2="30" y2="20" stroke="url(#navGold)" stroke-width="1.8"/>
+      </svg>
+      <div class="nav-wordmark">
+        <span class="nav-name">Caldwell</span>
+        <span class="nav-sub">Private Health</span>
       </div>
     </a>
   </header>
 
   <!-- HEADLINE -->
   <section class="lander-hero">
-    <p class="lander-eyebrow">Caldwell Private Health</p>
     <h1 class="lander-headline">Done-For-You<br><em>Health Management</em></h1>
-    <p class="lander-subheadline">One dedicated team takes complete ownership of your health — clinical care, nutrition, and personal coaching, all working together so you never have to manage it alone.</p>
+    <p class="lander-subheadline">One dedicated team takes complete ownership of your health - clinical care, nutrition, and personal coaching, all working together so you never have to manage it alone.</p>
   </section>
 
   <!-- VSL -->
   <section class="lander-vsl">
-    <div class="lander-vsl-frame">
-      <iframe id="vsl-iframe"
-        src="https://player.vimeo.com/video/1213424772?h=9eb6355c76&autoplay=1&muted=1&loop=1&background=0&controls=0&autopause=0&texttrack=en"
-        allow="autoplay; fullscreen"
-        allowfullscreen>
-      </iframe>
-      <div class="vid-overlay" id="vidOverlay"></div>
-      <div class="vid-controls" id="vidControls">
-        <div id="vidBackdrop" style="position:absolute;inset:0;cursor:pointer;"></div>
-        <button class="vid-btn" id="vidSkipBack" aria-label="Back 10 seconds">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-3"/></svg>
-          <span class="vid-btn-label">10</span>
-        </button>
-        <button class="vid-btn vid-playpause" id="vidPlayPause" aria-label="Pause">
-          <svg id="vidPauseIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-          <svg id="vidPlayIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none"><polygon points="5,3 19,12 5,21"/></svg>
-        </button>
-        <button class="vid-btn" id="vidSkipFwd" aria-label="Forward 10 seconds">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-.49-3"/></svg>
-          <span class="vid-btn-label">10</span>
-        </button>
-      </div>
-      <div class="vid-speed-wrap">
-        <button class="vid-btn" id="vidSpeed" aria-label="Playback speed">
-          <span id="vidSpeedLabel" style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;line-height:1;text-transform:uppercase;">1×</span>
-          <span class="vid-btn-label">Speed</span>
-        </button>
-        <div class="vid-speed-menu" id="vidSpeedMenu">
-          <div class="vid-speed-menu-header">Playback Speed</div>
-          <button class="vid-speed-opt" data-rate="2"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>2×</button>
-          <button class="vid-speed-opt" data-rate="1.75"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.75×</button>
-          <button class="vid-speed-opt" data-rate="1.5"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.5×</button>
-          <button class="vid-speed-opt active" data-rate="1"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Normal</button>
+    <div class="vsl-lockup">
+      <div class="vsl-wrap">
+        <iframe id="vsl-iframe"
+          src="https://player.vimeo.com/video/1213424772?h=9eb6355c76&autoplay=1&muted=1&loop=1&background=0&controls=0&autopause=0&texttrack=en"
+          allow="autoplay; fullscreen"
+          allowfullscreen>
+        </iframe>
+        <div class="vid-overlay" id="vidOverlay"></div>
+        <div class="vid-controls" id="vidControls">
+          <div id="vidBackdrop" style="position:absolute;inset:0;cursor:pointer;"></div>
+          <button class="vid-btn" id="vidSkipBack" aria-label="Back 10 seconds">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-3"/></svg>
+            <span class="vid-btn-label">10</span>
+          </button>
+          <button class="vid-btn vid-playpause" id="vidPlayPause" aria-label="Pause">
+            <svg id="vidPauseIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            <svg id="vidPlayIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
+          <button class="vid-btn" id="vidSkipFwd" aria-label="Forward 10 seconds">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-.49-3"/></svg>
+            <span class="vid-btn-label">10</span>
+          </button>
         </div>
+        <div class="vid-speed-wrap">
+          <button class="vid-btn" id="vidSpeed" aria-label="Playback speed">
+            <span id="vidSpeedLabel" style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;line-height:1;text-transform:uppercase;">1×</span>
+            <span class="vid-btn-label">Speed</span>
+          </button>
+          <div class="vid-speed-menu" id="vidSpeedMenu">
+            <div class="vid-speed-menu-header">Playback Speed</div>
+            <button class="vid-speed-opt" data-rate="2"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>2×</button>
+            <button class="vid-speed-opt" data-rate="1.75"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.75×</button>
+            <button class="vid-speed-opt" data-rate="1.5"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.5×</button>
+            <button class="vid-speed-opt active" data-rate="1"><span class="vid-speed-check"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><polyline points="1,4.5 3.8,7.5 10,1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Normal</button>
+          </div>
+        </div>
+        <button class="vsl-unmute" id="vslUnmute" aria-label="Unmute video">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          Unmute
+        </button>
       </div>
-      <button class="vsl-unmute" id="vslUnmute" aria-label="Unmute video">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-        Unmute
-      </button>
+      <div class="vsl-chapters" id="vslChapters">
+        <button class="vsl-chapter active" data-time="0">What We Do</button>
+        <button class="vsl-chapter" data-time="31">The Consultation</button>
+        <button class="vsl-chapter" data-time="93.7">The Membership</button>
+        <button class="vsl-chapter" data-time="146.5">Get Started</button>
+      </div>
+      <p class="vsl-hint">Tap any section to skip ahead</p>
     </div>
   </section>
 
-  <!-- QUALIFIER -->
-  <section class="qualifier">
-    <div class="qualifier-inner">
-      <p class="qualifier-eyebrow">Before You Apply</p>
-      <h2 class="qualifier-headline">Is Caldwell<br>Right for You?</h2>
-      <p class="qualifier-body">We work with a limited number of members at a time. Answer a few short questions so we can confirm this is the right fit — and so your physician team can prepare before your consultation.</p>
-      <div class="qualifier-placeholder">
-        Questionnaire coming soon
+  <!-- APPLICATION -->
+  <section class="application">
+    <div class="application-inner">
+      <p class="application-eyebrow">Limited Availability</p>
+      <h2 class="application-headline">Apply for Membership</h2>
+      <p class="application-body">We work with a select number of members at a time. Complete a short application below so we can confirm this is the right fit before your consultation.</p>
+      <div class="application-placeholder">
+        Application form coming soon
       </div>
     </div>
   </section>
@@ -416,17 +459,18 @@
   </footer>
 
 <script>
+// Video controls
 (function() {
-  const overlay     = document.getElementById('vidOverlay');
-  const controls    = document.getElementById('vidControls');
-  const backdrop    = document.getElementById('vidBackdrop');
+  const overlay      = document.getElementById('vidOverlay');
+  const controls     = document.getElementById('vidControls');
+  const backdrop     = document.getElementById('vidBackdrop');
   const playPauseBtn = document.getElementById('vidPlayPause');
   const skipBackBtn  = document.getElementById('vidSkipBack');
   const skipFwdBtn   = document.getElementById('vidSkipFwd');
-  const pauseIcon   = document.getElementById('vidPauseIcon');
-  const playIcon    = document.getElementById('vidPlayIcon');
-  const speedWrap   = document.querySelector('.vid-speed-wrap');
-  const unmuteBtn   = document.getElementById('vslUnmute');
+  const pauseIcon    = document.getElementById('vidPauseIcon');
+  const playIcon     = document.getElementById('vidPlayIcon');
+  const speedWrap    = document.querySelector('.vid-speed-wrap');
+  const unmuteBtn    = document.getElementById('vslUnmute');
   if (!controls) return;
   const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
   let isPlaying = true;
@@ -444,7 +488,6 @@
     if (speedWrap) speedWrap.classList.remove('visible');
     if (unmuteBtn) unmuteBtn.classList.remove('visible');
   }
-
   function showControls() {
     controls.classList.add('visible');
     if (speedWrap) speedWrap.classList.add('visible');
@@ -452,7 +495,6 @@
     clearTimeout(hideTimer);
     hideTimer = setTimeout(hideControls, 3000);
   }
-
   function toggleControls() {
     controls.classList.contains('visible') ? hideControls() : showControls();
   }
@@ -466,14 +508,11 @@
     backdrop.addEventListener('click', hideControls);
     backdrop.addEventListener('touchstart', function(e) { e.preventDefault(); hideControls(); });
   }
-
   document.addEventListener('keydown', function(e) {
     if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-      e.preventDefault();
-      toggleControls();
+      e.preventDefault(); toggleControls();
     }
   });
-
   controls.addEventListener('mousemove', showControls);
 
   playPauseBtn.addEventListener('click', function(e) {
@@ -482,13 +521,11 @@
     else { player.play(); isPlaying = true; pauseIcon.style.display = ''; playIcon.style.display = 'none'; }
     showControls();
   });
-
   skipBackBtn.addEventListener('click', function(e) {
     e.stopPropagation();
     player.getCurrentTime().then(function(t) { player.setCurrentTime(Math.max(0, t - 10)); });
     showControls();
   });
-
   skipFwdBtn.addEventListener('click', function(e) {
     e.stopPropagation();
     player.getDuration().then(function(d) {
@@ -496,11 +533,10 @@
     });
     showControls();
   });
-
   player.on('ended', function() { isPlaying = false; pauseIcon.style.display = 'none'; playIcon.style.display = ''; });
   showControls();
 
-  // Playback speed
+  // Speed
   var speedBtn   = document.getElementById('vidSpeed');
   var speedLabel = document.getElementById('vidSpeedLabel');
   var speedMenu  = document.getElementById('vidSpeedMenu');
@@ -513,7 +549,7 @@
       } else {
         var rect = speedBtn.getBoundingClientRect();
         speedMenu.style.left = (rect.left + rect.width / 2) + 'px';
-        speedMenu.style.top = (rect.top - 12) + 'px';
+        speedMenu.style.top  = (rect.top - 12) + 'px';
         speedMenu.classList.add('open');
       }
       showControls();
@@ -551,6 +587,34 @@
       ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Unmute'
       : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Mute';
   });
+})();
+
+// Chapter buttons
+(function() {
+  const chapters = document.querySelectorAll('.vsl-chapter');
+  if (!chapters.length) return;
+  const player = new Vimeo.Player(document.getElementById('vsl-iframe'));
+  const breakpoints = [0, 31, 93.7, 146.5];
+
+  function setActive(t) {
+    let active = 0;
+    for (var i = breakpoints.length - 1; i >= 0; i--) {
+      if (t >= breakpoints[i]) { active = breakpoints[i]; break; }
+    }
+    chapters.forEach(function(btn) {
+      btn.classList.toggle('active', parseFloat(btn.dataset.time) === active);
+    });
+  }
+
+  chapters.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var t = parseFloat(this.dataset.time);
+      player.setCurrentTime(t).then(function() { player.play(); });
+      setActive(t);
+    });
+  });
+
+  player.on('timeupdate', function(data) { setActive(data.seconds); });
 })();
 </script>
 </body>
