@@ -409,9 +409,60 @@
       margin-bottom: 18px;
     }
 
+    /* Contact method toggle */
+    .q-contact-toggle {
+      display: flex; gap: 0; margin-bottom: 12px;
+      border: 1px solid rgba(201,168,76,0.18);
+    }
+    .q-toggle-btn {
+      flex: 1; background: none; border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(237,232,222,0.35);
+      padding: 11px 8px; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .q-toggle-btn:first-child { border-right: 1px solid rgba(201,168,76,0.18); }
+    .q-toggle-btn.active {
+      background: rgba(201,168,76,0.08);
+      color: rgba(201,168,76,0.9);
+    }
+
+    /* Contact sub-fields */
+    .q-contact-fields { display: flex; flex-direction: column; gap: 8px; }
+    .q-contact-panel { display: none; flex-direction: column; gap: 8px; }
+    .q-contact-panel.active { display: flex; }
+
+    /* SMS/call preference */
+    .q-sms-row {
+      display: flex; gap: 16px; margin-top: 4px; padding-left: 2px;
+    }
+    .q-sms-option {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 300;
+      color: rgba(237,232,222,0.7);
+      cursor: pointer;
+    }
+    .q-sms-option input[type="radio"] { display: none; }
+    .q-sms-circle {
+      width: 14px; height: 14px; flex-shrink: 0;
+      border: 1px solid rgba(201,168,76,0.45);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .q-sms-option input[type="radio"]:checked + .q-sms-circle { border-color: var(--gold); }
+    .q-sms-option input[type="radio"]:checked + .q-sms-circle::after {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--gold);
+    }
+
     /* Form inputs — match main site apply-field inputs */
     #qContactForm { display: flex; flex-direction: column; gap: 8px; }
-    #qContactForm input {
+    #qContactForm input[type="text"],
+    #qContactForm input[type="tel"],
+    #qContactForm input[type="email"] {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(201,168,76,0.12);
       border-bottom: 1px solid rgba(201,168,76,0.2);
@@ -421,8 +472,12 @@
       padding: 11px 14px; outline: none; width: 100%;
       transition: border-color 0.2s, background 0.2s;
     }
-    #qContactForm input::placeholder { color: rgba(237,232,222,0.2); }
-    #qContactForm input:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
+    #qContactForm input[type="text"]::placeholder,
+    #qContactForm input[type="tel"]::placeholder,
+    #qContactForm input[type="email"]::placeholder { color: rgba(237,232,222,0.2); }
+    #qContactForm input[type="text"]:focus,
+    #qContactForm input[type="tel"]:focus,
+    #qContactForm input[type="email"]:focus { border-color: var(--gold); background: rgba(255,255,255,0.06); }
 
     /* Submit — matches main site apply-skip-link style */
     #qContactForm button[type="submit"] {
@@ -687,7 +742,7 @@
       <!-- Q2 -->
       <div class="q-block">
         <p class="q-num">02 of 03</p>
-        <p class="q-question">Memberships range from $699–$1,199/mo, exclusive of medications and labs.</p>
+        <p class="q-question">Memberships range from $699–$1,199/mo, excluding medications and labs.</p>
         <div class="q-radio-group">
           <label class="q-radio-item">
             <input type="radio" name="q2" value="aligned">
@@ -749,8 +804,36 @@
         <span class="q-reach-label">Have us reach out</span>
         <form id="qContactForm" action="https://formspree.io/f/mqpzqknl" method="POST">
           <input type="hidden" name="_subject" value="Caldwell Start Page Inquiry">
-          <input type="text" name="name"  placeholder="Your name"    required autocomplete="name">
-          <input type="tel"  name="phone" placeholder="Phone number"  required autocomplete="tel">
+          <input type="text" name="name" placeholder="Your name" required autocomplete="name">
+
+          <!-- Contact method toggle -->
+          <div class="q-contact-toggle">
+            <button type="button" class="q-toggle-btn active" data-panel="phone">Phone</button>
+            <button type="button" class="q-toggle-btn" data-panel="email">Email</button>
+          </div>
+
+          <!-- Phone panel -->
+          <div class="q-contact-panel active" id="qPanelPhone">
+            <input type="tel" name="phone" placeholder="Phone number" autocomplete="tel">
+            <div class="q-sms-row">
+              <label class="q-sms-option">
+                <input type="radio" name="contact_preference" value="Phone call" checked>
+                <span class="q-sms-circle"></span>
+                <span>Phone call</span>
+              </label>
+              <label class="q-sms-option">
+                <input type="radio" name="contact_preference" value="SMS">
+                <span class="q-sms-circle"></span>
+                <span>SMS</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Email panel -->
+          <div class="q-contact-panel" id="qPanelEmail">
+            <input type="email" name="email" placeholder="Email address" autocomplete="email">
+          </div>
+
           <div class="q-form-wrap">
             <button type="submit">We'll be in touch within 1-2 hours →</button>
             <p class="q-privacy">Your information is private. We will never share it with anyone.</p>
@@ -991,6 +1074,28 @@
 
   document.querySelectorAll('input[name="q1"], input[name="q2"], input[name="q3"]').forEach(function(inp) {
     inp.addEventListener('change', check);
+  });
+
+  // Contact method toggle
+  var toggleBtns = document.querySelectorAll('.q-toggle-btn');
+  var panelPhone = document.getElementById('qPanelPhone');
+  var panelEmail = document.getElementById('qPanelEmail');
+  var phoneInput = panelPhone ? panelPhone.querySelector('input[type="tel"]') : null;
+  var emailInput = panelEmail ? panelEmail.querySelector('input[type="email"]') : null;
+  var activePanel = 'phone';
+
+  function setPanel(panel) {
+    activePanel = panel;
+    toggleBtns.forEach(function(b) { b.classList.toggle('active', b.dataset.panel === panel); });
+    panelPhone.classList.toggle('active', panel === 'phone');
+    panelEmail.classList.toggle('active', panel === 'email');
+    if (phoneInput) phoneInput.required = (panel === 'phone');
+    if (emailInput) emailInput.required = (panel === 'email');
+  }
+  setPanel('phone');
+
+  toggleBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() { setPanel(this.dataset.panel); });
   });
 
   var form = document.getElementById('qContactForm');
