@@ -1131,9 +1131,19 @@
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
+      var fd = new FormData(form);
+
+      // Attach qualifier answers as readable labels
+      var q1el = document.querySelector('input[name="q1"]:checked');
+      var q2el = document.querySelector('input[name="q2"]:checked');
+      var q3el = document.querySelector('input[name="q3"]:checked');
+      if (q1el) fd.append('What brings you to Caldwell', q1el.closest('label').querySelector('span:last-child').textContent.trim());
+      if (q2el) fd.append('Membership pricing ($699–$1,199/mo)', q2el.closest('label').querySelector('span:last-child').textContent.trim());
+      if (q3el) fd.append('How soon looking to begin', q3el.closest('label').querySelector('span:last-child').textContent.trim());
+
       fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
+        body: fd,
         headers: { 'Accept': 'application/json' }
       }).then(function(r) {
         if (r.ok) {
