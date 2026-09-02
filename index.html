@@ -1680,89 +1680,6 @@ nav.scrolled {
 }
 
 /* ── FAQ ─────────────────────────────────────────────────────── */
-/* ── PRICING ──────────────────────────────────────────────────── */
-.pricing {
-  background: var(--navy);
-  padding: 140px 64px;
-  border-top: 1px solid var(--border-dark);
-}
-.pricing-inner {
-  max-width: 860px;
-  margin: 0 auto;
-}
-.pricing-eyebrow {
-  display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
-}
-.pricing-eyebrow .ey-line { flex: none; width: 32px; height: 1px; background: var(--gold); opacity: 0.5; }
-.pricing-eyebrow .ey-text {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
-  color: rgba(201,168,76,0.6);
-}
-.pricing-heading {
-  font-family: 'Cormorant', serif;
-  font-size: clamp(34px, 4vw, 56px);
-  font-weight: 300;
-  color: var(--on-dark);
-  line-height: 1.06;
-  margin-bottom: 72px;
-}
-.pricing-heading em { font-style: italic; color: var(--gold-lt); }
-.pricing-tiers {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--border-dark-md);
-}
-.pricing-tier {
-  padding: 44px 48px;
-  border-bottom: 1px solid var(--border-dark);
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 32px 48px;
-  align-items: start;
-}
-.pricing-tier:last-child { border-bottom: none; }
-.pricing-tier-left {}
-.pricing-tier-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-  color: rgba(201,168,76,0.55);
-  margin-bottom: 10px;
-}
-.pricing-tier-price {
-  font-family: 'Cormorant', serif;
-  font-size: clamp(28px, 3vw, 42px);
-  font-weight: 300;
-  color: var(--on-dark);
-  line-height: 1;
-}
-.pricing-tier-price span {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px; font-weight: 300;
-  color: var(--on-dark-dim);
-  letter-spacing: 0;
-}
-.pricing-tier-right {}
-.pricing-tier-desc {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px; font-weight: 300;
-  color: var(--on-dark-dim);
-  line-height: 1.8;
-}
-.pricing-tier-desc strong {
-  font-weight: 500;
-  color: var(--on-dark);
-}
-.pricing-note {
-  margin-top: 28px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px; font-weight: 300;
-  color: var(--on-dark-faint);
-  letter-spacing: 0.3px;
-  line-height: 1.7;
-}
-
 .faq {
   background: var(--parchment);
   padding: 140px 64px;
@@ -2586,11 +2503,7 @@ footer {
   .stat { flex: 0 0 50%; padding: 28px 16px; }
   .stat-num { font-size: 32px; }
 
-  .what, .included, .how, .membership, .apply, .faq, .pricing { padding: 64px 20px; }
-  .pricing-tier { grid-template-columns: 1fr; gap: 12px; padding: 32px 24px; }
-  .pricing-tier-price { font-size: 36px; }
-  .pricing-tier-desc { font-size: 14px; }
-  .pricing-heading { margin-bottom: 48px; }
+  .what, .included, .how, .membership, .apply, .faq { padding: 64px 20px; }
   .founder-note { padding: 56px 24px; }
   .founder-note-inner { flex-direction: column; gap: 32px; text-align: center; }
   .founder-sig { align-items: center; }
@@ -2961,52 +2874,6 @@ footer {
       <a href="/membership/">See everything included in your membership &nbsp;&rarr;</a>
     </div>
 
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing dark" id="pricing">
-  <div class="pricing-inner">
-    <div class="pricing-eyebrow fade">
-      <div class="ey-line"></div>
-      <span class="ey-text">Membership</span>
-    </div>
-    <h2 class="pricing-heading fade">What membership<br><em>looks like.</em></h2>
-
-    <div class="pricing-tiers fade">
-
-      <div class="pricing-tier">
-        <div class="pricing-tier-left">
-          <div class="pricing-tier-label">Tier 1</div>
-          <div class="pricing-tier-price">$1,199<span>/mo</span></div>
-        </div>
-        <div class="pricing-tier-right">
-          <p class="pricing-tier-desc"><strong>Full clinical management + full training + full nutrition.</strong> Everything is handled.</p>
-        </div>
-      </div>
-
-      <div class="pricing-tier">
-        <div class="pricing-tier-left">
-          <div class="pricing-tier-label">Tier 2</div>
-          <div class="pricing-tier-price">$999<span>/mo</span></div>
-        </div>
-        <div class="pricing-tier-right">
-          <p class="pricing-tier-desc"><strong>Full clinical management + coaching emphasis where you need it most</strong> — either training or nutrition. If you already have a trainer or nutrition coach, we communicate with them so nothing is disconnected.</p>
-        </div>
-      </div>
-
-      <div class="pricing-tier">
-        <div class="pricing-tier-left">
-          <div class="pricing-tier-label">Tier 3</div>
-          <div class="pricing-tier-price">$699<span>/mo</span></div>
-        </div>
-        <div class="pricing-tier-right">
-          <p class="pricing-tier-desc"><strong>Full clinical management.</strong> For people who already have a coach or nutritionist, or know they won't follow the programs we build. You can start here and upgrade, but we don't want you to. We want you to start with all the plans and go with Tier 1.</p>
-        </div>
-      </div>
-
-    </div>
-    <p class="pricing-note fade">All memberships include physician oversight and ongoing monitoring. Medications and lab costs are separate.</p>
   </div>
 </section>
 
