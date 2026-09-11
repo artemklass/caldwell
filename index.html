@@ -91,8 +91,6 @@
   gtag('config', 'G-TEYWETBMLP');
 </script>
 <script src="https://player.vimeo.com/api/player.js"></script>
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js"></script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -2990,101 +2988,11 @@ footer {
         <div class="ey-line"></div>
         <span class="ey-text">Apply</span>
       </div>
-      <h2 class="section-heading fade d1">Begin your<br><em>application.</em></h2>
-      <p class="section-body fade d2">Tell us about yourself. We'll schedule a call to see if Caldwell is the right fit.</p>
+      <h2 class="section-heading fade d1">Begin your<br><em>assessment.</em></h2>
+      <p class="section-body fade d2">See if Caldwell is the right fit.</p>
     </div>
-
-    <form class="apply-form fade d2" id="applyForm" novalidate>
-      <div class="apply-row">
-        <div class="apply-field">
-          <label for="fullname">Full Name</label>
-          <input type="text" id="fullname" name="fullname" placeholder="James Anderson" required>
-          <span class="field-error" id="err-fullname">Full name is required</span>
-        </div>
-        <div class="apply-field">
-          <label for="age">Age</label>
-          <input type="number" id="age" name="age" placeholder="38" min="18" max="99" required>
-          <span class="field-error" id="err-age">Age is required</span>
-        </div>
-      </div>
-      <div class="apply-row">
-        <div class="apply-field">
-          <label for="phone">Phone</label>
-          <input type="tel" id="phone" name="phone" placeholder="+1 (954) 000-0000" required>
-          <span class="field-error" id="err-phone">Phone number is required</span>
-        </div>
-        <div class="apply-field">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="james@company.com" required>
-          <span class="field-error" id="err-email">A valid email address is required</span>
-        </div>
-      </div>
-
-      <div class="apply-field">
-        <label>What brings you in?</label>
-        <div class="checkbox-group">
-          <label class="checkbox-item">
-            <input type="checkbox" name="goal" value="Energy & Fatigue">
-            <span class="checkbox-box"></span>
-            Energy & Fatigue
-          </label>
-          <label class="checkbox-item">
-            <input type="checkbox" name="goal" value="Body Composition">
-            <span class="checkbox-box"></span>
-            Body Composition
-          </label>
-          <label class="checkbox-item">
-            <input type="checkbox" name="goal" value="Libido & Sexual Performance">
-            <span class="checkbox-box"></span>
-            Libido & Sexual Performance
-          </label>
-          <label class="checkbox-item">
-            <input type="checkbox" name="goal" value="Mental Clarity & Focus">
-            <span class="checkbox-box"></span>
-            Mental Clarity & Focus
-          </label>
-          <label class="checkbox-item">
-            <input type="checkbox" name="goal" value="Athletic Performance">
-            <span class="checkbox-box"></span>
-            Athletic Performance
-          </label>
-          <label class="checkbox-item">
-            <input type="checkbox" name="goal" value="General Optimization">
-            <span class="checkbox-box"></span>
-            General Optimization
-          </label>
-        </div>
-      </div>
-
-      <div class="apply-field" id="field-labs">
-        <label>Have you had hormone labs done before?</label>
-        <div class="radio-group">
-          <label class="radio-item">
-            <input type="radio" name="labs" value="Yes" required>
-            <span class="radio-circle"></span>
-            Yes
-          </label>
-          <label class="radio-item">
-            <input type="radio" name="labs" value="No">
-            <span class="radio-circle"></span>
-            No
-          </label>
-        </div>
-        <span class="field-error" id="err-labs">Please select an option</span>
-      </div>
-
-      <div>
-        <button type="submit" class="btn-gold">Begin Your Assessment</button>
-      </div>
-    </form>
-
-    <div class="apply-secondary-cta">
-      <div class="apply-divider">
-        <span class="apply-divider-line"></span>
-        <span class="apply-divider-text">Or</span>
-        <span class="apply-divider-line"></span>
-      </div>
-      <a href="https://caldwellreserve.com/start" class="apply-skip-link">Begin Your Assessment</a>
+    <div class="fade d2" style="margin-top: 32px;">
+      <a href="https://caldwellreserve.com/start/" class="btn-gold">Book Your Assessment</a>
     </div>
     </div>
   </div>
@@ -3536,76 +3444,6 @@ footer {
     });
   });
 
-  // Form validation
-  (function() {
-    const form = document.getElementById('applyForm');
-    if (!form) return;
-
-    function showError(inputId, errId) {
-      const input = document.getElementById(inputId);
-      const err = document.getElementById(errId);
-      if (input) input.classList.add('invalid');
-      if (err) err.classList.add('visible');
-    }
-
-    function clearError(inputId, errId) {
-      const input = document.getElementById(inputId);
-      const err = document.getElementById(errId);
-      if (input) input.classList.remove('invalid');
-      if (err) err.classList.remove('visible');
-    }
-
-    ['fullname', 'age', 'phone', 'email'].forEach(id => {
-      const input = document.getElementById(id);
-      if (input) input.addEventListener('input', () => clearError(id, 'err-' + id));
-    });
-
-    form.querySelectorAll('input[name="labs"]').forEach(r => {
-      r.addEventListener('change', () => {
-        document.getElementById('err-labs').classList.remove('visible');
-      });
-    });
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      let valid = true;
-
-      const fields = [
-        { id: 'fullname', check: v => v.trim().length > 0 },
-        { id: 'age',      check: v => v.trim().length > 0 && +v >= 18 && +v <= 99 },
-        { id: 'phone',    check: v => v.trim().length > 0 },
-        { id: 'email',    check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
-      ];
-
-      fields.forEach(({ id, check }) => {
-        const input = document.getElementById(id);
-        if (input && !check(input.value)) {
-          showError(id, 'err-' + id);
-          valid = false;
-        } else {
-          clearError(id, 'err-' + id);
-        }
-      });
-
-      const labsPicked = form.querySelector('input[name="labs"]:checked');
-      if (!labsPicked) {
-        document.getElementById('err-labs').classList.add('visible');
-        valid = false;
-      }
-
-      if (valid) {
-        // Submit to Formspree in background
-        fetch('https://formspree.io/f/meedrzkv', {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-
-        form.reset();
-        Calendly.initPopupWidget({ url: 'https://calendly.com/artem-caldwellreserve/30min' });
-      }
-    });
-  })();
 
   function toggleOffer() {
     const expand = document.getElementById('offerExpand');
