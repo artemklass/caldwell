@@ -2066,31 +2066,64 @@ nav.scrolled {
 }
 
 /* ── APPLY (DARK) ────────────────────────────────────────────── */
-.apply { background: var(--navy-mid); padding: 140px 64px; border-top: 1px solid var(--border-dark); }
+.apply { background: var(--navy-mid); padding: 100px 64px; border-top: 1px solid var(--border-dark); }
 
 .apply-inner {
-  max-width: 1100px;
+  max-width: 1060px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 100px;
-  align-items: start;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 72px;
+  align-items: center;
 }
 
 .apply-card-col {
-  position: sticky;
-  top: 120px;
   text-align: center;
-  opacity: 0.72;
 }
-.apply-card-col .card-3d-scene { max-width: 290px; }
-.apply-card-col .card-mark-svg  { width: 32px; height: 32px; }
-.apply-card-col .card-logo-row  { gap: 11px; }
-.apply-card-col .card-brand-name { font-size: 22px; }
+.apply-card-col .card-3d-scene { max-width: 260px; margin: 0 auto; }
+.apply-card-col .card-mark-svg  { width: 28px; height: 28px; }
+.apply-card-col .card-logo-row  { gap: 10px; }
+.apply-card-col .card-brand-name { font-size: 20px; }
 .apply-card-col .card-brand-sub  { font-size: 6px; letter-spacing: 4px; }
 .apply-card-col .card-member-label { font-size: 6px; letter-spacing: 3px; }
 
-.apply-top { margin-bottom: 52px; }
+.apply-content { display: flex; flex-direction: column; align-items: flex-start; }
+
+.apply-top { margin-bottom: 28px; }
+
+.apply-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+  margin-bottom: 32px;
+}
+
+.apply-trust {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.apply-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--on-dark-dim);
+  letter-spacing: 0.2px;
+}
+
+.apply-trust-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  opacity: 0.7;
+}
 
 .apply-form { display: flex; flex-direction: column; gap: 24px; }
 
@@ -2435,16 +2468,16 @@ footer {
   }
   .vsl-chapter + .vsl-chapter { border-left: 1px solid rgba(201,168,76,0.08); }
 
-  .apply-row { grid-template-columns: 1fr; }
-  .apply-inner { grid-template-columns: 1fr; gap: 52px; }
-  .apply-card-col { position: static; }
-  .apply-card-col .card-3d-scene   { max-width: 260px; }
-  .apply-card-col .card-mark-svg   { width: 29px; height: 29px; }
-  .apply-card-col .card-logo-row   { gap: 10px; }
-  .apply-card-col .card-brand-name { font-size: 20px; }
-  .apply-card-col .card-brand-sub  { font-size: 5.5px; letter-spacing: 3.5px; }
-  .apply-card-col .card-member-label { font-size: 5.5px; letter-spacing: 2.7px; }
+  .apply-inner { grid-template-columns: 1fr; gap: 44px; }
+  .apply-card-col .card-3d-scene   { max-width: 200px; }
+  .apply-card-col .card-mark-svg   { width: 22px; height: 22px; }
+  .apply-card-col .card-logo-row   { gap: 8px; }
+  .apply-card-col .card-brand-name { font-size: 16px; }
+  .apply-card-col .card-brand-sub  { font-size: 5px; letter-spacing: 3px; }
+  .apply-card-col .card-member-label { font-size: 5px; letter-spacing: 2.5px; }
   .apply-card-col .card-back-name  { font-size: 6.5px; letter-spacing: 2.5px; }
+  .apply-content { align-items: center; text-align: center; }
+  .apply-rule { margin-left: auto; margin-right: auto; }
 
   /* Performance: strip expensive drop-shadow on mobile */
   .card-shadow-wrap { filter: drop-shadow(0 20px 50px rgba(0,0,0,0.85)); }
@@ -2871,6 +2904,9 @@ footer {
     <div class="what-cta fade d3">
       <a href="/membership/">See everything included in your membership &nbsp;&rarr;</a>
     </div>
+    <div class="what-cta fade d4" style="margin-top: 20px;">
+      <a href="https://caldwellreserve.com/start/" class="btn-gold">Book Your Assessment</a>
+    </div>
 
   </div>
 </section>
@@ -2982,18 +3018,18 @@ footer {
       </div>
     </div>
 
-    <div>
-    <div class="apply-top">
-      <div class="eyebrow fade">
-        <div class="ey-line"></div>
-        <span class="ey-text">Apply</span>
+    <div class="apply-content">
+      <div class="apply-top">
+        <div class="eyebrow fade">
+          <div class="ey-line"></div>
+          <span class="ey-text">Apply</span>
+        </div>
+        <h2 class="section-heading fade d1">Begin your<br><em>assessment.</em></h2>
       </div>
-      <h2 class="section-heading fade d1">Begin your<br><em>assessment.</em></h2>
-      <p class="section-body fade d2">See if Caldwell is the right fit.</p>
-    </div>
-    <div class="fade d2" style="margin-top: 32px;">
-      <a href="https://caldwellreserve.com/start/" class="btn-gold">Book Your Assessment</a>
-    </div>
+      <div class="apply-rule fade d1"></div>
+      <div class="fade d2">
+        <a href="https://caldwellreserve.com/start/" class="btn-gold">Book Your Assessment</a>
+      </div>
     </div>
   </div>
 </section>
