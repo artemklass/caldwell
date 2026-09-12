@@ -359,16 +359,27 @@
 
     /* CTA block — collapses fully when hidden, no empty space */
     .q-cta-block {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: max-height 0.55s ease, opacity 0.4s ease;
-    }
-    .q-cta-block.visible {
-      max-height: 900px;
       opacity: 1;
       pointer-events: all;
+    }
+
+    .q-qual-error {
+      display: none;
+      color: #E05252;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .q-qual-error.show { display: block; }
+
+    .q-block.unanswered .q-question {
+      color: #E05252;
+    }
+    .q-block.unanswered .q-radio-circle {
+      border-color: rgba(224,82,82,0.5);
     }
 
     /* Gold button — exact match to main site btn-gold */
@@ -508,6 +519,60 @@
       color: rgba(237,232,222,0.22);
       line-height: 1.6;
     }
+
+    .q-consent-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+      margin-bottom: 4px;
+      text-align: left;
+    }
+    .q-consent-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .q-consent-item input[type="checkbox"] { display: none; }
+    .q-consent-box {
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      margin-top: 2px;
+      border: 1px solid rgba(201,168,76,0.4);
+      background: rgba(255,255,255,0.03);
+      position: relative;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .q-consent-item input[type="checkbox"]:checked + .q-consent-box {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.12);
+    }
+    .q-consent-item input[type="checkbox"]:checked + .q-consent-box::after {
+      content: '';
+      position: absolute;
+      left: 3px; top: 0px;
+      width: 5px; height: 9px;
+      border: 1.5px solid var(--gold);
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .q-consent-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      color: rgba(237,232,222,0.70);
+      line-height: 1.65;
+    }
+    .q-consent-text a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: rgba(201,168,76,0.4);
+    }
+    .q-consent-text a:hover { text-decoration-color: var(--gold); }
 
     .q-success {
       text-align: center; padding: 24px 16px;
@@ -824,7 +889,7 @@
       <!-- CTAs — revealed after all 3 answered -->
       <div class="q-cta-block" id="qCTA">
         <div class="q-sep"></div>
-        <a href="https://buy.stripe.com/3cI8wP88c7WVgHG33abEA00" class="q-btn-gold">Begin Your Assessment</a>
+        <button type="button" id="qStripeBtn" class="q-btn-gold">Begin Your Assessment</button>
         <div class="q-divider">
           <span class="q-divider-line"></span>
           <span class="q-divider-text">Or</span>
@@ -861,6 +926,21 @@
           <!-- Email panel -->
           <div class="q-contact-panel" id="qPanelEmail">
             <input type="email" name="email" placeholder="Email address" autocomplete="email">
+          </div>
+
+          <p class="q-qual-error" id="qQualError">Please answer all questions above before submitting.</p>
+
+          <div class="q-consent-group">
+            <label class="q-consent-item">
+              <input type="checkbox" name="consent_service_texts" value="yes">
+              <span class="q-consent-box"></span>
+              <span class="q-consent-text">I agree to receive texts from Caldwell Private Health about my inquiry, scheduling, appointments, and services. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. View our <a href="/privacy/" target="_blank">Privacy Policy</a> and <a href="/terms/" target="_blank">Terms &amp; Conditions</a>.</span>
+            </label>
+            <label class="q-consent-item">
+              <input type="checkbox" name="consent_marketing_texts" value="yes">
+              <span class="q-consent-box"></span>
+              <span class="q-consent-text">I agree to receive promotional texts from Caldwell Private Health about its services. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not required to request information or receive services. View our <a href="/privacy/" target="_blank">Privacy Policy</a> and <a href="/terms/" target="_blank">Terms &amp; Conditions</a>.</span>
+            </label>
           </div>
 
           <div class="q-form-wrap">
@@ -1087,23 +1167,44 @@
 
 // Qualifier flow
 (function() {
-  var cta = document.getElementById('qCTA');
+  var qualError = document.getElementById('qQualError');
 
-  function check() {
-    var q1 = document.querySelector('input[name="q1"]:checked');
-    var q2 = document.querySelector('input[name="q2"]:checked');
-    var q3 = document.querySelector('input[name="q3"]:checked');
-    if (q1 && q2 && q3 && !cta.classList.contains('visible')) {
-      cta.classList.add('visible');
-      setTimeout(function() {
-        cta.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 80);
-    }
-  }
-
+  // Clear error state when user answers a question
   document.querySelectorAll('input[name="q1"], input[name="q2"], input[name="q3"]').forEach(function(inp) {
-    inp.addEventListener('change', check);
+    inp.addEventListener('change', function() {
+      var group = inp.closest('.q-block');
+      if (group) group.classList.remove('unanswered');
+      var allAnswered = document.querySelector('input[name="q1"]:checked')
+                     && document.querySelector('input[name="q2"]:checked')
+                     && document.querySelector('input[name="q3"]:checked');
+      if (allAnswered && qualError) qualError.classList.remove('show');
+    });
   });
+
+  // "Begin Your Assessment" → Stripe, gated on all 3 answers
+  var stripeBtn = document.getElementById('qStripeBtn');
+  if (stripeBtn) {
+    stripeBtn.addEventListener('click', function() {
+      var q1el = document.querySelector('input[name="q1"]:checked');
+      var q2el = document.querySelector('input[name="q2"]:checked');
+      var q3el = document.querySelector('input[name="q3"]:checked');
+      var missing = false;
+      [['q1', q1el], ['q2', q2el], ['q3', q3el]].forEach(function(pair) {
+        if (!pair[1]) {
+          missing = true;
+          var inp = document.querySelector('input[name="' + pair[0] + '"]');
+          if (inp) inp.closest('.q-block').classList.add('unanswered');
+        }
+      });
+      if (missing) {
+        if (qualError) qualError.classList.add('show');
+        document.querySelector('.q-block.unanswered').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (qualError) qualError.classList.remove('show');
+      window.location.href = 'https://buy.stripe.com/3cI8wP88c7WVgHG33abEA00';
+    });
+  }
 
   // Contact method toggle
   var toggleBtns = document.querySelectorAll('.q-toggle-btn');
@@ -1131,12 +1232,29 @@
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      var fd = new FormData(form);
 
-      // Attach qualifier answers as readable labels
+      // Validate qualifier questions
       var q1el = document.querySelector('input[name="q1"]:checked');
       var q2el = document.querySelector('input[name="q2"]:checked');
       var q3el = document.querySelector('input[name="q3"]:checked');
+
+      var missing = false;
+      [['q1', q1el], ['q2', q2el], ['q3', q3el]].forEach(function(pair) {
+        if (!pair[1]) {
+          missing = true;
+          var inp = document.querySelector('input[name="' + pair[0] + '"]');
+          if (inp) inp.closest('.q-block').classList.add('unanswered');
+        }
+      });
+
+      if (missing) {
+        if (qualError) qualError.classList.add('show');
+        document.querySelector('.q-block.unanswered').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      if (qualError) qualError.classList.remove('show');
+      var fd = new FormData(form);
       if (q1el) fd.append('What brings you to Caldwell', q1el.closest('label').querySelector('span:last-child').textContent.trim());
       if (q2el) fd.append('Membership pricing ($699–$1,199/mo)', q2el.closest('label').querySelector('span:last-child').textContent.trim());
       if (q3el) fd.append('How soon looking to begin', q3el.closest('label').querySelector('span:last-child').textContent.trim());
